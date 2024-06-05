@@ -249,7 +249,6 @@ git remote add origin .....
 --------------------
 Working with multiple branches.
 ------------------------------------------
-<<<<<<< HEAD
 how to change the current branch?
 	git checkout jag
 
@@ -353,13 +352,49 @@ branch 'jag' set up to track 'origin/jag'.
 
 D:\Jag\wipro\June2024\demo>
 
-=======
 
-=======
-how to change the current branch?
-	git checkout jag
+Collaborators
+	git init
+	git remote add origin https://github.com/jagasia/demo.git
+	git add .
+	git commit -m "first by your name
+	git branch -M <<yourbranchname>>
+	git push -u origin <<yourbranchname>>
 
->>>>>>> b320326690a9030b5f22eb5b2787c49f5702d77d
+
+
+D:\Jag\wipro\June2024\demo>git branch
+* jag
+
+D:\Jag\wipro\June2024\demo>git pull origin demo1
+From https://github.com/jagasia/demo
+ * branch            demo1      -> FETCH_HEAD
+fatal: refusing to merge unrelated histories
+
+D:\Jag\wipro\June2024\demo>git pull origin demo1 --allow-unrelated-histories
+From https://github.com/jagasia/demo
+ * branch            demo1      -> FETCH_HEAD
+Merge made by the 'ort' strategy.
+ message.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 message.txt
 
 
 
+D:\Jag\wipro\June2024\demo>git checkout demo1
+Switched to a new branch 'demo1'
+branch 'demo1' set up to track 'origin/demo1'.
+
+D:\Jag\wipro\June2024\demo>git branch
+* demo1
+  jag
+
+
+git push -d <remote_name> <branchname>
+git branch -d <branchname>
+
+Task:
+Share your git emails in chat and take couple of emails and send invite
+to them to become collaborators
+
+then push the files and merge them and remove the branches
