@@ -177,7 +177,80 @@ commands for one time (for any local repository)
 
 
 
+henceforth, whenever we add files to local folder,
+we just need to repeat
+	git add .
+	git commit -m "05Jun 12:53"
+	git push -u origin jag
 
+
+
+
+suppose i have added 5 files in local folder
+but only 1 file i want to upload to remote
+	git add <<filename>>
+	continue commit and push commands
+
+
+----------------------------------------------------------------
+We have installed git in our computer
+we have signed up to github and got an account
+	user.name
+	user.email
+we have created a folder for our training
+	in that folder, we initialized git repository	(local repo)
+
+we have pushed the files from local repo to remote repo (github repo)
+
+
+------------------IN CLOUD LAB---------------we can pull our files from github repo
+in cloud lab, the "git" is already installed.
+only thing we need to do in cloud lab is
+	to configure our user name and email using
+		git config --global user.name <<your git username>>
+		git config --global user.email <<your gi email>>
+
+
+	choose a folder in cloud lab.		ideally, d: drive create a folder "training"
+		d:\jag\training\all
+
+so that training folder may contain many files but only all is sync to github repo
+
+	git init
+	git remote add origin <<.................git>>
+	git pull origin <<branchname>>
+
+
+
+Task:
+	add few more files to local folder
+	push them to remote and check in browser
+	then, 
+		in cloud lab, pull those files to that folder
+
+
+whenever you want to change the remote origin in your local repository,
+	git remote add origin https://github.com/jagasia/repo2.git
+
+you get a message:
+	remote already exists.
+so, it is not going to change the remote origin.
+	git remote set-url origin <<neworigin>>
+
+or
+solution:
+	del .git
+	y/n 		y
+
+git init
+git remote add origin .....
+
+
+--------------------
+Working with multiple branches.
+------------------------------------------
+how to change the current branch?
+	git checkout jag
 
 
 
