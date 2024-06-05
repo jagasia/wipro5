@@ -249,6 +249,7 @@ git remote add origin .....
 --------------------
 Working with multiple branches.
 ------------------------------------------
+<<<<<<< HEAD
 how to change the current branch?
 	git checkout jag
 
@@ -352,6 +353,13 @@ branch 'jag' set up to track 'origin/jag'.
 
 D:\Jag\wipro\June2024\demo>
 
+=======
+
+=======
+how to change the current branch?
+	git checkout jag
+
+>>>>>>> b320326690a9030b5f22eb5b2787c49f5702d77d
 
 
 

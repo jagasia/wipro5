@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-"hello world"
-=======
-"jag has written this line"
->>>>>>> jag
