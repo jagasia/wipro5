@@ -1,0 +1,158 @@
+Break timings:
+
+if we start at 09:00
+break 1:	11:00 to 11:15
+break 2:	13:00 to 14:00
+break 3:	16:00 to 16:15
+we leave at 18:00
+
+
+Java Full stack with ReactJs
+
+front end:
+	html
+	css
+	javascript
+	bootstrap
+	reactjs
+
+back end:
+	microservices using spring boot 
+
+
+
+Git
+	devops tool
+	there are development operations tools
+		Git
+		Jira
+		Jenkins
+
+to manage the development operations
+	sharing the code	(git)
+	versioning the code	(git)	(multiple programmers work on a single project)
+
+	we need to allocate the task among the developers (jira)
+	
+	build, run the code and CI/CD pipeline (jenkins)
+
+
+	GIT
+		what are the popular git portals?
+			github
+			gitlab
+			bitbucket
+
+	using these git portals, we can create repositories which can be public or private.
+
+	
+1) Lab setup / installation
+	to be able to work on git portal, we dont need to install anything
+	we can signup to github.com
+	and login to github in any computer using a browser.
+
+	But we need to push our files from local system to git 
+		we need to install git in our computer and configure it to identify you
+		who is pushing the code?
+	in local system, how to install git?
+	1)	download git from 
+			https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-64-bit.exe
+	and run the executable to complete the installation.
+
+	2) in github.com, signup (if not already done) 
+	
+	3) configure you local git:
+		git config --global user.name jagasia
+		git config --gloabl user.email rjagadeeswaran@Yahoo.com
+		git config --list --show-origin
+
+		the above commands can be done in any location in your system cmd prompt.
+
+	
+Now, create a repository (remote) in github.com
+then choose one folder in your computer as local repository.
+	the local repository should not be part of another GIT repository.
+
+		
+
+You have cloud lab
+
+	in cloud lab, git is already installed
+		git --version
+
+	git config --global user.name jagasia
+	git config --global user.email rjagadeeswaran@yahoo.com
+
+	now, choose a folder in cloud lab. I have chosen
+
+	d:\jag\all
+		git init
+			this command creates a .git folder and it will remember the commands we execute
+			until we commit, until we push, these are recorded in that .git folder
+			
+			creates a local repository
+
+		git remote add origin https://github.com/jagasia/wipro5.git
+			this command links this local repository with the remote repository
+		
+		git pull origin jag
+			this command pulls all the files and folders available in "jag" branch in remote repository
+		
+			i use git pull command by being inside the local repository folder
+			if i am outside this folder, then i would have used "git clone https://.......git"
+				then i have to go inside the folder using 	cd <<foldername>>
+
+			usually, git clone should be used only once
+				after that you will push or pull
+
+			git push	is used to upload the changes from local repository to remote repository
+			git pull	is used to download the changes from remote repository to local repository
+
+
+
+d:\jag\projects
+	HRM
+		frontend
+		backend
+
+
+Task:
+	If not already, 
+	Create an account in GitHub.com
+	use signup option.
+	remember the password.
+
+keep a copy of your git repository URL
+	git remote add origin https://github.com/jagasia/dummy1.git
+
+
+
+Task:
+	in your local system, you create a folder 
+		"training"
+	without any files, we cannot push this folder to remote
+	create a readme.txt file or any file of your choice
+
+having decided to make a particular folder as "local" repository
+	how do you push files and folders from local to remote?
+
+	git init
+	git remote add origin <<your git url something ends with .git>>
+	git add .	
+	git commit -m "your message here"
+	git branch -M <<your branch name. can be master or main or yourname>>
+	git push -u origin <<branchname>>
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
