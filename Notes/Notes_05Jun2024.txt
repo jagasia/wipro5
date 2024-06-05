@@ -250,5 +250,10 @@ git remote add origin .....
 Working with multiple branches.
 ------------------------------------------
 
+=======
+how to change the current branch?
+	git checkout jag
+
+
 
 
