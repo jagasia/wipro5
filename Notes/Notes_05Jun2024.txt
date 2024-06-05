@@ -249,11 +249,109 @@ git remote add origin .....
 --------------------
 Working with multiple branches.
 ------------------------------------------
-<<<<<<< HEAD
-=======
 how to change the current branch?
 	git checkout jag
->>>>>>> jag
+
+
+
+
+<<<<<<<<<<<<<<<<<<<arun
+hello world
+>>>>>>>>>>>>>>>>>>>>>>>>>>jag
+this  is typed by me
+
+both of these are in same file 	
+	hello.txt
+
+when i merge, the conflict is that both have different content
+
+it ask me to resolve the conflict
+
+pull request
+
+
+hello world
+this  is typed by me
+
+
+Task:
+-------
+create another branch and add couple of files
+and checkout as each branch and check the each version of the files
+
+merge the branches
+get conflict
+resolve conflict
+remove one of the branch
+
+
+to create a branch
+	git branch -M second
+	git checkout second
+	
+you checkout as first branch and then
+	git merge second
+		means, first is going to merge with second
+
+How to add collaborators to a git repository?
+----------------------------------------------------------
+couple of you please share your git email address in chat
+	krishnamoorthy0704@gmail.com
+	Sj337217@gmail.com
+
+now, krishnamoorthy should choose one folder in your computer as local repository.
+	that folder should not be inside another git folder 
+
+	d:\krishna\training
+		this training folder is already a git repository. So, you should not create a sub folder as another git
+
+	d:\krishna\jag
+		this folder is going to become a local repo for my remote repo
+
+
+https://github.com/jagasia/demo.git
+
+	i want to allow Krishna and Shashank
+		to push files to my git repository,
+	then i should add them as collaborators for my git repo
+
+
+
+i have chosen a folder "demo" in my computer and 
+
+
+D:\Jag\wipro\June2024\demo>dir
+ Volume in drive D is Data
+ Volume Serial Number is 5619-2430
+
+ Directory of D:\Jag\wipro\June2024\demo
+
+05-06-2024  16:22    <DIR>          .
+05-06-2024  16:22    <DIR>          ..
+05-06-2024  16:22                29 jag.txt
+               1 File(s)             29 bytes
+               2 Dir(s)  693,086,347,264 bytes free
+
+D:\Jag\wipro\June2024\demo>git add .
+
+D:\Jag\wipro\June2024\demo>git commit -m "first by jag
+[master (root-commit) 6d91f49] first by jag
+ 1 file changed, 1 insertion(+)
+ create mode 100644 jag.txt
+
+D:\Jag\wipro\June2024\demo>git branch -M jag
+
+D:\Jag\wipro\June2024\demo>git push -u origin jag
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 242 bytes | 80.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/jagasia/demo.git
+ * [new branch]      jag -> jag
+branch 'jag' set up to track 'origin/jag'.
+
+D:\Jag\wipro\June2024\demo>
+
 
 
 
