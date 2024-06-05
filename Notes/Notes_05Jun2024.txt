@@ -146,7 +146,32 @@ having decided to make a particular folder as "local" repository
 
 
 
-	
+1) create a repository in github.com after logging into your account.
+2) copy the URL of the remote repository
+		https://github.com/jagasia/training.git
+3) in local computer, choose one folder as local repository
+	d:\jag\training
+
+4) go to cmd prompt in this location
+	assuming there are atleast 1 file(s) in this location
+
+commands for 1st time (after installing git)
+	i) git config --global  user.email rjagadeeswaran@yahoo.com
+	ii) git config --global user.name jagasia
+
+commands for one time (for any local repository)
+	i) git init
+	ii) git remote add origin https://github.com/jagasia/training.git
+	iii) git add .
+	iv) git commit -m "first commit"
+	v) git push origin master
+		if suppose you want your name as branch then instead of above (v) command
+			git branch -M jag
+			git push -u origin jag
+
+	first time when you push, it will ask authorization
+		you can use browser authorization and come back to cmd prompt and see that it is successful.
+	vi) check github and refresh	
 
 
 
