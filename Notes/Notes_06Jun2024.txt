@@ -149,6 +149,134 @@ click the "Compile and run" button
 
 
 
+in the above program, we use a class.
+Because in java, without a class, a program cannot be executed
+
+then we created a method called "main"
+	main is the entry point for a program to start execution.
+	there can be many methods in a class, but execution starts from main
+
+public class App
+{
+    static 
+    {
+        System.out.println("This is static block");
+    }
+
+    public static void main(String []args)
+    {
+        System.out.println("Hello jag");
+    }
+}
+
+But in the above code, the "This is static block" comes first
+before "Hello jag"
+
+Compilation process in java:
+--------------------------------------
+	you know what is compilation?
+		compilation is a process of 
+			translating a program from high level to low level
+			
+high level means?
+	closer to human understandable format
+low level means?
+	closer to machine level
+
+Compilation in java is 
+	done in 2 stages
+
+	i) javac is used to compile "java" program into "byte" code
+	ii) when we run the program using "java" command
+		it further compile the "byte" code into "machine language" code
+
+
+so, when we develop the project and compile in one particular platform
+	example, in windows, we develop the project and compile
+
+then we execute in a different platform,
+	example, it is executed in linux,
+	then the JRE which we downloaded for linux,
+		will be able to translate that byte code into linux specific machine language code
+
+So java is platform independent 
+	we develop and compile java projects in any computer
+	and we run it in different type of computers
+		it runs because, they are further tranlsated into that platform specific JRE
+
+Java does not run in all platform. It is platform independent but not all platform
+
+	Linux
+	MacOS
+	Windows
+
+are the only platforms where java can run.
+	Android		is a kind of linux only. So it will run in android
+
+---------------
+Language features of Java:
+
+Java supports 8 primitive data types.
+	boolean
+	byte
+	char
+	short
+	int
+	float
+	long
+	double
+	
+how many bits = 1 byte
+	8 bits = 1 byte
+
+boolean	1 bit		true or false are the only 2 options		0 or 1	but we cannot give 0 or 1
+byte	1 byte		
+char	2 bytes
+short	2 bytes
+int	4 bytes
+float	4 bytes
+long	8 bytes
+double	8 bytes
+
+
+boolean	true/false
+byte	-128 to 127			256 possible values
+char	2 bytes		65536 possible characters	each character has an unique number representation
+		0 = null
+		1 = ☺
+		2 = ☻
+		3 = ♥
+		4 = ♦
+		5 = ♣
+		48 = 0
+		65 = A
+		97 = a
+
+
+	ASCII is 1 byte representation character set
+	Unicode is 2 bytes reperesentation character set	(Java uses unicode)
+
+short	2 bytes	-32768 to 32767		65536 possible values
+int	4 bytes	-2147483648 to 2147483647
+float	4 bytes	1.4E-45 to 3.4028235E38
+long	8 bytes 	-9223372036854775808 to 9223372036854775807
+double	8 bytes	4.9E-324 to 1.7976931348623157E308
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
