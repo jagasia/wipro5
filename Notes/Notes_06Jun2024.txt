@@ -262,6 +262,27 @@ float	4 bytes	1.4E-45 to 3.4028235E38
 long	8 bytes 	-9223372036854775808 to 9223372036854775807
 double	8 bytes	4.9E-324 to 1.7976931348623157E308
 
+Apart from these 8 data types, there are no data types in Java
+
+User defined data type is not possible in java
+User defined types are possible.
+
+Types are created using 
+	classes and interfaces
+
+Java does not support Structure	(in c, c++ we can create structures to create user defined data types)
+
+data types are always primitive (value types)
+types are reference types
+
+
+If you create a variable of a data type,
+then if you see what is stored in that variable, 
+	the value is stored
+
+if you create a variable of type (object)
+	then reference is stored in that variable.
+
 
 
 
