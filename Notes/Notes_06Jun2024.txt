@@ -1,0 +1,157 @@
+Git
+	we used git to share our project with other collaborators
+	we created a github repository (remote repository)
+	we created a folder in our system (local repository)
+	we were able to push files and folders from local to the remote repository
+	how?
+		we initialized local repository
+			git init
+		we linked this local to remote using
+			git remote add origin https://github.com/jagasia/example.git
+		we added all files in current location
+			git add .
+		we committed the changes to local repository
+			git commit -m "your message"
+		we pushed the changes to remote repository
+			git push orgin master
+			or
+			we create a branch
+			git branch -M jag	
+			git push -u origin jag
+
+	-m
+	-u
+	-M
+		you need to go through the techademy and also additonal websites to take the maximum
+		list of commands and options used in git.
+
+	git merge
+	git checkout vs 	git switch
+	stashing
+	resolved conflict 
+
+	git config --global user.name jagasia
+---------------------------------
+
+What is the purpose of using Git?
+Which git you have used?
+	github
+	gitlab
+	bitbucket
+How do you switch between current branch to another branch
+	git checkout
+How do you merge your current branch with another branch
+	when there are conflicts
+		resolve conflict and merge
+		and delete another branch
+Suppose, your team of 4 members want to work on a single remote repository
+	how do you allow other 3 members to push to your repository?
+		make them as collaborators
+
+------------------------------------
+Core Java
+
+"Primitive Data types, variables, Operators, String Concentrator, String Builder, String API, date, Time and numeric objects, Flow control, Conditions, Switch, Loop & branch, Arrays, 
+OOPs concepts, Classes and Objects, Inheritance, Polymorphism, Abstraction, Encapsulation, Interfaces, Composition, Overloading and Overriding, 
+Exception Handling, Try-Catch Blocks, types of exceptions, Throwing Exceptions & catching Multiple Exceptions, Finally block,custom exceptions, Concurrency, File I/O, "
+
+----------------------------------
+Java as a technology includes
+	Java Platform
+	Java language
+
+
+Java Platform includes
+	java compiler
+		that is used to translate a java program into a byte code
+	java runtime environment	
+		that is used to execute / run the program
+
+
+a platform usually is used to develop applications
+	applications => application software
+
+
+what kind of applications/ services can be developed using java?
+	console applications		CUI		Character User Interface
+	windows applications		GUI		Graphical User Interface
+	web applications		use browser to access the applications
+	web services / microservices	no frontend	datasource and business logic
+	mobile applications		GUI
+	
+we can also create components in java which are called as "Java Beans" which can be plugged into other java applications to be able to run them.
+
+Java introduced in 1995 by Sun Microsystems 
+a team lead by James Gosling (Sun Microsystems) developed 
+	initially they developed 	a language called "Oak" (it is a kind of tree)
+	later they named it as		Java	(it is coffee in indonesia)
+
+
+Jakarta is the capital of Indonesia
+
+Java versions:
+	1.1
+	1.2
+	1.3
+	1.4
+		major version change		happened in 5
+	5		for-each loop, Arrays methods like toString, Generics. Annotations
+	6
+	7
+		major version change		happened in 8
+	8	Lambda, Stream api, Functional programming, Method reference
+	9	Concurrency
+
+	11	
+
+	17
+	21
+	22
+	
+	six month once, you can expect a version. but there is something called LTS
+	Long Term Support 
+		that allows us to use a version without worrying about the new version
+
+
+Lab setup:
+--------------
+java can be downloaded and installed (free for non commercial use)
+
+But we use cloud lab.
+
+Task:
+-------
+	Open cloud lab
+	go to cmd in any location
+	check java version
+		java -version
+		(or)
+		java --version
+
+
+since most of us get error loading cloud lab,
+Let us use CODE LAB
+
+A java program cannot execute without a class and main method
+
+so, in code lab,
+write the following code:
+
+public class App
+{
+    public static void main(String []args)
+    {
+        System.out.println("Hello jag");
+    }
+}
+
+click the "Compile and run" button
+
+
+
+
+
+
+
+
+
