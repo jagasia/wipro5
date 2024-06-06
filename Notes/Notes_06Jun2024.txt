@@ -862,6 +862,374 @@ But it does not mean that you will  be able to write the entire code by yourself
 So, until you become comfortable to solve the type of problems you already understood,
 you need to repeatedly attempt to write by your own.
 
+now check the "java" folder in git.
+
+Challenge:
+
+Dice Game I
+
+Each player will be allowed to throw  a dice 2 times. The points for each player will be calculated as follows :
+If the values thrown are different, the points scored is equal to the sum of the 2 values.
+If the values thrown are the same, the points scored is equal to double the sum of the 2 values.
+
+Write a program to calculate the points scored by a player.
+
+Input and Output Format:
+
+Input consists of 2 integers. The valid range of inputs is from 0 to 6. [ Both 0 and 6 inclusive]
+Output the points scored. In case of invalid inputs, print “Invalid Input”.
+
+Refer sample input and output for formatting specificaions.
+
+[All text in bold corresponds to input and the rest corresponds to output.]
+Sample Input and Output 1:
+
+Enter Value 1:
+5
+Enter Value 2:
+6
+The points scored is 11
+
+Sample Input and Output 2:
+
+Enter Value 1:
+5
+Enter Value 2:
+5
+The points scored is  20
+
+Sample Input and Output 3:
+
+Enter Value 1:
+8
+Enter Value 2:
+6
+Invalid Input 
+
+--------------------------------
+Date
+--------
+What is Date?
+	Date is a class which belongs java.util package
+
+	this is another Date class which belongs to java.sql package
+
+java.util.Date
+	
+the date includes year, month, day, hour, min, sec, millis
+	a long data type values is represented as date
+	and that long number  is keep on counting for every millisecond
+
+
+
+//start coding a new program
+import java.util.Date;
+
+public class App
+{
+    public static void main(String []args)
+    {
+        Date dt=new Date();        
+        System.out.println(dt.getTime());
+    }
+}
+
+
+output:
+	1717671941871
+
+
+this number represents the time now in milliseconds
+
+this number would have been 0 on some time ago?
+	Thu Jan 01 00:00:00 GMT 1970
+		this was the day and  time when this long number was 0.
+		but long value can be negative also, right?
+
+		when it was negative maximum, it was 1900 
+
+
+Practically to work with date,
+
+	you should be able to get input from the user
+	and convert that string into date
+
+	use SimpleDateFormat class
+		methods of SimpleDateFormat
+			parse()		converts a String into java.util.Date
+			format()		converts a java.util.Date into String
+
+
+Demo:
+	accept the dateOfBirth from the user and print the weekday of that date.
+
+	weekday can be Sunday - Saturday	(7 possible values)
+
+
+dd	2 digit day			24
+MM	2 digit month		06
+MMM	3 letter month		Jun
+mm	2 digit minutes		46
+yy	2 digit year		24
+yyyy	4 digit year		2024
+EEE	3 letter week day		Thu
+EEEE	4 or more E will  print full	Thursday
+AM	will print AM or PM accordingly
+
+
+
+There are many symbols in Date format. Find out. in your free time
+
+//start coding a new program
+import java.util.Date;
+import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
+public class App
+{
+    public static void main(String []args) throws ParseException
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the date of birth (dd-MMM-yyyy):");
+        String input=sc.nextLine();
+        SimpleDateFormat sdf=new SimpleDateFormat("dd-MMM-yyyy");
+        Date dob=sdf.parse(input);   
+        sdf=new SimpleDateFormat("EEEE");
+        System.out.println(sdf.format(dob));
+    }
+}
+
+
+
+How do you find a year is leap year or not?
+import java.util.GregorianCalendar;
+
+public class App3 {
+
+	public static void main(String[] args) {
+		//find if a year is leap or not
+		GregorianCalendar gc=new GregorianCalendar();
+		if(gc.isLeapYear(2024))
+			System.out.println("Leap year");
+		else
+			System.out.println("Not leap year");		
+	}
+
+}
+
+Arithmetic between Dates
+	example, if date of birth is given as input
+	how do you find the age based on today's date
+
+	in projects, never ask the age of a person
+	ask date of birth and age is derived from  that
+
+	for ex:
+		in facebook, it says, your 21st birthday 
+		next year it will say 22nd
+		because, they store your date of birth in their database. Not your age.
+
+	dateOfBirth is an attribute
+	age is derived attribute
+
+Demo:
+	example, if date of birth is given as input
+	how do you find the age based on today's date
+
+
+Task:
+Identify the difference between
+	java.util.Date
+	java.sql.Date
+	java.time.LocalDate
+
+and methods of these classes and how to work on them
+conversion of each to other
+and finding the date based on arthmetic on another date
+finding period between dates
+printing date in required format
+	SimpleDateFormat
+
+
+			
+
+switch case
+	we can use switch case when you want to compare	an expression with lot of constants
+	
+	if you are using this 		==	lot of times, then think about switch case
+
+
+public class App6 {
+
+	public static void main(String[] args) {
+		String dept = "ECE";
+
+		if (dept.equals("EEE")) 
+		{
+			System.out.println("Electrical & Electronics Engineering");
+		} else if (dept.equals("ECE")) 
+		{
+			System.out.println("Electronics & Communication Engineering");
+		} else if (dept.equals("CSE")) 
+		{
+			System.out.println("Computer Science Engineering");
+		}
+//since above code is checking dept with lot of constants, 
+//we can use switch case
+		switch(dept)
+		{
+		case "EEE":
+			System.out.println("Electrical & Electronics Engineering");
+			break;
+		case "ECE":
+			System.out.println("Electronics & Communication Engineering");
+			break;
+		case "CSE":
+			System.out.println("Computer Science Engineering");
+			break;
+		default:
+				System.out.println("Invalid dept");
+				break;
+		}
+		
+	}
+
+}
+
+above code shows instead of using if we can use switch here
+
+
+
+loops:
+	while
+	do while
+	for
+	for each
+
+
+
+//start coding a new program
+
+public class App
+{
+    public static void main(String []args) 
+    {
+        int i=20;
+        while(i<30) //enters inside the body only when condition is true
+        {
+            i++;
+            System.out.println(i);
+        }
+        //continues here after while condition is false
+    }
+}
+
+
+
+
+do while loop:
+------------------
+//start coding a new program
+
+public class App
+{
+    public static void main(String []args) 
+    {
+        int i=20;
+        do
+        {
+            i++;
+            System.out.println(i);
+        }while(i<30);
+        
+    }
+}
+
+
+
+Difference between while and do while
+while loop checks condition first and then only enters into the body of the loop.
+
+do while enters the body of the loop and checks the condition at the end of first iteration.
+So it executes the body of the loop atleast once.
+
+------------------
+For loop
+-----------
+//start coding a new program
+
+public class App
+{
+    public static void main(String []args) 
+    {
+        // int i=20;
+        // do
+        // {
+        //     i++;
+        //     System.out.println(i);
+        // }while(i<30);
+        for(int i=21;i<=30;i++)
+        {
+            System.out.println(i);
+        }
+
+    }
+}
+
+for loop has 3 portions
+	for(declaration & initialization ; condition ; re-initialization)
+
+	for(;;)
+	{
+		//this is infinite loop
+	}
+
+
+a funny for loop:
+//start coding a new program
+
+public class App
+{
+    public static void main(String []args) 
+    {
+        int i=21;
+        for(;;)
+        {
+            if(i<=30)
+                System.out.println(i);
+            else
+                break;
+            i++;
+        }
+
+    }
+}
+
+
+
+For-each loop:
+-----------------
+used to iteratore all elements of an array or collection.
+
+//start coding a new program
+
+public class App
+{
+    public static void main(String []args) 
+    {
+        int []arr={19,8,4,28,76,50,90,88,100};
+        for(int x:arr)
+        {
+            System.out.println(x);
+        }
+    }
+}
+
+
+
+
+
 
 
 
