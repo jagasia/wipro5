@@ -862,9 +862,6 @@ But it does not mean that you will  be able to write the entire code by yourself
 So, until you become comfortable to solve the type of problems you already understood,
 you need to repeatedly attempt to write by your own.
 
-Break from 16:00 to 16:15
-
-
 
 
 
