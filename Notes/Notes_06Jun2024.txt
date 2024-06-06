@@ -283,21 +283,586 @@ then if you see what is stored in that variable,
 if you create a variable of type (object)
 	then reference is stored in that variable.
 
+Practise:
+-----------
+in code lab,
+create variables of various data types and
+assign values to those variables
+and display the value of those variables as output
+
+
+public class App
+{
+
+    public static void main(String []args)
+    {
+       byte marks=100;
+       marks+=28;
+       System.out.println(marks);
+    }
+}
+
+Know the range of data type
+
+the range of byte is 		-128 to 127
+
+so, marks variable cannot have a value called 128 at all
+100+27	=127
+127+1	-	-128
+
+it goes round within the range.
+
+same way for
+	int	
+	long
+	double
+	float
+	short
+	byte
+
+all these data types will allow the variable to have values within that range only
+
+
+Operators:
+-------------
+i will list out some of the important operators
+
+Arithmetic operators
+	+ 
+	-
+	*
+	/	
+	%
+Logical operators
+	!		not
+	&&		and
+	||		or
+	^		xor
+	
+Comparison operators
+	>
+	<
+	>=
+	<=
+	!=
+	
+Assignment operators
+	=
+	+=
+	-=
+	*=
+	/=
+	%=
+
+Shift operators
+	<<		left shift		1		after left shift becomes 10 (in decimal it is 2)
+					10		after left shift becomes 100 (in decimal it is 4)
+					it is like multiply by 2		
+	>>		right shift		100 >> 1	becomes 010	4/2 = 2
+					it is like divide by 2
+	<<<		signed shift
+
+
+Arithmetic Operators
+Unary Operators			- (negative symbol)		++	--	are also unary
+Assignment Operator
+Relational Operators
+Logical Operators
+Ternary Operator
+Bitwise Operators
+Shift Operators
+instance of operator
+
+	"new" is also an operator
+	"instanceof" is also an operator
+		all operators are in full lower case letters
+
+
+operators word on operands
+	a+b		a and b are operands	and + is the operator that works on the operand
+			operators take operands as input and produce output
+			so operators like unary, work on the operand and affect the operand itself
+	
+	int a=20;
+	a++;		++ affects a itself		similar to 		a=a+1;
+
+	what is the difference between postfix and prefix 
+	a++;
+	++a;
+		there is no difference in above 2 lines
+
+	but
+	int a=20;
+	int b=0;
+
+	b=a++;		//here, we use postfix, so ++ is postponed and hence, b is assigned with value of a and only after that the a will increment
+
+	so what happens in
+	b=a++;		b becomes 20.		then a becomes 21
+
+	but
+	int a=20;
+	int b=0;
+
+	b=++a;		//here prefix is used, so ++ takes priority.
+
+			a becomes 21.		then b is assigned 21
+
+
+	but 
+	a++;
+	++a;		
+
+when there is no other operations, they simple increment. No difference between post and prefix
+
+Activity:
+Identify the operator categories and the operators and 
+how they work.
+what each operator perform
+and what is the precedence of the operators
+BODMAS still hold correct in java
+
+if NOT AND OR are in same expression, then which works first?
+
+Did you find a ternary operator?
+	?:
+
+ex:
+public class App
+{
+
+    public static void main(String []args)
+    {
+        int i=51;
+        System.out.println((i>50)?"Pass":"Fail");
+    }
+}
+we can use ternary operator for simple if - else condition
+
+--------------------------
+Activity:
+Identify the following programming constructs and syntax in java.
+Try to make use of these constructs in your code.
+
+programming constructs:
+if
+if - else
+if - else if - else
+switch - case
+while loop
+do while loop
+for loop
+for each loop
+
+--------------------------------------------
+public class App
+{
+
+    public static void main(String []args)
+    {
+        int i=51;
+        if(i>50)
+        {
+            System.out.println("Pass");
+        }else
+        {
+            System.out.println("Fail");
+        }
+    }
+}
+
+
+
+
+{}	is used to create a block
+	to combine multiple statements into a single block
+
+	but usually a single statement itself is a block which need not have {	}
+
+
+public class App
+{
+
+    public static void main(String []args)
+    {
+        int i=31;
+        if(i>50)        
+            System.out.println("Pass");
+        else        
+            System.out.println("Fail");
+    }
+}
+
+
+but it is always good practise to use { } brackets 
+whereever required.
+
+marks >=90		excellent
+marks between 80 and 89	good
+marks between 70 and 79	fair
+marks between 50 and 69	pass
+otherwise 			fail
+
+
+Should i check from lower range (ie., fail to excellent) or
+from excellent to fail?
+
+You should check the most probably condition
+if the first condition itself is true, then your code is best code
+most probably true condition should be taken
+
+the batch performs really well and most of the students score excellent, then start from >=90 condition
+
+public class App
+{
+    public static void main(String[]args)
+    {
+        int marks=101;
+        //check abnormal events
+        if(marks<0 || marks>100)
+        {
+            System.out.println("Invalid");
+            System.exit(0);
+        }
+        if(marks>=90)
+        {
+            System.out.println("Excellent");
+        }else if(marks>=80) //between 80 and 89
+        {
+            System.out.println("Good");
+        }else if(marks>=70) //between 70 and 79
+        {
+            System.out.println("Fair");
+        }else if(marks>=50) //between 50 and 69
+        {
+            System.out.println("Pass");
+        }else
+        {
+            System.out.println("Fail");
+        }
+    }
+}
+
+
+-----------------------------------------------------------
+	if(marks>=50) //between 50 and 69
+	(is similar to)
+	if(50<=marks && marks<=69)
+
+
+
+in c, c++
+
+int i=0;
+if(i=100)
+{
+	printf("good");
+}else
+{
+	printf("bad");
+}
+	//in c language output is "good"
+but we are using a condition in if? no, it is assignment
+	= is used for assignment
+	== is used for comparison
+
+
+
+
+Scanner
+------------------
+Getting input from the user in "console", Scanner is used
+
+Scanner is a class
+we need to create an object of Scanner class 
+
+
+import java.util.Scanner;
+public class App
+{
+    public static void main(String[]args)
+    {
+        int marks=0;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the marks:");
+        marks=sc.nextInt();
+        //check abnormal events
+        if(marks<0 || marks>100)
+        {
+            System.out.println("Invalid");
+            System.exit(0);
+        }
+        if(marks>=90)
+        {
+            System.out.println("Excellent");
+        }else if(marks>=80) //between 80 and 89
+        {
+            System.out.println("Good");
+        }else if(marks>=70) //between 70 and 79
+        {
+            System.out.println("Fair");
+        }else if(marks>=50) //between 50 and 69
+        {
+            System.out.println("Pass");
+        }else
+        {
+            System.out.println("Fail");
+        }
+    }
+}
 
 
 
 
 
+in the above program, we use
+	nextInt() method of Scanner class to get input as int
+
+nextInt()
+nextFloat()
+nextLong()
+nextDouble()
+nextByte()
+nextShort()
+next()			gets input as String		upto any delimiter <<space>> or <<tab>> or <<newline>>
+
+nextLine()		gets input as String		upto <<newline>> delimiter only
+among these input methods, nextLine() only accepts input until an enter key is pressed (<<newline>>)
+
+all other  input methods, get input until any delimiter
+ex:
+
+	input is as follows:
+
+		1 Raja	20
+
+between inputs 1 and Raja	there is a delimiter called <<space>>
+between Raja and 20 		there is a delimiter called <<tab>>
+after 20			there  is a delimer called <<newline>>
+
+all next methods except nextLine() takes input upto any delimiter
+
+
+Task:
+---------
+Try to get input using
+next()
+nextInt()
+nextFloat()
+nextLong()
+nextDouble()
+
+using variables of these types
+
+and print the variables to confirm if you have captured inputs correctly or not
+----------------------------------------------------
+We need to use IDE like eclipse/ Spring tool suite/ IntelliJ to create projects.
+
+Code Lab is just to run a single program
+
+we need to go to cloud lab.
+
+---------------------------------
+In cloud lab, you can find green icon for STS (spring tool suite)
+double click to open
+
+it ask you to choose the workspace.
+what is a workspace?
+	it is a folder where, all the projects we create, are stored
+
+we decide to use 
+	d:\jag\training\java
+
+Task:
+-------
+Write a java program to accept the following inputs from the user:
+101
+Thomas Alwa Edison
+99.9
+
+then the  program should print the output as 
+
+101
+Thomas Alwa Edison
+99.9
+
+
+
+Whenever sc.nextLine() comes after any other type  of next methods,
+it is going to get <<newline>> char as input and create problems.
+
+nextLine() is a peculiar method and differs from any other next methods
+
+solution1:
+	use a separate scanner for using nextLine methods
+solution2:
+	check if the nextLine captured input or it is ""
+	if blank, then get nextLine again
+
+---------------
+when it comes to String type,
+
+	==
+	equals()
+
+there are 2 ways of checking if 2 strings are equal or not
+
+if you use == operator,
+	then it checks if the reference of both operands are same or not
+if you use equals method,
+	then  it checks if the values of both operands are same or not.
+
+basically, 
+	== operator checks if the values are equal or not when the operands are value types
+	== operator checks if the references are equal or not when the operands are refernce types.
+
+	equals method always checks the values are equal or not.
+
+What is value type and what is reference type?
+
+	all primitive data types are value types.
+	if you create a variable of primitive data type,
+	then the variable will contain the value.
+
+	all Classes and Interfaces are reference types.
+	if you create a variable of class, then it will not contain a value. But it will contain reference to an object in Heap
+
+	the variables created inside any method are stored in a memory structure called as "Stack".
+
+	all variables declared in a method are in stack.
+	but if the variable is of primitive type, then the variable will contain value.
+	but if the variable is of reference type, then the variable will contain reference to an object in heap.
+
+	int i=20;		//i is of int type, int is primitive. so i is a variable which contains value called 20
+
+	Date dt=new Date();	//dt is a variable of type Date. Date is a class. So it is a reference type.
+			dt will not contain a value, it will contain the reference of an object of Date (heap)
+
+	new Date();	//this object of Date is created in heap. Its reference is not stored in stack
+
+
+		System.out.println(new Date());
+
+	Date dt;		//stack variable dt is created but it does not contain any reference to date object
+			//it is null
+
+	Date dt;		//dt is in stack, which contains nothing
+	dt=new Date();	//a heap memory allocated for new Date() and its reference is kept in stack variable dt
+
+
+	a==b		
+		what is compared??		value of a and b???? or the reference of a and b?????
+		this depends on the type of a and b
+		if a and b are value types (primitive) then their values are compared
+		if a and b are reference types, then their references are compared
+
+	equals method always compare the values
+
+
+	String str1="hello";
+
+String is a class
+	String str1=new String();		//this is what i am supposed to do
+
+	i tell you onething. 		"new" operator is used to create an object of a class
+			without new operator we cannot create an object
+
+	String str1="hello";			//str1 does not refers to a new memory. It refers to existing memory of object "hello"
+
+		"hello" is not a value
+		"hello" is an object of String type in heap memory
+
+String is immutable
+	means, we cannot change the value of a String object
+
+	String str1="hello";
+	str1="hi";		//we have not changed the value. we have changed the reference
+
+		"hello" and "hi" are two different objects present in different memory locations.
+		str1 was pointing to "hello" object
+		and changed the reference to "hi"
+
+	String str1="hello";		//change "h" into "H"
+	str1="Hello";		//we have not change "h" to "H", we have changed the entire object
+
+	we jumped to another memory
+	this is not changing value, but is changing reference
 
 
 
 
+String is immutable, so we need to use
+
+	StringBuilder
+	StringBuffer
+
+		both these classes have exactly same set of methods, except that
+			StringBuffer is synchronized
+		and 	StringBuilder is not synchronized
+
+Synchronized means, multiple threads are not allowed to access an object at a time. They are allowed one by one.
+
+So StringBuilder is faster and not thread safe.
+
+Task:
+-------
+Identify the methods and their purpose of 
+	StringBuilder
+
+Kindly share the list of methods you identified for
+	StringBuilder
+
+Task:
+-------
+Accept a String input from the user and print the reverse of the String
+
+Hint: use StringBuilder
+	constructor of StringBuilder accepts a String
+	toString method of StringBuilder returns the string inside sb
 
 
 
+Palindrome:
+----------------
 
 
+//start coding a new program
+import java.util.Date;
+public class App
+{
+    public static void main(String []args)
+    {
+        String str="malayalam";
+        StringBuilder sb=new StringBuilder(str);
+        sb.reverse();
+        String reverseStr=sb.toString();
+        if(str.equals(reverseStr))
+            System.out.println("Palidrome");
+        else
+            System.out.println("Not Palindrome");
+    }
+}
 
+
+--------------------------
+Task:
+	convert a String into char array
+	sort the array using Arrays.sort method
+
+Application of this technique in following task:
+
+Accept 2 input strings and check if they are anagrams.
+
+Anagrams are words which are made using same set of letters.
+	
+
+--------------------------------------------------------------------------------
+You understand the logic now, you have seen a sample program also.
+But it does not mean that you will  be able to write the entire code by yourself at this stage.
+So, until you become comfortable to solve the type of problems you already understood,
+you need to repeatedly attempt to write by your own.
+
+Break from 16:00 to 16:15
 
 
 
