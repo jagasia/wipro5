@@ -219,6 +219,243 @@ Sample Output :
 4
 3
 
+Hint:
+-------
+what is an even number?
+	a number which is greater than 0 and is divisible by 2 is an even number
+
+	if(arr[i]%2==0)
+	{
+		//even  number	
+	}
+import java.util.Scanner;
+
+public class App4_Longest {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int arr[]=new int[n];
+		for(int i=0;i<n;i++)
+		{
+			arr[i]=sc.nextInt();
+		}
+		///we have got all inputs
+		int count=0;
+		int maxCount=0;
+		int startIndex=-1;
+		int maxStartIndex=-1;
+		for(int i=0;i<n;i++)
+		{
+			if(arr[i]%2==0)
+			{
+				System.out.println(arr[i]);
+				count++;
+				if(count==1)
+				{
+					startIndex=i;
+				}
+				if(count>maxCount)
+				{
+					maxCount=count;
+					maxStartIndex=startIndex;
+				}
+//				System.out.println("Count="+count);
+//				System.out.println("MaxCount="+maxCount);
+//				System.out.println("St.Index="+startIndex);
+//				System.out.println("MaxSt.Index="+maxStartIndex);
+			}else
+			{
+				//odd number found so count=0
+				count=0;
+			}
+			
+		}
+		System.out.println();
+		System.out.println(maxCount);
+		System.out.println(maxStartIndex);
+	}
+
+}
+-------------------------------
+Run Length III
+ 
+Write a program to find the length of the longest consequtive sequence of any number in the given array. Also find the starting index of the longest such sequence.
+ 
+Example :
+ 
+Consider the array ... { 3, 5, 6, 6, 6, 6, 7, 7, 2, 1, 8}
+ 
+6 appears 4 times consequtively in this array.
+The length of the ongest consequtive sequence of any number in the given array is 4 and the starting index is 2.
+ 
+Note:
+The array indexing starts from 0.
+If there are multiple choices, select the choice where the starting index is minimum.
+ 
+Input and Output Format:
+ 
+The first line of the input consists of an integer n that corresponds to the number of elements in the array. The next 'n' lines of input consists of a single integer that correspond to the elements in the array.
+ 
+The first line of the output consists of the length of the ongest consequtive sequence of any number in the given array and the second line of the output consists of the starting index of the longest such sequence.
+ 
+Sample Input :
+11
+3
+5
+6
+6
+6
+6
+7
+7
+2
+1
+8
+ 
+Sample Output :
+4
+2
+----------------------------------------------------------------------
+
+OOPs concepts, Classes and Objects, Inheritance, Polymorphism, Abstraction, Encapsulation, Interfaces, Composition, Overloading and Overriding, 
+--------------------------------------
+Class and Object
+Class is a blueprint of objects
+Class is a data definition
+or type definition
+or composite type
+
+Date is a class
+	why is it necessary?
+		because, we want to store day, month, year, hour, minute, seconds, am/pm, milliseconds etc in one object
+		composite type
+	it is created using the primitive data types only.
+
+Conventions to be followed while creating a class:
+	1) class name must be a noun
+	2) class name must be in PascalCase, ie., first letter of every word in upper case.
+		ex:
+			NumberFormatException
+			ArrayIndexOutOfBoundsException
+	3) in a java file	ie., Something.java,
+		it is always recommended to have only 1 class
+		if you have multiple classes coded in a single file, then
+		only 1 of them can be public class.	The file name must be same as the public class in that file.
+
+	4) class name should not be a person's name, or specific value and it should be an entity
+		ex:
+			Student
+			Employee
+			Department
+				these are proper name of a class
+			Raja
+			Kumar
+			Coimbatore
+			ECE
+				these are not proper class names. These can be object names
+
+		Student is a class
+		raja can be an object of student
+	but 
+		Student student=new Student();			//here "student" is object.
+	
+Object names must follow camelCase
+		example:
+			ContractEmployee contractEmployee=new ContractEmployee();
+			//firstLetter is small letter and all other next word's first letters are in upper case.
+
+	it is guidelines to be followed. Guidelines are not rules. 
+	if you violate rules, you get error. 
+	if you violate guidelines, you will not get any error
+
+	i NEVER want to see a class name starting with lower case.
+
+	class student		//THIS IS NOT ACCEPTABLE
+
+	class main			//NOT OK
+
+	class Student		//OK
+
+
+	Student Raja;		//WHAT IS WRONG IN THIS?		object name starts in upper case is BAD
+
+	In java, there are already so many built in classes. Look at them, they follow these guidelines.
+	So, you also follow.
+
+	
+	student			you dont have any doubt, it is an object
+
+	Student			you know it is a class	/ interface		type
+
+
+	class can contain:
+		data members
+		methods
+
+	data members
+		variables
+		constants
+
+constants:
+	final int i=20;			//this is a constant in java		"const" was used in c, c++
+		you need to initialize a value to this variable when you create itself.
+
+	in above final declaration, one guideline is not followed. A CONSTANT IN JAVA MUST BE IN FULL UPPER CASE
+
+	final int I=20;
+	final String COMPANY_NAME="Wipro";
+		//now, why _ is used?		full  capital so we cant find multiple words clearly. so _ is used
+
+	final datamembers are constants. cannot change their value or reference.
+
+	public static final int MAX_VALUE=-2147483649;
+
+	why they use static?
+
+	Integer.MAX_VALUE
+		I am referring the data member using class name (not object name)
+
+a class can contain data members which are
+		instance data member (or)
+		static data members
+
+
+class Employee
+{
+	int id;
+	String name;
+	static String final COMPANY_NAME="Wipro";
+}	
+
+	why static is used?
+		if i create 5 objects of Employee,
+			even then, for all employees, the company name is same.
+		static member of a class is shared by all objects of the class.
+		there exists only 1 instance (object) of company name
+
+	
+static
+	can be used in 
+		data member  of a class
+		method of a class
+		block 		static  block
+
+
+	static cannot be used outside a class.
+	static is inside a class
+		in c, c++ a method (function) can contain a static variable.
+		but in java, we cannot have a static data member inside a method.
+
+		static means	=>	shared by all  objects of a class
+		
+	to access a static member, we can use <<classname>>.member name
+
+
+	Integer.MAX_VALUE
+
+
+Handson:
 
 
 
