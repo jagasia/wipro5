@@ -464,6 +464,8 @@ University - Requirement 1
 follow the instructions properly and do the coding exactly.
 You can go to this url in cloud lab also and open the word document in WPF document app.
 
+Let me know once you created the College class.
+---------------------------------------------------------------
 
 
 
