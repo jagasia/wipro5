@@ -1228,6 +1228,25 @@ public class App
 
 
 
+if
+if else
+if else if else
+switch case
+while loop
+do while loop
+for loop
+for each loop
+
+lot of challenges are there in the word document 
+	Java_PF_2.docx
+
+it is there in java folder of git
+
+kindly try to do as much programs as possible in your free time
+
+
+
+
 
 
 

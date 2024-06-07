@@ -1,0 +1,230 @@
+at this point of time, you should know
+	the syntax for
+		if
+		if else
+		if else if else if else if else
+		while
+		do while
+		for 
+		for each
+
+
+Arrays
+--------
+	what is an array?
+
+your answers:
+	collection of similar elements
+	a set of similar data type
+	hold a fixed number of values of a single type
+	multiple values of the same type
+	datastructure that stores data
+	linear data structure
+	indexed datastructure
+
+i understand that 
+	we can store multiple values/ objects in an array
+	when you say array contains elements of only 1 type
+		every datastructure is like that only
+
+	onething none of you told is that
+		Array keeps elements in contiguous memory locations (continuous, adjacent)
+Arrays can be single dimension or multi-dimension
+
+in c, c++, arrays are created like below:
+	int arr[10];
+
+in Java:
+	int []arr=new int[10];
+
+	2 portions
+		i) declaration
+		ii) creation		(we need to know the size to create an array)
+
+
+	new int[10];		i have created an array of type int of size 10
+	but this array's reference is not stored in any variable. So it cannot be used later.
+------------------------------------------------------------
+	int arr[];			//i have declared an array of single dimension of type int.
+				//but an array is not yet created.
+
+	arr=new int[10];		//an array is created and its reference is kept in variable "arr"
+
+------------------------------------------------------------
+the same can be done in single line also:
+	int []arr=new int[10];
+
+
+	the declaration decides the scope of the variable. 	
+	if you declare a variable before for loop, then it is used before and inside and outside for loop
+	but if you declare a variable inside for loop, then it is used only inside for loop
+		not only for loop, any block		{	}
+		scope of the variable is within the block only.
+
+	so we can declare an array earlier
+	and then create it later (when we come to know how many elements)
+
+
+Demo:
+Sample Input :
+11
+2
+16
+15
+2
+6
+8
+10
+7
+22
+4
+6
+
+
+the first input mentions the number of elements in the array
+in above example, 11 is the size of the array
+
+if first input is x,
+then x number of inputs must be captured from the user.
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class App {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int arr[]=new int[n];
+		//get n inputs from the user and store them in arr
+		for(int i=0;i<n;i++)
+		{
+			arr[i]=sc.nextInt();
+		}
+		
+		System.out.println(Arrays.toString(arr));
+	}
+
+}
+
+In arrays, 
+	we can access any element using its id
+
+	arr[0] refers to the first element of the array
+
+	if the length of the array is n
+	then arr[n-1] refers to the last element of the array
+
+
+	we can find the length of the array using
+		arr.length		property
+
+	for example, how will you print all elements of an array?
+		i) for loop 
+		ii) for each loop
+		iii) Arrays.toString(arr) 
+			Arrays.deepToString(arr)	if arr is multi dimensional
+			these methods were introduced in jdk 1.5 only.	means, jdk 1.4 or earlier do not have 
+
+
+	Arrays in java are always Jagged arrays
+	what is meant by jagged array?
+		Jagged means uneven
+	ex:
+		int arr[][]=new int[10][];		//if you consider first dimension as row and second as column
+		we have created 10 rows and each row can be of different number of columns.
+
+		arr[0]	refers to the first row		you can see that arr[0] is a single dimensional array
+
+
+	arr[][]	is like array of arrays
+
+		arr[0]=new int[10];			//first row is having 10 columns
+		arr[1]=new int[5];			//second row has 5 columns
+		arr[2]=new int[7];			//third row has 7 columns
+
+	this is what we call it as Jagged array.
+
+	if you do not want jagged array, then you want all rows to have same number of columns
+		int arr[][]=new int[10][5];		//all rows have same number of columns. Not jagged
+
+	int i=20;
+	when you see i is primitive type
+	int arr[]=new int[10];		//is complete
+	Date d=new Date();
+		d is object type
+
+	for objects we need to use new operator
+
+
+
+	Date dob;		//this is incomplete
+	dob=new Date();	//it is complete now.
+
+	similarly
+	Date []dt=new Date[10];			//this is incomplete
+	dt[0]=new Date();
+	dt[1]=new Date();
+	...
+	...
+	...
+	dt[9]=new Date();		
+
+Task:
+create an array of size 10
+accept 10 inputs from the user and store them in the array
+find the largest element and smallest element of the array.
+print them as output.
+
+
+Challenge:
+----------------
+Run Length IV
+ 
+Write a program to find the length of the longest running sequence of even numbers in the given array. Also find the starting index of the longest running sequence of even numbers.
+ 
+Example :
+ 
+Consider the array ... { 2, 16, 15, 2, 6, 8, 10, 7, 22, 4 , 6}
+ 
+The 3 even number sequences in this array are {2, 16}, {2, 6, 8, 10} and {22, 4, 6}.
+The longest running even number sequence is {2, 6, 8, 10}
+The length of the longest running even number sequence is 4 and the starting index is 3.
+ 
+Note:
+The array indexing starts from 0.
+If there are multiple choices, select the choice where the starting index is minimum.
+ 
+Input and Output Format:
+ 
+The first line of the input consists of an integer n that corresponds to the number of elements in the array. The next 'n' lines of input consists of a single integer that correspond to the elements in the array.
+ 
+The first line of the output consists of the length of the longest running even number sequence and the second line of the output consists of the starting index of the longest running even number sequence.
+ 
+Sample Input :
+11
+2
+16
+15
+2
+6
+8
+10
+7
+22
+4
+6
+ 
+Sample Output :
+4
+3
+
+
+
+
+
+
+
+
+
+
