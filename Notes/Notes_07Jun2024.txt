@@ -663,7 +663,6 @@ public class App {
 ----------------------------------------
 Task:
 -------
-
 Create a class called Shape
 it should contain
 	String borderColor, backgroundColor;
@@ -674,10 +673,244 @@ Create a class called Rectangle
 
 Create a class called Circle
 
+Each shape should contain a method "calculateArea"
+	return a String that displays the formula to calculate area of that particular shape
+
+Triangle
+	1/2*b*h
+Rectange
+	l*b
+Circle
+	22/7*r*r
+
+In App.java, main method
+	accept the choice of the user 	Triangle/Rectange/Circle
+	and display the formula for area accordingly
+
+------------------------------------------------
+Abstract
+	abstract class is incomplete class.	 The sub classes must complete that
+		here in our example, Shape class has an abstract method, which must be implemented by sub classes.
+
+	abstract method is empty. It is meant for the sub classes to implement (override)
+
+	abstract class can contain abstract methods and also methods with body 
 
 
+Overriding
+	the super class method is modified by the sub class method
+
+Overloading
+	multiple methods can have same name but different signature.
+
+	sum(2,3)			=>	5
+	sum("North","India")		=>	NorthIndia
+
+	when numbers are supplied, it was adding them
+	when Strings are supplied, it was concatenating them.
+	So, can you see a polymorphism (different behavior) here.
+		Overloading is an example for polymorphism		(static polymorphism)
+		early binding	
+		compile time polymorphism
 
 
+Furniture 
+	acceptDetails()
+
+Chair extends Furniture
+	acceptDetails()		//this is called overriding
+
+------------
+Shape
+	calculateArea()
+
+Circle extends Shape
+	calculateArea()		//this is called  overriding
+
+overloading	=> different signature
+overriding		=> same signature			(without inheritance, there is no overriding)
+
+Overloading
+----------------
+	multiple methods with same name
+	but different signature		(no of args, type of args, order of type of args)
+	return type can be same or different. it does not matter
+
+Overriding
+--------------
+	super class method and sub class method have same name
+	same signature
+	return type also be same only
+	sub class method cannot reduce the visibility
+		if super class method is public, then sub class method must be public only
+		if super class method is protected, then  sub class method can be protected or public
+		if super class method is default, then sub class method can be default or protected or public
+		if super class method is private, then we cannot override that method.	
+			in such case, sub class can have that method but cannot use @Override
+	sub class method cannot be declared with throws class of additional methods
+		it has to handle exceptions that are not declared as throws in super class method
+
+Relationship between classes and objects:
+
+	has a 	/ 	part of
+		Car has Engine			Engine is a part of Car
+
+	kind of		(inheritance)
+		SportsCar is a kind of Car		public class SportsCar extends Car
+		Chair is a kind of Furniture		public class Chair extends Furniture
+
+	is a
+		object is a kind of class
+
+		Car bmw=new Car();			//bmw is a Car
+
+	
+When has a relationship is implemented, it can be:
+	i) Aggregation
+	ii) Composition
+
+Aggregation 
+	A and B are classes where 		A has B
+	class A
+	{
+		B b;
+	}
+
+	but in aggregation, A and B can exist independently.
+
+	ex:
+		Author and Book
+
+	class Book
+	{
+		int id;
+		String title;
+		Author author;
+	}
+
+	class Author
+	{
+		String name;
+		List<Book> books;
+	}
+
+	Author can exist even before he write a book
+
+	if author details are not found, book obj can exist also with 	author=null;
+
+Composition:
+	A has B		and A controls the life time of B
+	B cannot exist alone
+
+	class Car
+	{
+		Engine e;
+	}
+
+	Engine cannot exist alone.
+
+
+----------------------
+Regular Expressions
+	regex
+	
+		is used for pattern matching
+
+	Email address is valid or not?		How will  you tell?
+		it should contain 		a string + @ + a string + . + string of 2 or 3 chars etc
+
+	what is a mobile number?
+		it must be number  only
+		it must be 10 digit
+
+regex can be used for 2 purposes:
+	1) to check if a String matches a pattern or not
+	2) to extract the portions of a String wherever the pattern is matched.
+
+example,
+	if you receive a message that contains couple of mobile numbers,
+	is it possible to extract those numbers alone??????
+
+
+Symbols used in regex:
+	( )	used to group the pattern. Then we can specify the multiplicity of that pattern
+	[ ]	to specify the list of characters from which 1 character is matched.	
+		we can specify range of characters also based on ascii value
+		ex:		[aeiou]		any vowel is matched
+				[a-z]		any lower case alphabet is matched
+				[0-9A-Za-z]	any number of alphabet is matched
+	\d	any digit		0-9
+	\D	any non digit
+
+multiplicity
+--------------
+	+		means 1 or more
+	*		means 0 or more
+	?		0 or 1			optional
+	{1,3}		min 1 and max 3
+	{1,}		min 1
+	{,3}		max 3
+	{3}		3 only
+
+		
+
+Demo:
+--------
+Accept a string input and extract all mobile numbers in the input.
+a mobile number is a number which has 10 digits
+
+input:
+	Please note down the number 9898989898 and call immeditely. If it is not reachable, then try 7878787878. Thank you
+
+Solution:
+------------------------
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class App {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String input=sc.nextLine();
+		Pattern p = Pattern.compile("\\d{10}");
+		Matcher m = p.matcher(input);
+		while(m.find())
+		{
+			System.out.println(m.group());
+		}
+	}
+
+}
+
+
+Please note down the number 9898989898 and call immeditely. If it is not reachable, then try 7878787878. Thank you
+9898989898
+7878787878
+
+Demo:
+--------
+Accept a string input and check if it is a mobile number or not.
+a mobile number is a number which has 10 digits
+
+import java.util.Scanner;
+
+public class App2 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String input=sc.nextLine();
+		//use the String class matches method
+		if(input.matches("\\d{10}"))
+		{
+			System.out.println("Valid mobile number");
+		}else
+		{
+			System.out.println("Invalid mobile number");
+		}
+	}
+
+}
 
 
 
