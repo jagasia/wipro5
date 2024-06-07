@@ -14,7 +14,7 @@ public class App {
 //		IIT Madras,www.iitm.ac.in,7845612390,iit,16,Madras,15-12-1959
 		//split this string to array of strings
 		String[] arr1 = detail1.split(",");
-		College college1=new College();
+		College college1=new College();	//no arguments passed
 		college1.setName(arr1[0]);
 		college1.setWebsite(arr1[1]);
 		college1.setMobile(arr1[2]);

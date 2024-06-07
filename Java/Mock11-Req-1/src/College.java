@@ -14,11 +14,13 @@ public class College {
 	
 	public College()
 	{
-		
+		//create object without values.
+		//then use setter methods to set values
 	}
 	
 	public College(String name, String website, String mobile, String founder, Integer numberOfDept, String location,
 			Date startingDate) {
+		//create object and fill the values while creating the object itself
 		super();
 		this.name = name;
 		this.website = website;

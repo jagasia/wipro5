@@ -472,6 +472,207 @@ Solution:
 https://github.com/jagasia/wipro5/tree/jag/Java/Mock11-Req-1/src
 
 --------------------
+try the same in
+https://github.com/jagasia/wipro5/blob/jag/Java/Java_Mock_24.docx
+---------------------------------------------------------------------
+
+We will  start concept of OOPS
+-----------------------------------------
+Encapsulation
+Abstraction
+Inheritance
+Polymorphism
+
+What is encapsulation?
+	if you visit a showroom, to buy a vehicle (ex: car)
+	the sales person may know everything about the cars available in the showroom.
+	But he will not project all information about a car. 
+	If your interest is mileage, then he will say a particular car is the best in the industry in terms of mileage
+	he will not talk about power	( he talk about mileage, he dont talk of horse power)
+
+	So, a class can contain,
+		many data members
+		many methods
+
+	but not all are visible to other classes.
+	few classes are private		they are available within the class.
+
+	Encapsulation is hiding members inside a class
+	but "en" always is a positive one		enhance, encourage, enable, etc
+	so encapsulation is like wrapping data and methods inside a class.
+	it is like "Boxing" or wrapping or covering or enclosing
+
+how can you tell encapsulation in 2 lines?
+	wrapping data members and methods inside a class
+	hiding unnecessary details
+
+What is Abstraction?
+	the salesperson projects relevant information to the customer
+	projecting or focusing on essential things
+	or allowing users to access only those things related to them
+		public members of the class provides abstraction and focus for the customer
+
+	private is related to encapsulation
+	public is related to abstraction
+but there are more than private and public access specifiers
+	public
+	protected
+	default
+	private
+		these are the access specifiers available
+
+public	-> highest access specifier. the public members of the class are available anywhere
+protected	-> lesser than public, protected members are available within same package and also from sub classes of any package
+default	-> when we do not specify any access, it is default. Default members of a class are available within same package
+private	-> lowest access specifier. the private members are available only within same class
+
+
+What is inheritance?
+--------------------------
+	A class is created based on existing class.
+	Existing class becomes "super" class and the new one is "sub" class when sub class inherits super class
+	we are deriving a new class from another class
+	instead of creating a class from the scratch
+	we never create a class from the scratch. If you think so, remember, Object is the super class for any class we create.
+
+
+	class Employee
+	{}
+	// is similar to
+
+	class Employee extends Object
+	{}
+
+"extends" is used for inheritance
+
+
+Demo:
+import java.util.Scanner;
+
+public class Furniture {
+	private String name;
+	private String color;
+
+	public Furniture() {
+	}
+
+	public Furniture(String name, String color) {
+		super();
+		this.name = name;
+		this.color = color;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public void acceptDetails()
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Name:");
+		name=sc.nextLine();
+		System.out.println("Color:");
+		color=sc.nextLine();		
+	}
+	
+	public void displayDetails()
+	{
+		System.out.println("Name: "+name);
+		System.out.println("Color: "+color);
+	}
+}
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class Chair extends Furniture
+{
+	//tell me how many variable are there in Chair
+	//private members are not inherited
+	//public members of super class are inherited
+	//protected are available
+	//default members available if both classes are in same package
+	//private members are not available in sub class
+	
+	private int noOfLegs;
+	
+	public Chair() {}
+
+	public Chair(int noOfLegs) {
+		super();
+		this.noOfLegs = noOfLegs;
+	}
+
+	public int getNoOfLegs() {
+		return noOfLegs;
+	}
+
+	public void setNoOfLegs(int noOfLegs) {
+		this.noOfLegs = noOfLegs;
+	}
+	
+	public void acceptDetails()
+	{
+		//the overriding method hides the super class method
+		super.acceptDetails(); //must be the first line
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Number of Legs: ");
+		noOfLegs=sc.nextInt();
+	}
+	public void displayDetails()
+	{
+		super.displayDetails();
+		System.out.println("Number of legs: "+noOfLegs);
+	}
+}
+
+
+
+
+
+
+public class App {
+
+	public static void main(String[] args) {
+		Chair c=new Chair();
+		//the following methods are derived from super class
+		c.acceptDetails();
+		c.displayDetails();
+	}
+
+}
+
+
+----------------------------------------
+Task:
+-------
+
+Create a class called Shape
+it should contain
+	String borderColor, backgroundColor;
+
+Create a class called Triangle
+	
+Create a class called Rectangle
+
+Create a class called Circle
 
 
 
