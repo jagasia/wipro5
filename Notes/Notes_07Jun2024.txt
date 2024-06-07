@@ -467,6 +467,11 @@ You can go to this url in cloud lab also and open the word document in WPF docum
 Let me know once you created the College class.
 ---------------------------------------------------------------
 
+Solution:
+--------------
+https://github.com/jagasia/wipro5/tree/jag/Java/Mock11-Req-1/src
+
+--------------------
 
 
 
