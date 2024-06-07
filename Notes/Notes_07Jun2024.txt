@@ -841,7 +841,8 @@ Symbols used in regex:
 				[0-9A-Za-z]	any number of alphabet is matched
 	\d	any digit		0-9
 	\D	any non digit
-
+	|	OR operator
+	.	dot means anything. it will match anything
 multiplicity
 --------------
 	+		means 1 or more
@@ -908,6 +909,127 @@ public class App2 {
 		{
 			System.out.println("Invalid mobile number");
 		}
+	}
+
+}
+
+
+----------------------
+Activity:
+	you have the following documents
+		Java_Mock_11.docx	(Requirement 3)
+		Java_Mock_24.docx	(Requirement 2)
+
+Kindly use regex to solve these problems.
+
+
+Java_Mock_11.docx	(Requirement 3)
+-----------------------------------------------------
+static Boolean validateWebsite(String website)
+ While validating website follow the below rules,
+   
+http://www.iit.edu.in
+iit - domain name
+edu - sTLD
+in - ccTLD
+
+1. The website should start http:// or https:// protocol
+2. The website may or may not contain " www." after the protocol.
+3. The domain name should contain only alphabets, either uppercase or lowercase and should not contain any special characters.
+4. sTLD (sponsored top-level domain) should contain 2 to 6 characters
+5. ccTLD(country code top-level domain) may or may not be present in a website and it should contain 2 to 6 characters
+
+
+2
++9987643210
+2
++349478451621
+1
+caspercollege.edu
+1
+https:\\www.iitm.ac.in
+2
++919876543210
+1
+https://caspercollege+edu
+1
+https://www.iitm.ac.in
+1
+https://caspercollege.edu.
+1
+https://caspercollege.edu.in
+1
+http://www.skct.edu
+1
+www.skct.edu.in
+1
+https://www.iit_m.ac.in
+2
+919876543210
+2
++91976543210
+2
++918876543210
+
+
+
+
+static Boolean validateMobile(String mobileNo)
+Complete this now
+--------------------------
+import java.util.Scanner;
+
+public class Main {
+
+	static Boolean validateWebsite(String website)
+	{
+		String exp="http(s)?://(www.)?[A-Za-z]+[.][a-z]{2,3}([.][a-z]{2,6})?";
+		return website.matches(exp);
+	}
+	
+	static Boolean validateMobile(String mobileNo)
+	{
+		String exp="[+]91[0-9]{10}";
+		return mobileNo.matches(exp);
+	}
+	
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Menu:\r\n"
+				+ "1.Validate Website\r\n"
+				+ "2.Validate Mobile number\r\n"
+				+ "");
+		int choice=sc.nextInt();
+		String input=null;
+		switch(choice)
+		{
+		case 1:
+			System.out.println("Enter the Website to be validated:");
+			input=sc.nextLine();
+			if(input.equals(""))
+				input=sc.nextLine();
+			if(validateWebsite(input))
+			{
+				System.out.println("Website is valid");
+			}else
+			{
+				System.out.println("Website is invalid");
+			}
+			break;
+		case 2:
+			System.out.println("Enter the Mobile no. to be validated:");
+			input=sc.nextLine();
+			if(input.equals(""))
+				input=sc.nextLine();
+			if(validateMobile(input))
+			{
+				System.out.println("Mobile number is valid");
+			}else
+			{
+				System.out.println("Mobile number is invalid");
+			}
+		}
+		
 	}
 
 }
