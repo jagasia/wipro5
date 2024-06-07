@@ -1,20 +1,3 @@
 INDEX VERSION 1.131+E:\Jag\training\java\.metadata\.plugins\org.eclipse.jdt.core
-3559423655.index
-561600363.index
-3127728267.index
-2814522370.index
-1124295326.index
-173680289.index
-2687323615.index
-2134493170.index
-300795519.index
-973652023.index
-2499951800.index
-2287467648.index
-1703370312.index
-1165219157.index
-324093397.index
-1642536134.index
-3433509804.index
+2643131192.index
 1006497932.index
-826654685.index
