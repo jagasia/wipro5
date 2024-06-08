@@ -1376,7 +1376,9 @@ public class App3 {
 
 }
 -----------------------------
-
+Kindly pull these code from git
+and practise them
+Word documents with challenges are uploaded. Try them and ask support if you face challenges or errors.
 
 	
 
