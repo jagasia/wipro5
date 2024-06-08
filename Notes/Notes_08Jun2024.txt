@@ -1,3 +1,4 @@
+pending: multi-threading, file I/O
 Day #4
 ------------
 in Day number 3, we have the following pendings to be discussed.
@@ -159,6 +160,253 @@ finally block
 throw
 throws
 			
+-----------------------------------------------------
+Introduction to Collections Framework, List, Set,Map, Queue Interface, Deque Interface, Stack Class, Iterator Interface, Sorting and Searching Collections, Comparators and Comparables, Generics and Type Safety, Concurrent Collections, Synchronization and Thread Safety
+
+Collections
+--------------
+Limitations of array
+	array is fixed length
+	length must be known while creating array
+	array elements are always contiguous in memory. So we need continuous memory locations to create array
+
+
+	what is collection in java?
+		Since the arrays are fixed length, and we need to know the length of the array in prior while creating the 		array itself, we need some other datastructure, that can grow or shrink during the execution of program
+
+	
+	suppose, you create the following program:
+
+public int[] findPrimeNumbers(int from, int to)
+{
+	//write your code here...	
+	//problem here is, that you need to store the prime numbers in an array
+	//what is the size of the array?
+	int []arr=new int[10];		//now, we cant say there are only 10 prime numbers between from and to
+	int []arr=new int[Integer.MAX_VALUE];	//now, if the no of prime numbers is less than length of array, we have 						unnecessarily, created a large array
+}
+
+	So, it is bad idea to  store all prime numbers between from and to in an array
+	we need a datastructure which does not need to know the size of the ds
+
+
+Collection classes are derived from 2 category of interfaces
+
+List
+	the classes derived from List interface
+		ArrayList
+		LinkedList
+		Vector		legacy class	available from very early versions of java  (synchronized)
+		Stack
+		
+Set
+		HashSet
+		TreeSet
+		LinkedHashSet
+
+Map		//is not collection but application of collection
+		HashMap
+		TreeMap
+		LinkedHashMap
+
+
+Vector is synchronized		when multiple threads access a vector object, they are allowed one by one
+Hashtable is synchronized		when multiple threads access a vector object, they are allowed one by one
+
+Difference between List and Set
+-------------------------------------------
+List allows duplicate elements. Set rejects duplicate elements.
+List is ordered, it remembers the order in which elements are added. Set order depends on the type of the Set.
+List allows sorting the elements after being added. Set does not allow changing the order of elements
+List supports iterating forward and backward. Set supports forward iteration only.
+
+
+ArrayList
+-------------
+	is similar to array, but we do not need to know the size of array list when we create.
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class App1 {
+
+	public static void main(String[] args) {
+		List<Integer> marks=new ArrayList<>();
+		marks.add(80);
+		marks.add(90);
+		marks.add(60);
+		
+		//how to iterate all elements of a list?
+		for(Integer x:marks)
+		{
+			System.out.println(x);
+		}
+	}
+
+}
+
+we can use for-each loop to iterate all elements of a list
+but it is always good to use "iterator"
+
+the following code uses "for-each" loop and inside the loop it is removing an element that affects the boundary condition of the loop. so we get error.
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class App1 {
+
+	public static void main(String[] args) {
+		List<Integer> marks=new ArrayList<>();
+		marks.add(80);
+		marks.add(90);
+		marks.add(60);
+		
+		//how to iterate all elements of a list?
+		for(Integer x:marks)
+		{
+			if(x.equals(80))
+				marks.remove(new Integer(80));
+			System.out.println(x);
+		}
+	}
+
+}
+
+
+80
+Exception in thread "main" java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at App1.main(App1.java:13)
+
+now, we use iterator to do the same. we dont face any problem.
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class App2_Modified {
+
+	public static void main(String[] args) {
+		List<Integer> marks=new ArrayList<>();
+		marks.add(80);
+		marks.add(90);
+		marks.add(60);
+		
+		//how to iterate all elements of a list?
+		Iterator<Integer> it = marks.iterator();
+		while(it.hasNext())
+		{
+			Integer x = it.next();
+			if(x==80)
+				it.remove();
+			else
+				System.out.println(x);
+		}
+	}
+
+}
+
+
+
+So, it is recommended to use iterator to visit all elements of a collection.
+
+
+marks.remove(new Integer(80));
+	because, remove method has 2 overloaded versions
+		remove(int)	//remove element at index 
+		remove(Object)	//remove this element
+
+	remove(80);		it assume that 80 is index because it is int type
+	remove(new Integer(80));	it means, 80 is an Integer and not int
+
+
+Iterator
+	has only 3 methods
+		hasNext()
+		next()
+		remove()
+
+
+hasNext()	returns true if there is any more element to iterator
+next() returns next element
+remove() removes the current element
+
+
+List supports ListIterator to iterator forward or backward. 		Set never support ListIterator
+
+ListIterator
+	hasNext()
+	hasPrevious()
+	next()
+	previous()
+	remove()
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
+
+public class App3_ListIterator {
+
+	public static void main(String[] args) {
+		List<Integer> marks=Arrays.asList(1,2,3,4,5,6,7);
+		
+		ListIterator<Integer> it = marks.listIterator(marks.size());
+//		while(it.hasNext())
+//		{
+//			Integer x = it.next();
+//			System.out.println(x);
+//		}
+		
+		System.out.println("---------------------");
+		while(it.hasPrevious())
+		{
+			Integer x = it.previous();
+			System.out.println(x);
+		}
+	}
+
+}
+
+
+Task:
+--------
+Write a program to get infinite number of number inputs
+from the user. Stop getting input if the input is negative number.
+Once stopped getting input, print all the inputs obtained in the same order as output.
+
+	you do not know how many inputs user is going to enter. All of them are stored in a list
+
+	
+ArrayList
+LinkedList
+	both have index
+
+	how to get a particular element in the list based on index
+
+	get(index)
+	add()
+	remove(int)		by index
+	remove(Object)
+
+
+List of Objects
+	List<Employee>
+	List<College>
+	List<Contact>
+
+
+I have  done Mock 11 Req -2 
+
+
+
+
+
+
+
+
+
+
 
 
 
