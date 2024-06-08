@@ -682,8 +682,105 @@ You will do Mock29-Req-5
 		Comparable and couple of Comparator
 
 
+___________________________________________
+Map
+------
+	What is Map?
+		Map is an application of collection
+		in map, every element is called as an Entry
+		an Entry has Key and Value
+
+Task:
+------
+	Write a java program to accept a sentence as String input and display each character and its occurrence.
+
+input:
+	this sentence is typed by me
+	
+output:
+	t	3
+	h	1
+	i	2
+	s	3
+	 	5
+	e	5
+	n	2
+	c	1
+	y	2
+	p	1
+	d	1
+	b	1
+	m	1
 
 
+Hint:	use LinkedHashMap
+--------------------------------------------
+Map
+	does not have add() method
+	so use put() method
+
+put 	is used to add/update an entry
+get	is used to get a value using key
+
+	put(key,value)
+	get(key)	returns the value
+
+	to get all entries of a map,
+	use EntrySet
+
+
+Any collection can be wrapper type or object type, it cannot be primitive type
+	ex:
+		List<Integer> is ok, but List<int> is not possible
+
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
+
+public class App {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String input=sc.nextLine();
+		Map<Character, Integer> map=new LinkedHashMap<>();
+		for(Character c:input.toCharArray())
+		{
+			//if a character already is in the map,
+			//its count should be incremented and updated
+			//if a character is not found, it count will  be 1
+			//it should be added. For both put() is used
+//			map.put(c, map.getOrDefault(c, 0));
+			Integer count=map.get(c);
+			if(count==null)
+				count=0;
+			count++;
+			map.put(c, count);
+		}
+		
+		for(Entry<Character, Integer> entry:map.entrySet())
+		{
+			System.out.println(entry.getKey()+"\t"+entry.getValue());
+		}
+	}
+
+}
+
+------------------
+Mostly all mock documents req #6 will be related to Map 
+
+
+
+Date dt=new Date();
+dt.getYear();			//will not return  exact year. It will return	124 instead of 2024
+		2024-124=1900
+
+	dt.getYear()+1900
+	
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyy");
+	sdf.format(dt);		//returns a String containing 	2024
+				//convert it to int		Integer.parseInt
 
 
 
