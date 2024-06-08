@@ -396,14 +396,267 @@ List of Objects
 	List<Contact>
 
 
-I have  done Mock 11 Req -2 
+I have  done Mock 11 Req -2 and the solution is pushed to the git.
+Try the same in Mock 29 - Req -2
+
+
+------------------------------------
+Set
+	
+
+LinkedHashSet is ordered. It remembers the order in which elements added.
+
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class App {
+
+	public static void main(String[] args) {
+		Set<Integer> set=new HashSet<>();
+		set.add(100);
+		set.add(90);
+		set.add(80);
+		set.add(90);	//rejected
+		set.add(80);	//rejected
+		set.add(100);	//rejected
+		set.add(80);	//rejected
+		set.add(90);	//rejected
+		
+		System.out.println(set); //what is output
+		//order is not same as we added
+		//order of HashSet is based on
+		//hashCode method of Integer (here)
+	}
+
+}
+
+
+-----------------------------
+import java.util.Objects;
+
+public class Employee {
+	private Integer id;
+	private String name;
+	private String department;
+	private Integer salary;
+	
+	public Employee() {}
+
+	public Employee(Integer id, String name, String department, Integer salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Employee arg=(Employee) obj;
+		return this.getId().equals(arg.getId());
+	}
+	
+	
+	
+}
+
+
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class App2 {
+
+	public static void main(String[] args) {
+		Set<Employee> set=new HashSet<>();
+		set.add(new Employee(1,"Rakesh","Mech",1000000));
+		set.add(new Employee(2,"Arun","CSE",1000000));
+		set.add(new Employee(2,"Dheeraj","CSE",1000000));
+		set.add(new Employee(4,"Eswar","ECE",1000000));
+		set.add(new Employee(5,"Shreyansh","EEE",1000000));
+		
+//		System.out.println(set.size()); //output
+		//Set identifies duplicates with the help of
+		//equals() and hashCode()
+		//two employees are same if their ids are same
+		
+		for(Employee e:set)
+		{
+			System.out.println(e);
+		}
+	}
+
+}
 
 
 
 
+HashSet 
+	requires equals() and hashCode() methods to identify duplicates and the order of elements
+	while adding elements, they are not always added at the end. They are added in the  position decided by the
+	hashCode method
 
+TreeSet
+	requires Comparable or Comparator to sort the elements in a TreeSet
 
+	TreeSet maintains elements in sorted manner.
+	while adding elements, the elements need not be added at the end of the set. They are added in a position
+	decided by the Comparable or Comparator
+	
+	
+public class Employee implements Comparable<Employee>
+{
+	private Integer id;
+	private String name;
+	private String department;
+	private Integer salary;
+	
+	public Employee() {}
 
+	public Employee(Integer id, String name, String department, Integer salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Employee arg=(Employee) obj;
+		return this.getId().equals(arg.getId());
+	}
+
+	@Override
+	public int compareTo(Employee o) {
+		return this.getId().compareTo(o.getId());
+		//0 if both are same
+		//1 if first is bigger
+		//-1 if first is smaller
+		//	a-b	
+	}
+	
+	
+	
+}
+
+import java.util.Set;
+import java.util.TreeSet;
+
+public class App4 {
+
+	public static void main(String[] args) {
+		Set<Employee> set=new TreeSet<>();
+		//we cannot an element to TreeSet until that
+		//element type implements Comparable
+		//if you  want to sort something, 
+		//first it should be comparable
+		set.add(new Employee(11,"Rakesh","Mech",1000000));
+		set.add(new Employee(2,"Arun","CSE",1000000));
+		set.add(new Employee(2,"Dheeraj","CSE",1000000));
+		set.add(new Employee(6,"Eswar","ECE",1000000));
+		set.add(new Employee(5,"Shreyansh","EEE",1000000));
+		
+		for(Employee e:set)
+		{
+			System.out.println(e);
+		}
+	}
+
+}
+
+---------------------------------------
+Understand how 
+	HashSet<Employee>
+	TreeSet<Employee>
+
+Lunch Break from 13:00 to 14:00
+--------------------------------------------
 
 
 
