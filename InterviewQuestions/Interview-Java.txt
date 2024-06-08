@@ -1,0 +1,9 @@
+What is the difference between "throw" and "throws"
+	throw is used to throw an object of an exception class
+	throws is used to declare the checked exceptions that are thrown inside the method, but they  are 		not handled in this method. They are expected to be handled by the calling method
+
+What is the difference between checked and unchecked exceptions?
+	checked exceptions are classes derived from Exception class and are checked by the compiler
+	in such case, we either handle them in the method, or declare with throws clause.
+	unchecked exceptions are classes derived from RuntimeException class, so they are check at runtime
+	compiler does not check them.They can be handled or not handled or not declared as thrown

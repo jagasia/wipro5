@@ -1,0 +1,174 @@
+Day #4
+------------
+in Day number 3, we have the following pendings to be discussed.
+
+Exception Handling, Try-Catch Blocks, types of exceptions, Throwing Exceptions & catching Multiple Exceptions, Finally block,custom exceptions, Concurrency, File I/O
+
+----------------------------------
+Exception Handling
+---------------------------
+	What is exception?
+		is any abnormal event that occurs during the execution of the program.
+		in such case, if the exception is not handled, the program will terminate abruptly.
+
+	Why exception?
+		exceptions are means of communication between the person who write a method, and the person who call the method.	Need not be person. It can be between, the called method to calling method.
+
+		
+Anil Lokku is creating a method
+	class Bank	
+	{
+		public void withdraw(int amount)
+		{
+			//the amount can be less than or equal to 40k
+			//Anil knows that amount >40000 is invalid. But in such case, what to do?
+			//Anil do not want to decide what to do in that case. The decision has to be made by Sai.
+			if(amount>40000)
+			{
+				throw new NumberFormatException("Amount cannot be >40k");
+			}else
+			{
+				System.out.println("Remember to collect the cash");
+			}
+
+		}
+	}
+
+
+Sai Krishna is calling this method
+
+	public class App
+	{
+		public static void main(String args[])
+		{
+			Bank sbi=new Bank();
+			sbi.withdraw(50000);		//Sai is allowed to handle the exception here
+		}
+	}
+
+Exceptions	
+	we discuss only Runtime exceptions
+	we do not discuss about syntax errors
+	we do not discuss about logical errors
+
+class hierarchy of Exceptions is:	the following are classes
+
+Object
+	Throwable
+		Exception
+		Error
+
+
+
+Error 
+	is something which always terminate the program. 
+	Error cannot be handled
+
+Exception 
+	can be handled
+
+Exception is the super class for all exception classes
+	
+Sub classes of Exception class
+	ArithmeticException
+	NullPointerException
+	NumberFormatException
+	IOException
+	InterruptedException
+	ConcurrentModificationException
+	ArrayIndexOutOfBoundsException
+	FileNotFoundException
+	ParseException
+	
+	RuntimeException
+		this class is very important
+		the classes derived from RuntimeException are called as "unchecked" exceptions. 
+		They are not checked by the compiler
+
+
+	I recommend you to have only 1 line inside the try block
+
+	Exception
+		all classes derived from Exception are checked exceptions
+		they are checked by the compiler
+		if you throw an object of checked exception, then we need to 
+			use "throws" clause to declare that this method throws these checked exceptions, but
+			does not handle them.	The calling method is expected to handle them.
+			the above is the definition of "throws" clause.
+
+public void withdraw(int  amount) throws IOException, InterruptedException
+
+Interview question:
+--------------------------
+	What is the difference between "throw" and "throws"
+		throw is used to throw an object of an exception class
+		throws is used to declare the checked exceptions that are thrown inside the method, but they 		 			are not handled in this method. They are expected to be handled by the calling 					method
+
+	What is the difference between checked and unchecked exceptions?
+		checked exceptions are classes derived from Exception class and are checked by the compiler
+			in such case, we either handle them in the method, or declare with throws clause.
+		unchecked exceptions are classes derived from RuntimeException class, so they are check at runtime
+			compiler does not check them.	They can be handled or not handled or not declared as 				thrown
+		
+
+we can also create our own exception classes.
+	user defined checked exception class
+		is created by inheriting "Exception" class
+
+	user defined unchecked exception class
+		is created by inheriting "RuntimeException" class
+
+you may also inherit any class that are derived from the above classes.
+
+catch(Exception ex)			//this can handle any exception, because it is the super class for exception classes
+	ex.getMessage()		//the sub class must have passed the message to the super class	super(message)
+
+
+
+
+
+public class InvalidAmountException extends RuntimeException
+{
+	public InvalidAmountException() {}
+
+	public InvalidAmountException(String message) {
+		super(message);
+	}
+	
+}
+
+
+
+		try
+		{
+			sbi.withdraw(50000);
+		}catch(Exception ex)		//if there are lot of catch block, then this catch must be at the end
+		{
+			System.out.println(ex.getMessage());
+		}
+
+
+because, Exception catch can handle all exception, so
+the following catch blocks become unreachable code
+
+Activity:
+-----------
+try block
+catch block
+finally block
+throw
+throws
+			
+
+
+
+
+
+
+
+
+
+
+
+
+

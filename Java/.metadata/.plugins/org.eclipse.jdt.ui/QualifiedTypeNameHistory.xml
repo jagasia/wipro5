@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+    <fullyQualifiedTypeName name="College"/>
+    <fullyQualifiedTypeName name="Furniture"/>
+    <fullyQualifiedTypeName name="Chair"/>
+    <fullyQualifiedTypeName name="BookShelf"/>
+    <fullyQualifiedTypeName name="Triangle"/>
+    <fullyQualifiedTypeName name="Rectange"/>
+    <fullyQualifiedTypeName name="Circle"/>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="java.util.regex.Pattern"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+</qualifiedTypeNameHistroy>
