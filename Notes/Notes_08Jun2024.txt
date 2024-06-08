@@ -1061,6 +1061,321 @@ to write program to create
 and add elements to them.
 remove elements and find the order
 
+-----------------------------
+Threading
+------------------
+A program we create is executed.
+	What is meant by Process?
+		Process is a running instance of a program.
+
+	Microprocessor allocates resources for each process.
+		reasources:	time & memory
+
+	Sometime, we are not utilizing the CPU time effectively,
+
+	Some performance tuning tools like Intel V tune performance analyser suggests using multithreading to improve
+	What is a performance?
+		Effective utilization of resources is called as performance.
+
+So far, we executed programs which are single threaded processes.
+	Any program which has main method can be executed. There are programs without main method. we cannot run them.
+	So, every process definitely has a main thread.
+	main method will become main thread.
+
+How to create multi-threaded process?
+	any program with more than 1 thread, is a multi-threaded (on execution it is multi-threaded process)
+
+How to create Thread?
+	java.lang.Thread
+		A class that inherits Thread, becomes a thread
+		A class that implements Runnable interface becomes a thread
+			in both cases, we need to override "run()" method
+
+	but directly or indirectly a Thread class is always involved while creating threads.
+
+Methods of Thread
+	start()		will call the run() method
+	sleep()		makes thread wait for mentioned milliseconds
+	join()		makes all threads to wait (except those threads already running) until the current thread 				completes
+	notify()
+	notifyAll()
+	yield()
+
+Thread life cycle:
+	when a new thread object is created, it is in "new" state
+	once the thread is started using "start" method, it is in "Runnable" state.
+	when the thread is sleeping, or waiting or blocked by other threades the thread is in "Not Runnable" state
+	when the thread work is over or assigned null or the process is killed, the thread becomes dead..
 
 
+Using extends Thread method:
+------------------------------------------
+class One extends Thread
+{
+	public void run()
+	{
+		for(int i=0;i<10;i++)
+		{
+			System.out.println(Thread.currentThread().getName()+":"+i);
+			//slow down the loop by 1 second interval
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+class Two extends Thread
+{
+	public void run()
+	{
+		for(int i=10;i<20;i++)
+		{
+			System.out.println(Thread.currentThread().getName()+":"+i);
+			//slow down the loop by 1 second interval
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+public class App1 {
+
+	public static void main(String[] args) {
+		One one=new One();
+		Two two=new Two();
+		
+		one.setName("Thread 1");
+		two.setName("Thread 2");
+		
+		one.start();
+		two.start();
+		
+		
+	}
+
+}
+
+--------------------------------------------
+Same example using implements Runnable method:
+---------------------------------
+class Even implements Runnable {
+	public void run() {
+		for (int i = 2; i <= 20; i += 2) {
+			System.out.println(Thread.currentThread().getName() + ":" + i);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+class Odd implements Runnable {
+	public void run() {
+		for (int i = 1; i <= 20; i += 2) {
+			System.out.println(Thread.currentThread().getName() + ":" + i);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+public class App2 {
+
+	public static void main(String[] args) {
+		Thread t1=new Thread(new Even());
+		Thread t2=new Thread(new Odd());
+		t1.setName("Thread1");
+		t2.setName("Thread2");
+		t1.start();
+		t2.start();
+	}
+
+}
+
+
+----------------------------------
+join
+-----
+
+class Even implements Runnable {
+	public void run() {
+		for (int i = 2; i <= 20; i += 2) {
+			System.out.println(Thread.currentThread().getName() + ":" + i);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+class Odd implements Runnable {
+	public void run() {
+		for (int i = 1; i <= 20; i += 2) {
+			System.out.println(Thread.currentThread().getName() + ":" + i);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+public class App2 {
+
+	public static void main(String[] args) throws InterruptedException {
+		Thread t1=new Thread(new Even());
+		Thread t2=new Thread(new Odd());
+		Thread t3=new Thread(new Even());
+		Thread t4=new Thread(new Odd());
+		t1.setName("Thread1");
+		t2.setName("Thread2");
+		t3.setName("Thread3");
+		t4.setName("Thread4");
+		t1.start();
+		t1.join();
+		t2.start();
+		t3.start();
+//		t3.join();		//whatever thread has started will continue
+						//Others wait until started threads complete
+		t4.start();
+	}
+
+}
+
+
+
+-------------------
+Thread synchronization:
+	ensures that when multiple threads try to access a shared resource, they are allowed one by one
+		synchronized block
+		synchronized method
+
+Example for synchronized method:
+----------------------------------------------
+class MyThread extends Thread
+{
+	Maths maths;
+	public MyThread(Maths m)
+	{
+		maths=m;
+	}
+	public void run()
+	{
+		try {
+			maths.displayEven();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+
+class Maths
+{	
+	public synchronized void displayEven() throws InterruptedException
+	{
+		for(int i=2;i<20;i+=2)
+		{
+			Thread.sleep(1000);
+			System.out.println(Thread.currentThread().getName()+":"+i);
+		}
+	}
+}
+
+public class App3 {
+
+	public static void main(String[] args) {
+		Maths m=new Maths();
+		MyThread t1=new MyThread(m);
+		MyThread t2=new MyThread(m);
+		
+		t1.setName("Thread 1");
+		t2.setName("Thread 2");
+		t1.start();
+		t2.start();
+	}
+
+}
+
+--------------------
+Example for Thread synchronization using synchronized block
+------------
+class MyThread extends Thread
+{
+	Maths maths;
+	public MyThread(Maths m)
+	{
+		maths=m;
+	}
+	public void run()
+	{
+		try {
+			maths.displayEven();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+
+class Maths
+{	
+	public void displayEven() throws InterruptedException
+	{
+		System.out.println(Thread.currentThread().getName()+" entered displayEven method now");
+		for(int i=0;i<3;i++)
+		{
+			Thread.sleep(1000);
+			System.out.println(Thread.currentThread().getName()+":"+i);
+		}
+	
+		synchronized (this) {
+			System.out.println(Thread.currentThread().getName()+" entered sync block now");
+			for(int i=2;i<20;i+=2)
+			{
+				Thread.sleep(1000);
+				System.out.println(Thread.currentThread().getName()+":"+i);
+			}
+		}
+		
+		System.out.println(Thread.currentThread().getName()+" exited displayEven method now");
+	}
+}
+
+public class App3 {
+
+	public static void main(String[] args) {
+		Maths m=new Maths();
+		MyThread t1=new MyThread(m);
+		MyThread t2=new MyThread(m);
+		
+		t1.setName("Thread 1");
+		t2.setName("Thread 2");
+		t1.start();
+		t2.start();
+	}
+
+}
+
+
+	
 

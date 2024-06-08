@@ -321,3 +321,6 @@ java.util.concurrent.TimeoutException
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-08 16:17:02.840
 !MESSAGE Classpath changed for project: 08-jun-Stack-Queue
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-08 16:54:37.524
+!MESSAGE Classpath changed for project: 08-jun-thread
