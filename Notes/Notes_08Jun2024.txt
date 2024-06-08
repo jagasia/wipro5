@@ -400,6 +400,13 @@ I have  done Mock 11 Req -2 and the solution is pushed to the git.
 Try the same in Mock 29 - Req -2
 
 
+	Collections.sort(list);			//is used to sort a list
+
+	how it will be sorted if it is a List<Employee>?		based on Comparable
+
+	Suppose if we want to ask the user and decide how to sort?
+		we need Comparator
+
 ------------------------------------
 Set
 	
@@ -654,11 +661,25 @@ public class App4 {
 Understand how 
 	HashSet<Employee>
 	TreeSet<Employee>
-
-Lunch Break from 13:00 to 14:00
---------------------------------------------
+	LinkedHashSet	always maintains the order	(this is similar to List)
 
 
+	Set does not support sorting elements (after they are added).
+
+
+
+
+System.out.format("%s","India");		prints output
+System.out.printf("%s","India");			prints output and same as format method
+String.format("%s","India");			returns formatted string
+
+
+I have done Mock11-Req-5
+--------------------------------------
+
+You will do Mock29-Req-5
+	exactly same 
+		Comparable and couple of Comparator
 
 
 
