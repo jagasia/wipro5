@@ -385,10 +385,178 @@ public class App9 {
 
 }
 
+Do you remember, in our previous example, we implemented an interface 
+	Serializable
+		this interface do not have any abstract method
+
+public interface Serializable {
+}
+
+	such interfaces, that do not have any abstract method are called as "Marker interfaces"
 
 
 
 
+------------------
+Activity:
+
+Write program to 
+	read/ write bytes
+	read/ write characters
+	read/ write objects
+	access the file properties
+
+
+Java 8 concepts
+--------------------
+Lambda Expressions, Stream API, Functional Interfaces, Default Methods in Interfaces, Method References, Optional Class, Date and Time API (java.time package)
+
+
+interfaces upto java version 7		version 7 or earler
+	those interfaces can have methods without body only.	 	(abstract methods. we do not mention abstract)
+	
+let us understand "interfaces" now
+
+	see a mobile phone, there are some interfaces. example, c type pin	
+	3.5 mm jack was available in many mobiles, now it is not found in many. 	ex: 	One plus mobile 
+
+	an interface provides a support for some device.
+
+	
+in java upto 1.7 version:
+	an interface can contain 
+		only abstract methods	
+		only constants
+
+
+What is an interface?
+	provides abstraction and support or compatibility among classes
+
+	ex:
+		public void display(List<Integer> list)
+		{}
+
+		you know that "List" is an interface which is implemented by the classes 
+			ArrayList
+			LinkedList
+			Vector
+			Stack
+
+		call the above method display by passing any of the above class objects
+
+			display(new ArrayList<>());
+			display(new LinkedList<>()):
+			display(new Vector<>());
+			display(new Stack<>();
+
+
+before java8, ie., upto java 7,
+	interfaces can have method without body only.
+
+Java 8 has given new features to interface concept:
+
+	java 8 interfaces can have
+		static methods with body
+		default methods with body
+
+
+in any version, 
+	interface cannot contain variables.
+	interface can contain CONSTANTS only
+
+java 8 interfaces
+	static method with body
+	default method with body
+
+AN INTERFACE THAT CONTAINS ONLY 1 ABSTRACT METHOD
+	is called as FUNCTIONAL INTERFACE
+
+	Ex:
+		Runnable			run()
+		Comparable		compareTo()
+		Comparator		compare()
+		Predicate			test()
+	
+	all these interfaces have only 1 abstract method so they are called as Functional Interfaces
 
 
 
+For implementing functional interfaces, we do not need to create a separate class.
+	we can use lambda
+
+whenever we implement an interface that contains only 1 method, 
+	we can write that method alone using lambda
+		Comparator is a funtional interface, the only method is compare(a,b)
+
+	(a,b)->a-b
+
+
+----------------------------------------------------------------------
+Lambda is used to provide quick implementation for functional interface
+
+Task:
+	write a program that contains a list of Integers
+	use Collections.sort to sort them in descending order
+	use lambda to provide the sorting order
+
+	display the output
+
+
+
+	(a,b)->b-a
+	(a,b)->b.compareTo(a)
+
+	compare or compareTo methods return "int"
+		for integer types, we can use - symbol
+		for other types?????		we can use compareTo only
+
+Stream API
+---------------
+	is very similar to SELECT query in RDBMS
+	if SELECT statement is used to retrieve, filter, sort, grouping (aggregation) on table(s) in database,
+	stream api is used for the same in Collections in java
+
+	Stream api will not affect the collection but it may provide the modified version of that collection
+
+	It is named as Stream because, every operation, returns a stream (like cascading)
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+class MyPredicate implements Predicate<String>
+{
+
+	@Override
+	public boolean test(String t) {
+		return t.length()>4;		
+	}
+	
+}
+public class App2 {
+
+	public static void main(String[] args) {
+		List<String> countries=Arrays.asList("India","USA","Australia","Sri lanka","Bangladesh");
+		
+		List<String> countries1=new ArrayList<>(countries);
+
+		countries1.add("Pakistan");
+		countries1.add("South Africa");
+		countries1.add("Uganda");
+		countries1.add("Canada");
+		countries1.add("Afghanisthan");
+
+//		Stream<String> stream = countries1.stream();
+//		Stream<String> result = stream.filter(new MyPredicate());
+//		result.forEach(System.out::println);
+		
+		countries1.stream()
+		.filter((t)->t.length()>10)
+		.forEach(System.out::println);
+		
+	}
+
+}

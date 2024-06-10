@@ -12,7 +12,7 @@ public class App4 {
 		list.add(new Employee(4,"Eswar","ECE",1000000));
 		list.add(new Employee(5,"Shreyansh","EEE",1000000));
 		
-		Collections.sort(list);//based on Comparable
+		Collections.sort(list, (b,a)-> a.getId().compareTo(b.getId()));//based on Comparable
 		
 		
 		for(Employee e:list)
