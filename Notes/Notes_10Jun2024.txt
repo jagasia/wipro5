@@ -1,0 +1,394 @@
+Day #5:
+------------
+IO
+Lambda Expressions, Stream API, Functional Interfaces, Default Methods in Interfaces, Method References, Optional Class, Date and Time API (java.time package)
+----------------
+IO	-	Input Output
+
+What is input?
+	From a program's perspective, a program gets input.
+		a program gets input
+	Input is called as READ
+	
+What is output?
+	From a program's perspective, a program gives output.
+		a program gives output
+	Output is called as WRITE
+
+
+Input can be obtained from various SOURCEs
+Ouput can be given to various TARGETs
+
+input sources:
+	Keyboard		(System.in)
+	File		A program can READ input from a file, 
+	Socket		A program can READ input from a socket	 (Socket is used for input/output from network)
+	Buffer/ Memory	A program can READ from buffer/ memory/ clipboard
+
+
+output targets:
+	Monitor/ Screen	(System.out)	console
+	File		A program can write output to a file
+	
+
+How do we get input from use so far?	in java
+	Scanner
+Scanner sc=new Scanner(System.in);	//if i specify System.in, then i get input from keyboard
+				//that means, i have other options also instead of System.in
+
+	I am going to use the same scanner, to get input from a File also
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class App {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		File f=new File("D:\\Jag\\wipro\\June2024\\all\\Java\\praveen.txt");
+		Scanner sc=new Scanner(f);
+		String input=sc.nextLine();
+		System.out.println(input);
+	}
+
+}
+
+
+
+If you want to work on a File, then you need to represent the file in memory as an object.
+File is present in Storage
+Object is present in Memory
+
+If a program needs to read from a file (or write into the file), then the file (which is in secondary storage device) must be loaded to the memory as an object.
+
+If you want to represent a file as an object (then there should be a class)	ie., File class of java.io package
+
+Now, i am able to represent the file as object in memory,
+	i can 
+		rename the file
+		read the size of the file
+		get the parent location of the file
+		
+File object can represent a file or a folder
+	if it is a folder,
+		then you can get the list of file/folders
+
+
+import java.io.File;
+
+public class App2 {
+
+	public static void main(String[] args) {
+		File f=new File("D:\\Jag\\wipro\\June2024\\all\\Java");
+		System.out.println(f.isDirectory());
+//		String[] files = f.list();
+//		for(String file:files)
+//		{			
+//			System.out.println(file);
+//		}
+		File[] files = f.listFiles();
+		for(File file : files)
+		{
+			if(file.isDirectory())
+				System.out.println(file.getName());
+		}
+	}
+
+}
+
+
+-----------------------------------------------------------------
+explore the classes in java.io package, we can categorize them as follows:
+we have 2 important operations to perform
+Read
+	characters
+		Reader		
+	bytes
+		InputStream
+Write
+	characters
+		Writer
+	bytes
+		OutputStream
+
+
+Reader and Writer are used to read and write Characters respectively..
+InputStream and OutputStream are used to read and write Bytes respectively.
+
+Node streams refer to a specific node from which, input is read or to which output is written
+Filter streams work on node streams for additional functionality
+
+I am going to list lot of classes, one by one, you be ready to tell me what it do?
+FileInputStream		read input as bytes from a file
+FileWriter			write output as characters to a file
+FileOutputStream		write output as bytes to a file
+FileReader			read input as characters from a file
+BufferedReader		read input as characters from a memory
+BufferedWriter		write output as characters to a memory
+BufferedInputStream		read bytes as input from a memory
+BufferedOutputStream	write bytes as output to a memory
+DataInputStream		data means, primitive data. 	Read primitive type input from a source
+DataOutputStream		Write primitive data to a target.
+ObjectInputStream		to read objects from a source
+ObjectOutputStream		to write objects to a target
+
+Before java 5 version, there was no Scanner class to get input.
+So we used BufferedReader to get char inputs
+
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+-------------------------------------------------------
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class App3 {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		String x=br.readLine();
+		System.out.println(x);
+	}
+
+}
+
+-------------------------------
+source:
+C:\Users\rjaga\Pictures\paratta.jpg
+
+target:
+D:\Jag\wipro\June2024\all\Java\roti.jpg
+
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class App4 {
+	public static void main(String[] args) throws IOException {
+		File source=new File("C:\\Users\\rjaga\\Pictures\\paratta.jpg");
+		//need to read bytes from a file
+		FileInputStream fis=new FileInputStream(source);
+		byte []data=new byte[(int) source.length()];
+		fis.read(data);
+		fis.close();
+		//---------------------------
+		File target=new File("D:\\Jag\\wipro\\June2024\\all\\Java\\parotta.jpg");
+		//write all bytes to a file
+		FileOutputStream fos=new FileOutputStream(target);
+		fos.write(data);
+		fos.flush();
+		fos.close();
+		System.out.println("Done");
+	}
+}
+
+
+
+the above program reads all bytes from a  file and write them to a new file.
+But if the  file is huge, the file is present in secondary storage device but when loading entire content in memory,
+memory is comparatively smaller.
+
+So, we need to read 1 byte at a time and write that 1 byte to the target file.
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class App5 {
+	public static void main(String[] args) throws IOException, InterruptedException {
+		File source=new File("C:\\Users\\rjaga\\Pictures\\paratta.jpg");
+		FileInputStream fis=new FileInputStream(source);
+		File target=new File("D:\\Jag\\wipro\\June2024\\all\\Java\\raja.jpg");
+		FileOutputStream fos=new FileOutputStream(target);
+		int data=-1;
+		while((data=fis.read())!=-1)
+		{
+			fos.write(data);
+			fos.flush();
+			Thread.sleep(100);
+		}
+		fos.close();
+		//---------------------------
+		System.out.println("Done");
+	}
+}
+
+
+------------------------------
+
+Note:
+File f=new File("D:\\Jag\\wipro\\June2024\\all\\Java\\praveen.txt");
+	the file path in above line is "Full qualified path".
+	this is poor idea. When we upload project to another computer, there may not be d:
+	so the file path should always be relative path
+		\\files\\abcd.txt
+	this is relative path. From current location, we refer, and this will work always fine.
+	so avoid, full  qualifed path.
+
+Flush method
+	is used to reflect the changes in object to the secondary storage device
+	if .close() method is called, close will call flush automatically
+	if program ends normally, the program will close the file automatically.
+	so we do not find any difference by using flush method.
+
+	but in a GUI application where the page is displayed for long time, the program does not close
+	so it wont call close method and hence it wont call flush method. in that case, your file will not be ready
+
+	if a program opens a file, then other programs are not allowed to open the file. So close the file asap
+
+
+
+How to write multiple data in a file
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class App6 {
+
+	public static void main(String[] args) throws IOException {
+		File f=new File("praveen.dat");
+		DataOutputStream dos=new DataOutputStream(new FileOutputStream(f));
+		dos.writeInt(101);
+		dos.writeFloat(2.3f);
+		dos.writeBoolean(true);
+		dos.writeChar('A');
+		
+		dos.flush();
+		dos.close();
+		
+	}
+
+}
+
+
+
+
+
+
+How to read multiple data from a file
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class App7 {
+
+	public static void main(String[] args) throws IOException {
+		File f=new File("praveen.dat");
+		DataInputStream dis=new DataInputStream(new FileInputStream(f));
+		int i=dis.readInt();
+		float fl=dis.readFloat();
+		boolean b=dis.readBoolean();
+		char c=dis.readChar();
+		
+		System.out.println(i);
+		System.out.println(fl);
+		System.out.println(b);
+		System.out.println(c);
+		
+	}
+
+}
+
+
+now, if the order of read is changed, then it is collapsed.
+
+So, better in such cases, create a Class that has these data members and write objects to the file using
+ObjectOutputStream
+
+
+
+import java.io.Serializable;
+
+public class Employee
+{
+	int id;
+	float average;
+	boolean isPermanent;
+	char grade;
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", average=" + average + ", isPermanent=" + isPermanent + ", grade=" + grade
+				+ "]";
+	}
+	
+}
+
+
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class App8 {
+
+	public static void main(String[] args) throws IOException {
+		Employee e=new Employee();
+		e.id=123;
+		e.average=9.4f;
+		e.isPermanent=true;
+		e.grade='B';
+		
+		File f=new File("krishn.dat");
+		ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(f));
+		oos.writeObject(e);
+		oos.flush();
+		oos.close();
+		
+	}
+
+}
+
+
+//Error:
+Exception in thread "main" java.io.NotSerializableException: Employee
+
+Employee class is not serializable so we cannot write an object of Employee to any stream.
+
+import java.io.Serializable;
+
+public class Employee implements Serializable
+{
+	int id;
+	float average;
+	boolean isPermanent;
+	char grade;
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", average=" + average + ", isPermanent=" + isPermanent + ", grade=" + grade
+				+ "]";
+	}
+	
+}
+
+
+
+Now, lets write a program to read object from the file
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class App9 {
+
+	public static void main(String[] args) throws IOException, ClassNotFoundException{
+		File f=new File("krishn.dat");
+		ObjectInputStream ois=new ObjectInputStream(new FileInputStream(f));
+		Employee emp=(Employee) ois.readObject();
+		System.out.println(emp);
+	}
+
+}
+
+
+
+
+
+
+
+
