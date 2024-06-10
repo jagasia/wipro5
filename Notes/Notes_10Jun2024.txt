@@ -571,3 +571,134 @@ public class App2 {
 --------------------------------------------------------------------
 Task:
 	use stream api to filter the collection based on different condition using .filter(predicate)
+
+	make it interesting with List<Employee> or any user defined type
+	so that you can give conditions like
+		.filter((t)->t.getDepartment().equals("EEE"))
+
+---------------------------------------------------------
+Method reference
+-----------------------
+	::
+	this method reference operator is introduced in java 8
+
+	this allows us to use any method, whose signature is matching to provide the quick implementation of functional interface.
+
+	in lambda, we provide the logic for implementing a functional interface
+	but in method reference, a method is already there, then make use of that method for funtional interface
+
+
+
+
+
+
+
+
+interface Person
+{
+	void speak();		//this method is public
+}
+class Student implements Person
+{
+	void speak()		//mistake. this method must be public only
+	{
+		
+	}
+}
+-------------------------------------
+in any version of Java, the following is possible
+
+interface Person
+{
+	void speak();
+}
+class Student implements Person
+{
+	public void speak()
+	{
+		System.out.println("Student speak");
+	}
+}
+public class App {
+
+	public static void main(String[] args) {
+		Person raja;		//this is not an object of Person
+							//it is a reference variable
+							//which can be assigned any implementation of Person
+		
+		raja=new Student();
+		raja.speak();
+	}
+
+}
+
+
+-----------------------------
+
+
+interface Person
+{
+	void speak();
+	
+}
+class Student implements Person
+{
+	public void speak()
+	{
+		System.out.println("Student speak");
+	}
+}
+class Teacher
+{
+	public void abcd()
+	{
+		System.out.println("Teacher speak");
+	}
+	
+	public static void run()
+	{
+		System.out.println("Teacher run");
+	}
+}
+public class App {
+
+	public static void main(String[] args) {
+		Person raja;		//this is not an object of Person
+							//it is a reference variable
+							//which can be assigned any implementation of Person
+		
+//		raja=new Student();
+//		raja.speak();
+//		
+//		Teacher jag=new Teacher();
+//		raja=jag::abcd;			//method reference (instance)
+		
+//		raja.speak();
+		
+		raja=Teacher::run;		//static method reference
+		raja.speak();
+	}
+
+}
+-------------------------
+Task:
+	Create an interface Maths		
+		int sum(int i, int j);
+	
+	Create a class Mathematics (does not implements Maths interface)
+		method:
+			int add(int i, int j);			//method name is add
+
+	in App, main method,
+		use method reference to assign add method to Maths interface
+		call the sum method and check
+
+
+
+
+
+
+
+
+
+
