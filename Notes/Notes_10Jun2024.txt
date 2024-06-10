@@ -520,6 +520,12 @@ Stream API
 
 	It is named as Stream because, every operation, returns a stream (like cascading)
 
+	Some operations in stream are called as "intermediate" operations. They return another stream only.
+		ex:		filter, sorted, etc
+	Some operations in stream are called as "terminal" operations. They are used to
+		either collect the result (or)		.collect()
+		print the result			.forEach(System.out::println);
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -560,3 +566,8 @@ public class App2 {
 	}
 
 }
+
+
+--------------------------------------------------------------------
+Task:
+	use stream api to filter the collection based on different condition using .filter(predicate)
