@@ -766,8 +766,12 @@ public class App {
 
 }
 
+----------------------
+Refer the above example
+and try to get aggregation based on group using Stream API
 
-
+University - Requirement 6
+	use Stream api to solve this problem.
 
 
 
