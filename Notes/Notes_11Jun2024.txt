@@ -245,21 +245,75 @@ public class MathematicsTest {
 
 -------------------
 Try this  by yourself in your cloud lab.
+	demo code is pushed to git. Use it for reference
+
+------------------------------------------------------------
+we have used 
+	assertEquals
+	assertNotEquals
+	assertNull
+	assertNotNull
+	assertSame
+	assertNotSame
+
+-----------------------------------------------
+use @Ignore annotation to ignore a specific test
+	@Test
+	@Ignore
+	public void testDifference() {
+		int expected=-1;
+		cut.difference();
+		int actual = cut.getResult(); 
+		assertEquals(expected, actual);
+	}
+
+
+Test Suite
+-------------
+	A test suite contains test cases
+	or a collection of test cases is called as Test Suite
+
+In a project where there are multiple test classes, 
+	you may want to run specific test classes alone.
+	ex:	there are 5 tets classes
+		you want to run 1st, 2nd, 4th test classes alone
+	how do you do that?
+
+	ans:	Test Suite
+
+	in Test Suite, we can include the specific test classes alone and run the test suite instead of test class.
 
 
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+public class TestSuite1 {
+
+}
+
+in the above test suite, how many test classes are included?	0
+
+Now,
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+@RunWith(Suite.class)
+@SuiteClasses({MathematicsTest2.class,MathematicsTest3.class})
+public class TestSuite1 {
+
+}
+
+the above test suite contains 2 test classes
+	so totally, 4 test cases
 
 
-
-
-
-
-
-
-
-
-
-
+Task:
+	Create multiple test classes
+	and create a test suite that include specific test classes alone and 	
+	Run the test suite to check only those test cases are performed.
 
 
 

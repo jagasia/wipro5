@@ -5,15 +5,15 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class MathematicsTest {
+public class MathematicsTest4 {
 	Mathematics cut;
 	
 	@Before		//called before every test
 	public void setup()
 	{
 		cut=new Mathematics();
-		cut.setNo1(2);
-		cut.setNo2(3);
+		cut.setNo1(22);
+		cut.setNo2(32);
 	}
 	
 	@After 		//called after every test
