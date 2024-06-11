@@ -28,9 +28,13 @@ public class MyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		String name=request.getParameter("name");
-		String dept=request.getParameter("dept");
-		out.println("Hello "+name+"! you belong to "+dept);
+//		String name=request.getParameter("name");
+//		String dept=request.getParameter("dept");
+//		out.println("Hello "+name+"! you belong to "+dept);
+		int no1=Integer.parseInt(request.getParameter("no1"));
+		int no2=Integer.parseInt(request.getParameter("no2"));
+		String output = String.format("The sum of %d and %d is %d",no1,no2,no1+no2);
+		out.print(output);
 	}
 
 	/**

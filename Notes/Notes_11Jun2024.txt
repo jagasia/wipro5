@@ -631,8 +631,58 @@ We can provide lot of information in URL separated by &
 http://localhost:8080/11-jun-web-1/MyServlet?name=Praveen&dept=ECE
 	Hello Praveen! you belong to ECE
 
+http://localhost:8080/11-jun-web-1/MyServlet?no1=2&no2=3
 
 Task:
 	Write a servlet that captures 2 number inputs and display the sum of them
 
 	2+3 = 5		(not 23)
+
+
+------------------------
+Instead of entering the inputs in browser address bar, we will enter the inputs in html form
+
+we will create a jsp file which allows html code.
+
+
+Error:
+Several ports (8005, 8080) required by Tomcat v10.1 Server at localhost (2) are already in use. The server may already be running in another process, or a system process may be using the port. To start this server you will need to stop the other process or change the port number(s).
+
+	we have 2 options:
+		clear the processes running in that port and retry
+			cmd:		netstat -aon			
+					find the pid of the process running in port 8080
+					go to task manager and end the task for that  pid
+		or
+		change the port in which we run
+			
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="MyServlet">
+	Number 1:<input type="number" name="no1" /><br/>
+	Number 2:<input type="number" name="no2" /><br/>
+	<input type="submit" />
+</form>
+</body>
+</html>
+
+
+
+
+
+in servlet do Get
+
+		int no1=Integer.parseInt(request.getParameter("no1"));
+		int no2=Integer.parseInt(request.getParameter("no2"));
+		String output = String.format("The sum of %d and %d is %d",no1,no2,no1+no2);
+		out.print(output);
+
