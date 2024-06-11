@@ -379,7 +379,72 @@ Whatever categories are included, those category tests are performed from the su
 ---------------------------------------
 Complete the above task, after that we learn "Parameterized Test"
 
+---------------------------------------------------------------
+What is parameterized test suite?
+	suppose, if we have an arraylist of values that can be used as test cases,
+	then a single test method can be executed for each element in the array list.
 
+some conventions to be followed for parameterized test
+	constructor to inject the parameterized test values
+	a static method that returns array list for test values
+
+
+
+Demo:
+
+
+public class Mathematics {
+	public int sum(int i, int j)
+	{		
+		return i+j;
+	}
+}
+
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+@RunWith(Parameterized.class)
+public class MathematicsTest {
+	int no1;
+	int no2;
+	int expectedValue;
+	Mathematics maths=new Mathematics();
+		
+	public MathematicsTest(int no1, int no2, int expectedValue) {
+		super();
+		this.no1 = no1;
+		this.no2 = no2;
+		this.expectedValue = expectedValue;
+	}
+
+
+	@Test
+	public void testSum() {
+		assertEquals(expectedValue, maths.sum(no1, no2));
+	}
+
+	@Parameterized.Parameters
+	public static Collection populateValues()
+	{
+		 return Arrays.asList(new Object[][] {
+	         { 2, 3, 5 },
+	         { 6, 3, 9 },
+	         { 19, 1, 20 },
+	         { 2, 1, 3 },
+	         { 23, 1, 24 }
+	      });
+	}
+}
+-----------------------------
+Follow the same steps to create parameterized test
 
 
 
