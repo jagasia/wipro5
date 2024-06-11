@@ -686,3 +686,130 @@ in servlet do Get
 		String output = String.format("The sum of %d and %d is %d",no1,no2,no1+no2);
 		out.print(output);
 
+-----------------------------
+Session management:
+	client side options
+	server side options
+
+what is session management
+	ability to retain some information across round trips
+
+	suppose, i select country in a dropdownlist
+	then all states of that country is populated to another dropdownlist.
+	i select state in the dropdownlist
+	all districts are loaded
+
+	every time, i select, the request goes to the server and comes back as response.
+	every response brings a new version of the page. So old information will be lost
+	
+State management or session management 
+	is used to share some information across roundtrips
+	across requests between same page
+	across different pages
+	
+scope of session
+	page	
+	request
+	session
+	application
+	server
+
+from one page to another page
+	jsp means, you can use hyperlink		<a href=
+
+	servlet to servlet
+		response.sendRedirect("two");
+	while redirecting, how to share some information?
+		query string		?key=value
+
+	client side state management
+		query string
+		cookies
+		hidden form fields
+
+
+	HttpCookie
+		setMaxAge	millis
+		response.addCookie(cookie);
+
+	if one servlet stores value  in a cookie, then
+	any other servlet can access the value of cookie
+
+example is done in "11-jun-web-2" project	
+----------------------------------------------
+Filters
+	filters intercept the request and response
+	filter stands in between the client and the servlet
+	we can make a filter that receives the requests to particular servlet(s), and decide to allow or reject the request.
+
+Demo:
+	You have done a servlet. now, prove
+	that your servlet takes very minimal time to respond.
+
+	in servlet, we can find the time when doGet starts (first line)
+	in the last line, find the time
+		the difference between these first and last line can be considered as the time taken by the servlet
+	But we do not want to disturb the servlet code.
+
+	so we introduce a filter and check this time taken by the servlet.
+
+
+
+1) create a servlet
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+2) http://localhost:8080/11-jun-filter-demo/MyServlet
+	it took 2 seconds to print the output
+
+3) create a servlet that will intercept the requests to this servlet
+	right click project
+		-> add ->new filter -> give name of filter
+			-> in url mapping click add button	and choose the servlet name
+			tick "request" and if required all 
+
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		// place your code here
+
+		// pass the request along the filter chain
+		//before
+		long from=System.currentTimeMillis();
+		chain.doFilter(request, response);
+		long to=System.currentTimeMillis();
+		long diff=to-from;
+		System.out.println("The time taken by servlet is "+diff);
+		//after
+	}
+4) restart and run the Servlet
+	observe that whenever request comes to servlet
+	the filter prints the time taken
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
