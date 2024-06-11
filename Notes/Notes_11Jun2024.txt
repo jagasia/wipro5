@@ -1,0 +1,272 @@
+Day #6:
+----------
+"Introduction to Junit, Setting Up Junit, Writing Test Cases, Assertions, Test Fixtures
+Parameterized Tests, Test Suites"
+----------------------
+18-Jun-2024	Milestone Assessment 1
+
+--------------------------------------------------------------
+What is Testing?
+	the points i got from you all,
+		finding errors
+		checking quality
+		verifying and validating
+		checking source code whether it works correctly
+		verification of various cases
+		
+	Testing is done in different stages of Software Development Life Cycle	(SDLC)
+		Testing ensures that the product is developed as per the requirements or not.
+
+Testing the requirements whether they are feasible or not.	(all requirements may not be possible to implement)
+Testing the requirements whether they are testable or not.
+Testing the development process.
+Testing the testing process itself.
+Testing the code.
+
+
+Testing the requirements whether they are feasible or not.	
+	some requirements may not be possible to implement
+	some requirements are not definable. For example, the client says, i will accept the project only if it come well.
+		this is not definable. How do you define the project is good or bad?	
+		there should be metrices to measure and decide.
+
+Testing the requirements whether they are testable or not.
+	if the following test is passed, then i would agree (Acceptance testing)
+
+The development process and stages are tested. If you follow these processes, then the outcome will be good.
+	
+The testing process itself is tested. In what stages, what type of tests are performed.
+
+Finally, the code is tested.
+
+Thus, the testing team starts working even before the development team starts working.
+
+Earlier the bugs are identified, lesser the code of reworking.
+
+Types of tesing:
+---------------------
+	Unit Testing
+	Manual Testing
+	Automated Testing
+	White / Glass box Testing
+	Black box Testing
+	Integration Testing
+	Functional Testing
+	Acceptance Testing
+	System Testing
+	Regression Testing
+	Usability Testing
+	Stress Testing
+
+Regression Testing
+	after testing, we find bugs.
+	the bugs are reported to the programmer. They work on that and provide solutions.
+	Now, after reworking, there may be side effects. So we do thorough testing again (regression testing).
+
+White/ Glass box testing is done to check the code quality
+Black box or Functional testing is done to check the expected output vs actual output (testcases)
+	we are going to do this only
+
+Unit Testing
+	is a type of functional testing where every single unit is tested
+	we learn this today "Junit" for unit testing
+
+After all individual units are tested, the "Integration" testing is performed to check if the individual units are able to work together.
+
+Introduction to JUnit:
+-----------------------------
+	this is used for testing java programs.
+	junit library can be added to our project
+		and start testing the code
+
+	we will consider the class which is going to tested as "Class Under Test"
+	normally, in testing terminology
+		Software under test		SUT
+		Application under test	AUT
+
+
+	JUnit versions
+		v3
+		v4
+		Jupiter
+
+
+
+
+
+Demo:
+	1) Create a Java Project	11-jun-junit
+	2) Create a class 
+		Mathematics
+			no1
+			no2
+			result
+				constructors
+				getters and setters
+			
+		sum()
+		difference()
+
+	3) Create a Junit test case 
+		Right click project -> New -> Junit test case
+			choose Junit version (i choose v4)
+			enter the name of the class 	MathematicsTest
+			Class Under Test		Mathematics
+				next -> 	choose sum and difference methods
+			finish
+
+	4) write the code inside the test methods
+
+
+
+------------------------
+For classes under test, a separate package
+For testing, we can use a separate package
+
+Now understand, that we can do testing our code in many ways
+But why do we follow junit?
+	we can separate, the actual project code
+	from the testing code.
+
+	secondly, we have option 
+		to Run the project (or)
+		to Test the project
+
+	both are 2 different activities.	We do not mix the testing code with our actual code.
+
+
+TDD
+	Test Driven Development
+		write the test cases or code to fail
+		modify the test cases or code to pass
+		refactor the code	(means, modify the structure of the program without affecting the logic)
+
+
+Junit uses lot of
+	Assert methods
+
+
+
+
+Demo:
+----------
+
+public class Mathematics {
+	int no1;
+	int no2;
+	int result;
+	
+	public Mathematics() {}
+
+	public Mathematics(int no1, int no2, int result) {
+		super();
+		this.no1 = no1;
+		this.no2 = no2;
+		this.result = result;
+	}
+
+	public int getNo1() {
+		return no1;
+	}
+
+	public void setNo1(int no1) {
+		this.no1 = no1;
+	}
+
+	public int getNo2() {
+		return no2;
+	}
+
+	public void setNo2(int no2) {
+		this.no2 = no2;
+	}
+
+	public int getResult() {
+		return result;
+	}
+
+	public void setResult(int result) {
+		this.result = result;
+	}
+	
+	public void sum()
+	{
+		result=no1+no2;
+	}
+	
+	public void difference()
+	{
+		result=no1-no2;
+	}
+}
+
+
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class MathematicsTest {
+	Mathematics cut;
+	
+	@Before		//called before every test
+	public void setup()
+	{
+		cut=new Mathematics();
+		cut.setNo1(2);
+		cut.setNo2(3);
+	}
+	
+	@After 		//called after every test
+	public void tearUp()
+	{
+		//use this space to close connections
+	}
+	
+	@Test
+	public void testSum() {
+		int expected=5;
+		cut.sum();
+		int actual = cut.getResult(); 
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testDifference() {
+		int expected=-1;
+		cut.difference();
+		int actual = cut.getResult(); 
+		assertEquals(expected, actual);
+	}
+
+}
+
+-------------------
+Try this  by yourself in your cloud lab.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

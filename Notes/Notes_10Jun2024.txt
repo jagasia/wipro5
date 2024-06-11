@@ -923,10 +923,16 @@ public class App {
 
 
 ------------------------------------------
-Mock 29 Req 6
-	Use Stream API to solve this.
+What is Optional Class and what are the methods?
 
-----------------------------------------------------
+Lambda Expressions, Stream API, Functional Interfaces, Default Methods in Interfaces, Method References, Optional Class, Date and Time API (java.time package)
+
+java.time package
+	LocalDate
+	LocalTime
+
+what are the methods?
+
 
 
 
