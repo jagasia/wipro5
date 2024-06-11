@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MathematicsTest {
 	Mathematics cut;
@@ -23,6 +24,7 @@ public class MathematicsTest {
 	}
 	
 	@Test
+	@Category(Admin.class)
 	public void testSum() {
 		int expected=5;
 		cut.sum();
@@ -32,13 +34,12 @@ public class MathematicsTest {
 
 	@Test
 //	@Ignore
+	@Category(User.class)
 	public void testDifference() {
 		int expected=-1;
 		cut.difference();
 		int actual = cut.getResult(); 
 		assertEquals(expected, actual);
-		
-		
 	}
 
 }

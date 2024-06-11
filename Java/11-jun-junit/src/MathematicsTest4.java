@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MathematicsTest4 {
 	Mathematics cut;
@@ -23,6 +24,7 @@ public class MathematicsTest4 {
 	}
 	
 	@Test
+	@Category(User.class)
 	public void testSum() {
 		int expected=5;
 		cut.sum();
@@ -32,6 +34,7 @@ public class MathematicsTest4 {
 
 	@Test
 //	@Ignore
+	@Category(User.class)
 	public void testDifference() {
 		int expected=-1;
 		cut.difference();

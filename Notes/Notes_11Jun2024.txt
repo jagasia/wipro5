@@ -315,6 +315,71 @@ Task:
 	and create a test suite that include specific test classes alone and 	
 	Run the test suite to check only those test cases are performed.
 
+--------------------------------------------------------
+Test suite can be of various types
+	Categorized suite
+		allows us to define some categories
+		and specifically run certain categories
+	
+	Parameterized suite
+		allows us to use lot of test cases to be run on a single test method
+
+
+Categorized suite
+--------------------------
+	Suppose, if there are 4 test class, each having couple of test cases / methods
+	we can categorize these methods and choose to run specific category (categories)
+
+For each category, we create an interface
+
+Steps:
+1) create couple of interfaces
+	Admin
+	User
+2) use these categories in test methods
+@Test
+	@Category(Admin.class)
+	public void testSum() {
+		int expected=5;
+		cut.sum();
+		int actual = cut.getResult(); 
+		assertEquals(expected, actual);
+	}
+
+	@Test
+//	@Ignore
+	@Category(User.class)
+	public void testDifference() {
+		int expected=-1;
+		cut.difference();
+		int actual = cut.getResult(); 
+		assertEquals(expected, actual);
+		
+		
+	}
+
+
+3) create a testsuite
+
+import org.junit.experimental.categories.Categories;
+import org.junit.experimental.categories.Categories.IncludeCategory;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite.SuiteClasses;
+
+@RunWith(Categories.class)
+@SuiteClasses({MathematicsTest.class,MathematicsTest2.class, MathematicsTest3.class, MathematicsTest4.class})
+@IncludeCategory({User.class})
+public class TestSuite2 {
+
+}
+
+
+Whatever categories are included, those category tests are performed from the suite classes.
+
+---------------------------------------
+Complete the above task, after that we learn "Parameterized Test"
+
+
 
 
 
