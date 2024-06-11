@@ -2,6 +2,10 @@ Day #6:
 ----------
 "Introduction to Junit, Setting Up Junit, Writing Test Cases, Assertions, Test Fixtures
 Parameterized Tests, Test Suites"
+
+"Servlet Lifecycle, Handling HTTP Requests and Responses, Session Management, Servlet Filters
+JSP Syntax and Expression Language (EL), JSP Standard Actions, Model-View-Controller (MVC) Architecture"
+
 ----------------------
 18-Jun-2024	Milestone Assessment 1
 
@@ -444,13 +448,191 @@ public class MathematicsTest {
 	}
 }
 -----------------------------
-Follow the same steps to create parameterized test
+Follow the same steps to create parameterized test----------------------
+---------------------------------
+"Servlet Lifecycle, Handling HTTP Requests and Responses, Session Management, Servlet Filters
+JSP Syntax and Expression Language (EL), JSP Standard Actions, Model-View-Controller (MVC) Architecture"
+
+
+So far what we were developing were "Console Applications"
+Java, can be used to develop other type of applications also.
+	Web Applications
+
+What is a web application?
+	application softwares that are accessed using web browsers are called as Web applications
+	How does it differs from website?	Websites that contains code that produce dynamic output are web applications.
+	If the program runs in server and the output is sent to browser, then it is server side script
+	If the program is sent to the browser and runs in the browser, then it is client side script
+
+If there is no script to produce dynamic output, then it is static website.
+
+We learn Servlets and JSPs in java, to create dynamic web projects using server side scripts. Still we can include client side cripts using javascript
+
+Javascript
+Vbscript
+	are languages to create program that runs in browser
+	they are called as client side script.
+
+JSP
+ASP
+PHP
+Servlet
+	are used to create server side script
+	they run in the server and the outputs are sent to browser
+
+
+if you display the time using 
+	client side script, then it will run in client's browser and the client system time will be displayed
+	server side script, then it will run in server and display the server's time in browser
+
+in a project, the database will be available only in server and not in client. 
+So server side script is important.
+
+
+Lab setup
+-------------
+	Eclipse usually comes with
+		Eclipse for Java developer	(this is not useful for advance java, servlet, jsp etc)
+		Eclipse for Java EE developer (enterprise, web developer)
+			this is required for adv java
+
+	Spring tool suite 
+		we may add the web enterprise developer plugin
+
+	for creating web applications using java, we need "Server"
+	Apache tomcat server
+		is free and popular server for dynamic web projects using java
+		Before downloading this, we need to check eclipse for "Which version of apache" is supported
 
 
 
+File -> New -> Project
+	Dynamic Web Project		(this option will not be available in Eclipse for Java Developer)
+		Project name:	11-jun-web-1
+		Target runtime:	<None>	click the "New Runtime" button
+
+				Apache
+					check the latest version supported by eclipse/sts
+		10 and 10.1 are last versions available
+		Lets download apache tomcat 10
+		https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.24/bin/apache-tomcat-10.1.24-windows-x64.zip
+
+		choose 64 bit windows zip
+
+extract it from downloads folder
+	to D:\Softwares folder
+
+How to use apache tomcat server in our dynamic web project
+	File -> New -> Dynamic Web Project
+		project name: 	11-jun-web-1
+		Target runtime:	<None>		click the "New Runtime" button
+		choose apache
+			Apache Tomcat 10.1
+
+	
+	in your softwares folder, apache tomcat folder
+	copy the URL of the folder where you can see "bin" folder
+
+	paste this url in apache tomcat folder -> Finish.
+
+Now, we have created our first dynamic web project
+
+	Eclipse / sts will ask you to change to "Web" Perspective
+		in eclipse a perspective is a set of relevant windows
+----------------------------
+What is a Servlet?
+	Servlet is a web component created using Java language
+	A class that inherits HttpServlet is called as a servlet
+		HttpServlet extends GenericServlet	
+			so most of the methods of GenericServlet are used by HttpServlet
+			methods like
+				doGet
+				doPost
+			are called as service methods
 
 
+A servlet life cycle:
+	The apache tomcat server provides a container.
+	What is a container?
+		it is a special JVM
+		that provides runtime environment for servlets and jsps to run
+		container provides generic services, the services that are common for any applications.
+		we will have to write application specific services
+
+	servlet life is started when its instance is created
+	container will create a pool of instances usually 100 objects of servlet
+		calls the init method once
+
+	every time, a request comes to servlet,
+	the service method is called.
+		if the request is "GET" request
+			doGet method is executed
+		if the request in "POST" request
+			doPost method is executed
+
+	finally, when the servlet is undeployed, then "destroy" method is called
+
+	
+init
+service
+destroy
 
 
+in our first demo,
+	we create a servlet and run it 
+
+create a servlet
+	package name: 	view
+	class name:	MyServlet
+
+	right click the code and run as -> Run on server
+
+now, see the browser output for the url
+	http://localhost:8080/11-jun-web-1/MyServlet
+		Served at: /11-jun-web-1
+
+----------------------------------
+Task:
+	create a dynamic web project
+		create a servlet
+			run the project
+
+Tell me the issues you face.
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		PrintWriter out = response.getWriter();
+		String name=request.getParameter("name");
+		out.println("Hello "+name);
+	}
+
+http://localhost:8080/11-jun-web-1/MyServlet?name=Sai
+	Hello Sai
+
+http://localhost:8080/11-jun-web-1/MyServlet?name=Praveen
+	Hello Praveen
 
 
+?key=value		this is called a Query String		or 	URL rewriting
+
+http://localhost:8080/11-jun-web-1/MyServlet?name=Praveen&dept=ECE
+
+We can provide lot of information in URL separated by &
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		PrintWriter out = response.getWriter();
+		String name=request.getParameter("name");
+		String dept=request.getParameter("dept");
+		out.println("Hello "+name+"! you belong to "+dept);
+	}
+
+http://localhost:8080/11-jun-web-1/MyServlet?name=Praveen&dept=ECE
+	Hello Praveen! you belong to ECE
+
+
+Task:
+	Write a servlet that captures 2 number inputs and display the sum of them
+
+	2+3 = 5		(not 23)
