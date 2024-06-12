@@ -84,7 +84,11 @@ Expression Language
 ----------------------------
 	It is shortly called as "EL"
 	is used instead of expressions	<%= %>
-	${ 	}
+	${ 20*20	}	=>		400
+	${param.message }	=>		request.getParameter("message");
+
+	EL will ignore if the expression returns null
+	
 
 Demo:
 ---------
@@ -187,4 +191,94 @@ the form is submitted to the servlet and the servlet get inputs
 add them
 the result should be sent back to the same jsp file
 the result should be displayed below the form
+
+-------------------------------------------------------------------------------
+MVC		is a design pattern
+	Model		=> code that defines data or access data		
+	View		=> presentation, any input or output, display, pages, it can be console or web or windows
+	Controller		=> allows views to access model from anywhere in the world
+
+
+Model
+	code that defines data
+	code that access data
+
+View
+	input or output
+	presentation
+	User Interface
+	no matter, it is CUI or GUI, it can be view
+
+Controller
+	if controller is not there, then mode and view must be in same machine or virtual machine or JVM
+	controller is between view and model and makes it accessible through internet
+
+
+Demo:
+
+model
+	entity class		data definition
+	dao class			data access
+
+view
+	jsp file to get input or display output
+
+controller
+	servlet
+		any form submitted in jsp, is posted to the controller
+		controller will process the inputs obtained from jsp
+		the output will be sent to the jsp
+
+
+
+
+package name
+	<<com/org>>.<<companyname/orgname>>.<<groupname>>
+
+	com.wipro.hrms		company
+	org.apache.tomcat		organisation
+
+
+
+we need to configure this dwp in such a way, all requests received, 
+must be received by one servlet called as "DispatcherServlet"
+	this configuration can be done in "web.xml"
+	web.xml		this is a deployment descriptor file. This is the only configuration file in dwp
+
+	if web.xml is not found inside
+		src/main/webapp/WEB-INF folder
+	then right click project
+		Java EE tools	-> Generate Deployment Descriptor Stub
+
+
+i have create a "HomeController" servlet with url pattern as "/"
+/ means, / anything
+
+http://localhost:8080/12-jun-mvc-1/
+http://localhost:8080/12-jun-mvc-1/abcd
+http://localhost:8080/12-jun-mvc-1/HomeController
+
+all these urls are received by one servlet called "HomeController"
+
+
+Refer to this project
+	12-jun-mvc-1
+
+we have configured the servlet with url mapping as "/"
+so all requests are received by this servlet (DispatcherServlet)
+this servlet can obtain the url path
+	and based on the path it can redirect to the appopriate jsp file
+
+
+
+
+
+
+
+
+
+		
+
+
+
 
