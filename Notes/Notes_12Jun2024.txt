@@ -1,0 +1,190 @@
+Day #7:
+----------
+JSP Syntax and Expression Language (EL), JSP Standard Actions, Model-View-Controller (MVC) Architecture
+
+JSP
+	Java Server Pages
+	how is JSP different from Servlets?
+		Servlets and JSP both are java web components that run in server and the output is sent to browser.
+		JSP, at rutime, is translated into servlet and executed. So both are actually same.
+		But, when we write more java code and embed the html inside the java code, we use "Servlets"
+		when we write more HTML code and inside that, we write java code, then we use "JSP"
+
+
+Demo:
+	create a dynamic web project "12-jun-jsp"
+	add a jsp file "index.jsp" 
+	write some text inside the <body> tag
+	run the jsp file (Run on Server)
+	see the output in browser
+
+Implicit objects of JSP:
+	out			represents an object of PrintWriter
+	response
+	request
+	session
+	application
+	page
+	exception
+
+
+JSP basics
+	<%	%>		scriplet. It allows us to write java code inside jsp
+	<%=	%>		expression. It is used to display something. expressions are only for output
+	<%--	%>		comment. the commented portion is ignored.
+	<%!	%>		declaration. The variables declared here are useful anywhere in this page
+	<%@	%>		directive. There are only 3 directives in JSP. (page, include, taglib)
+
+All of them are used in below example:
+
+<%@page import="java.util.Date"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<%!
+	int age=20;
+	String name="Raja";
+%>
+
+<%-- The Date and time now is <%	
+		Date dt=new Date();
+		out.println(dt);
+%> --%>
+
+<%=20*10 %>
+<br/>
+<%=new Date() %>
+
+</body>
+</html>
+
+
+---------------------
+JSP Standard actions
+	action tags are prefixed with jsp
+	they are differentiated from html tags
+
+	<jsp:useBean>		used to get instance of any bean. Bean is nothing but a reusable java code
+	<jsp:out>			prints output
+	<jsp:include>		include another jsp page content here
+	<jsp:forward>		forward to another jsp from here to there
+
+these are the action tags used in jsp
+what is an action tag?
+	action tags are custom tags created already in jsp, they are prefixed with "jsp"
+
+
+Expression Language
+----------------------------
+	It is shortly called as "EL"
+	is used instead of expressions	<%= %>
+	${ 	}
+
+Demo:
+---------
+
+
+
+http://localhost:8080/12-jun-jsp/login?username=krishna&password=moorthy
+
+	whenever we use GET method, the data is visible in the browser's address bar.
+	this is a privacy issue, so we need to use POST method.
+
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" action="login">
+	Username:<input type="text" name="username" /><br/>
+	Password:<input type="password" name="password" /><br/>
+	<input type="submit" value="Login" />
+</form>
+</body>
+</html>
+
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//among request and response, which is used to get input?
+		String username=request.getParameter("username");
+		String password=request.getParameter("password");
+		PrintWriter out = response.getWriter();
+		out.println("You entered "+username+" and "+password);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+
+after modification:
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username=request.getParameter("username");
+		String password=request.getParameter("password");
+		PrintWriter out = response.getWriter();
+		out.println("You entered "+username+" and "+password);
+	}
+
+
+Understand the difference between the HTTP methods
+	GET
+	POST
+	PUT
+	DELETE
+	PATCH
+
+in mvc and servlets projects, 
+	GET
+	POST
+
+other methods are used in RESTful webservices
+
+------------------
+Now, in the above example, if username is "krishna" and password is "moorthy" then login should be successful.
+Otherwise, You need to display "Login failed. Click here to go to login page"
+
+Login successful message should come in green color.
+
+If login is failed, the message "Login Failed" in red color, should be displayed in login page itself.
+
+from servlet to jsp	
+	response.sendRedirect("index2.jsp");
+
+
+Task:
+	create a jsp file
+	Number 1:_____________________
+	Number 2:_____________________
+	<<Add>>
+
+When you click add button, 
+the form is submitted to the servlet and the servlet get inputs
+	request.getParameter
+add them
+the result should be sent back to the same jsp file
+the result should be displayed below the form
+
