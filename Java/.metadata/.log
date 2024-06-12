@@ -732,3 +732,12 @@ Caused by: org.eclipse.lsp4j.jsonrpc.ResponseErrorException: The request (id: 23
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 14:50:36.029
 !MESSAGE Classpath changed for project: 12-jun-spring-1
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 15:23:40.098
+!MESSAGE Classpath changed for project: 12-jun-spring-2
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 15:23:40.568
+!MESSAGE Classpath changed for project: 12-jun-spring-2
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 15:23:40.568
+!MESSAGE Boot project ADDED: 12-jun-spring-2

@@ -580,19 +580,232 @@ public class App
 }
 8) Run as "Java Application"
 ------------------------------
+<bean id="emp" class="com.wipro.demo.Employee">
+		<property name="id" value="123" />
+		<property name="name" value="Shreyansh" />
+		<property name="department" value="CSE" />
+		<property name="salary" value="989898" />		
+	</bean>
+
+		whenever you use <property> tag
+			Spring first creates an object of Employee 	(using no argument constructor)
+				and then use setter methods to inject 	id, name, department, salary
+
+		
+	<bean id="emp" class="com.wipro.demo.Employee">
+		<constructor-arg name="id" value="123" />
+		<constructor-arg name="name" value="Shreyansh" />
+		<constructor-arg name="department" value="CSE" />
+		<constructor-arg name="salary" value="989898" />		
+	</bean>
+		whenever you use <constructor-arg> tag
+			Spring create the object of Employee using constructor with arguments
+
+
+
+------------------------------------------------------------------------------------------
+
+public class Employee {
+	private Integer id;
+	private String name;
+	private String department;		
+	private Integer salary;
+
+}
+
+in above Employee class, the department is a String
+suppose, if we need to have more information about department
+then "department" will become an object of Department class
+
+class Department
+{
+	Integer id;
+	String name;
+	Integer budget;
+}
+
+Now, the Employee class is modified as:
+public class Employee {
+	private Integer id;
+	private String name;
+	private Department department;		
+	private Integer salary;
+
+}
+
+Employee has Department
+Department is a part of Employee
+	this kind of relationship can be
+		Aggregation (or)
+		Composition
+
+Aggregation
+	A has B but A and B can exist indepently
+
+Composition
+	A has B but B cannot exist without A
+
+In both cases, 
+	A depends on B		and B is injected to A
+
+--------------------------------------------
+Ater this change (what change?		Department is part of Employee
+
+package com.wipro.demo;
+
+public class Department {
+	private Integer id;
+	private String name;
+	private Integer budget;
+	
+	public Department() {}
+
+	public Department(Integer id, String name, Integer budget) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.budget = budget;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getBudget() {
+		return budget;
+	}
+
+	public void setBudget(Integer budget) {
+		this.budget = budget;
+	}
+
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", name=" + name + ", budget=" + budget + "]";
+	}
+	
+}
+	
+
+
+
+package com.wipro.demo;
+
+public class Employee {
+	private Integer id;
+	private String name;
+	private Department department;
+	private Integer salary;
+	
+	public Employee() {}
+
+	public Employee(Integer id, String name, Department department, Integer salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary + "]";
+	}
+	
+}
 
 
 
 
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="dept" class="com.wipro.demo.Department">
+		<property name="id" value="100" />
+		<property name="name" value="ECE" />
+		<property name="budget" value="2000000" />
+	</bean>
+
+	<bean id="emp" class="com.wipro.demo.Employee">
+		<property name="id" value="123" />
+		<property name="name" value="Shreyansh" />
+		<property name="department" ref="dept" />
+		<property name="salary" value="989898" />		
+	</bean>
+</beans>
 
 
 
+package com.wipro.demo;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	//get object ref or  xml config
+    	ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
+    	Employee employee= (Employee) ctx.getBean("emp");
+    	System.out.println(employee);
+        System.out.println( "Hello World!" );
+    }
+}
 
 
-
-
-
-
+----------------------------------------------------------
 
 
 
