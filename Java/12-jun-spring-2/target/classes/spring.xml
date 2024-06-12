@@ -5,16 +5,16 @@
    xsi:schemaLocation = "http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="dept" class="com.wipro.demo.Department">
+	<bean id="department" class="com.wipro.demo.Department">
 		<property name="id" value="100" />
 		<property name="name" value="ECE" />
 		<property name="budget" value="2000000" />
 	</bean>
 
-	<bean id="emp" class="com.wipro.demo.Employee">
+	<bean id="emp" class="com.wipro.demo.Employee" autowire="byName" scope="prototype" >
 		<property name="id" value="123" />
 		<property name="name" value="Shreyansh" />
-		<property name="department" ref="dept" />
+		<!-- <property name="department" ref="d1" /> -->
 		<property name="salary" value="989898" />		
 	</bean>
 </beans>

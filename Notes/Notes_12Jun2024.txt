@@ -806,6 +806,52 @@ public class App
 
 
 ----------------------------------------------------------
+Dependency Injection
+	When there is a composition / aggregation relationship between beans
+		for ex:		Employee has Department
+			we can inject an object Department into the object of Employee
+		this is called dependency injection.
+
+		it can be done either:
+			using constructor with argument
+			using setter method
+
+
+Autowiring
+	the ability of the bean to automatically find the dependent beans 
+		byName
+		byType
+
+
+
+byName
+	is useful, when multiple eligible beans are found, then by the name of the bean, it is injected
+byType
+	is useful, when there is only one eligible bean found, irrespective of the name of the bean, it is injected
+
+--------------------------------------
+Scope of the bean
+	by default, the scope of the bean is "singleton" only
+	we can change it to "prototype"
+
+What is singleton?
+	there exists only 1 object of a bean
+		even if you use "getBean" method multiple times,
+		we are going to the reference to a single bean
+
+What is prototype?
+	everytime you "getBean" you get a new instance
+
+
+
+
+
+
+
+
+
+
+
 
 
 

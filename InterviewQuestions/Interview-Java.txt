@@ -7,5 +7,17 @@ What is the difference between checked and unchecked exceptions?
 	in such case, we either handle them in the method, or declare with throws clause.
 	unchecked exceptions are classes derived from RuntimeException class, so they are check at runtime
 	compiler does not check them.They can be handled or not handled or not declared as thrown
-
 Difference between  List and Set.
+
+Spring framework:
+	What is dependency injection?
+	What are the 2 types of DI?
+		by constructor 
+		by setter
+	What is Autowiring?
+		byName
+		byType?
+	Scope of the bean?
+		singleton
+		prototype
+

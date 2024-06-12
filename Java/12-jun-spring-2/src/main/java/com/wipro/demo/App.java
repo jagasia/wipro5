@@ -12,8 +12,16 @@ public class App
     {
     	//get object ref or  xml config
     	ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
-    	Employee employee= (Employee) ctx.getBean("emp");
-    	System.out.println(employee);
-        System.out.println( "Hello World!" );
+    	Employee e1= (Employee) ctx.getBean("emp");
+    	Employee e2= (Employee) ctx.getBean("emp");
+    	e1.setName("Eswar");	
+    	e2.setName("Parvathi");	
+    	
+    	System.out.println(e1.getName());
+    	
+    	
+    	
+    	
+    	
     }
 }
