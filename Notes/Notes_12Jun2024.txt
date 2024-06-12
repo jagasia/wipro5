@@ -843,6 +843,191 @@ What is prototype?
 	everytime you "getBean" you get a new instance
 
 
+----------------------------------------------------------------------------
+So far, we have created spring configuration using xml file.
+
+Now, instead of using XML configuration, we are going to use ANNOTATIONS
+
+wherever, you see xml, in java, there will be an alternative using Annotations.
+
+last time, we used xml file and in xml file, we configured "Employee" class as a bean using <bean> tag.
+But now, that we do not use xml file, 
+HOW CAN WE MARK A CLASS AS A BEAN USING ANNOTATION?
+	There are 2 ways, we can mark as class as a bean:
+		i) @Component
+		ii) @Bean
+Where to use which of the above annotations?
+
+	If you are marking a class as a Bean ( in the class definition, ie., the source code of the class)
+		then above the class, use @Component
+
+
+Example code:
+
+package com.wipro.demo;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Department {
+	@Value("1")
+	private Integer id;
+	@Value("CSE")
+	private String name;
+	@Value("12121212")
+	private Integer budget;
+	
+	public Department() {}
+
+	public Department(Integer id, String name, Integer budget) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.budget = budget;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getBudget() {
+		return budget;
+	}
+
+	public void setBudget(Integer budget) {
+		this.budget = budget;
+	}
+
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", name=" + name + ", budget=" + budget + "]";
+	}
+	
+}
+
+
+
+
+package com.wipro.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("emp")
+public class Employee {
+	@Value("124")
+	private Integer id;
+	@Value("Anil")
+	private String name;
+	@Autowired
+	private Department department;
+	@Value("121212")
+	private Integer salary;
+	
+	public Employee() {}
+
+	public Employee(Integer id, String name, Department department, Integer salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary + "]";
+	}
+	
+}
+
+
+
+
+
+package com.wipro.demo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	//we cannot use ClassPathXMLConfiguration here, because,
+    	//we are not using xml configuration. So we use following:
+    	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext();
+    	//since we are not using configuration class
+    	ctx.scan("com.wipro.demo"); 	//base location where bean classes are present
+    	//"com" is sufficient		any sub class containing bean will  be found
+    	//base package name is enough
+    	ctx.refresh();
+    	Employee emp=(Employee) ctx.getBean(Employee.class);
+    	
+    	System.out.println(emp);
+    	
+    	System.out.println("Hello world");
+    }
+}
+
+
+---------------------------------------------
+
+
+
+
+
+
 
 
 
