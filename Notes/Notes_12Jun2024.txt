@@ -1,5 +1,7 @@
 Day #7:
 ----------
+Introduction to Hibernate, Implementing Hibernate program and implementing CRUD operations, Spring Framework – history features and getting started, Spring Framework – Dependency injection and Contexts, Spring Framework – Configurations, Scope – singleton and prototype, Spring AOP – Introduction, terminologies and advices, Spring AOP – Exception handling, Spring MVC – architecture, view resolvers, Dispatcher, request and response management.
+
 JSP Syntax and Expression Language (EL), JSP Standard Actions, Model-View-Controller (MVC) Architecture
 
 JSP
@@ -269,15 +271,99 @@ so all requests are received by this servlet (DispatcherServlet)
 this servlet can obtain the url path
 	and based on the path it can redirect to the appopriate jsp file
 
+-------------------------
+Introduction to Hibernate, Implementing Hibernate program and implementing CRUD operations, Spring Framework – history features and getting started, Spring Framework – Dependency injection and Contexts, Spring Framework – Configurations, Scope – singleton and prototype, Spring AOP – Introduction, terminologies and advices, Spring AOP – Exception handling, Spring MVC – architecture, view resolvers, Dispatcher, request and response management.
+-------------------------------------------------------
+Introduction to Hibernate
+---------------------------------
+How many of you heard about hibernate? If yes, tell me what do you know about hibernate?
+	Hibernate is a framework for ORM
+ORM	Object Relational Mapping
+	what is Relation?
+		any row column format data is a relation
+		since table is also row column format, a table is a relation
+		the result of a query is also a relation
+
+	in database, there is a table (ex: EMPLOYEE)
+	in java, there is a class (ex: Employee)
+
+	there are 4 columns in EMPLOYEE table
+		ID, NAME, DEPARTMENT, SALARY
+	there are 4 properties in Employee class
+		id, name, department, salary
+
+
+	A row in the EMPLOYEE table can be compared to a property in Employee class.
+
+	if there are 20 rows in EMPLOYEE table, then
+	List<Employee> can have 20 objects in an array list
+
+ORM concept is implement by Java Persistence API concept.
+	JPA concept is used to create a framework called "Hibernate"
 
 
 
+Activity:
+-----------
+Open techademy 
+	"Mastering Maven: Java Build Tool"
 
+Finish the maven chapter in techademy before lunch. If completed, then learn JDBC also.
+After lunch, we will use maven to create hiberate and spring projects.
 
+--------------------------------------------
+Introduction to Hibernate, Implementing Hibernate program and implementing CRUD operations
 
+	Hibernate f/w gives us lot of .jar files (library files) that are needed to be included to our project.
+But in maven, these jar files are used as maven dependencies.
+
+1) we will create a maven project.
+	in pom.xml		(Project Object Model)
+		we will add the hibernate dependencies
+
+2) hibernate.cfg.xml
+	this xml file configures the connection details	to connect with a specific database
+		url
+		username
+		password
+		driver class name
+		dialect			choose mysql dialect
+
+3) entity class
+	this class is mapped to a table in the database
+
+4) we can either create xml based hibernate mapping file		entity.hbm.xml
+	or
+		use annotations instead of xml hbm
+
+5) get session factory using xml (hibernate.cfg.xml)
+	from session factory, get session
+	open the session
+		do the needful		CRUD
+		for transactions, commit or rollback
+	close the session
 
 
 		
+demo (without maven. by adding jars)
+-------------------------------------------------
+1) create a java project "hibernate-demo-1"
+2) add hibernate jars to this project
+	right click project
+		properties
+			Java Build path
+				libraries
+					add external jars
+			choose the jar files (D:\Jag\wipro\June2024\all\Java\hibernate-demo-1\bin\jars)
+	ensure that the jar files are first copied to your project "bin" folder and then reference them in build path
+3) Employee.java
+	this is the entity class
+	
+
+
+
+
+
 
 
 
