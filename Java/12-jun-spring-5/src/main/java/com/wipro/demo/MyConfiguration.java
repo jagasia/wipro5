@@ -15,7 +15,7 @@ public class MyConfiguration {
 	}
 	
 	@Bean
-	public Employee emp()
+	public Employee emp()	//emp is the name of the bean
 	{
 		Employee emp=new Employee();
 		emp.setId(111);

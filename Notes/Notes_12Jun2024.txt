@@ -1223,76 +1223,213 @@ public class App
     public static void main( String[] args )
     {
     	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(MyConfiguration.class);
+	//Employee emp=(Employee) ctx.getBean(Employee.class);	//(or)
     	Employee emp=(Employee) ctx.getBean("emp");
     	System.out.println(emp);
     	
     }
 }
 
-
 -----------------------------------------------------------------------------
+why you call a class as a Bean?
+	it can be plugged into any type of project
+	so it must be a simple class	(as POJO is a simple class)
+	it should not be complicated with super class or interface (as much as possible)
+	it should not use anything specific to a particular type of project	
+		ex:		Scanner
+				System.out.println
+		
+------------------------------------------------------------------------------
+Now, i am going to introduce the concept of coupling
+	tightly coupling
+	loosely coupling
+
+class Sony
+{
+	public void play()
+	{
+		System.out.println("Sony plays good music");
+	}
+}
+
+class Jbl
+{
+	public void play()
+	{
+		System.out.println("Jbl music is very nice");
+	}
+}
+class Car
+{
+	Sony sony;				//this is called as tightly coupled
+	//constructors
+	//getters and setters
+	public void playMusic()
+	{
+		sony.play();
+	}
+}
+in the above example, The car has an sony audio system. Why this is called as tightly coupled?
+it is called as tightly coupled because, There are 2 type of audio systems available : Sony, Jbl
+	but the car has coupled with sony only.
+how can i inject Jbl system into the car?	It is not possibe.
+
+How can i make this loosely coupled??????????
+
+interface Audio
+{
+	public void play();
+}
+class Sony implements Audio
+{
+	public void play()
+	{
+		System.out.println("Sony plays good music");
+	}
+}
+
+class Jbl implements Audio
+{
+	public void play()
+	{
+		System.out.println("Jbl music is very nice");
+	}
+}
+class Car
+{
+	Audio audio;			//this is loosely coupled. We may inject Sony or Jbl here.......
+					//we may inject anything that implements Audio
+	//constructors
+	//getters and setters
+	public void playMusic()
+	{
+		sony.play();
+	}
+}
 
 
 
+//
+
+Audio audio;
+audio=new Sony();		//possible
+audio=new Jbl();		//possible
+
+Shape s=new Circle();
+	List<Integer> marks=new ArrayList<>();		//List is an interface. ArrayList is a class that implements List
+
+---------------------------------------------------------------------------------
+12-jun-loosely-coupled
+
+package com.wipro.demo.beans;
+
+public interface Audio {
+	void play();
+}
+
+
+package com.wipro.demo.beans;
+
+import org.springframework.stereotype.Component;
+
+@Component("sony")
+public class Sony implements Audio{
+	public void play()
+	{
+		System.out.println("Sony plays good music");
+	}
+}
 
 
 
+package com.wipro.demo.beans;
+
+import org.springframework.stereotype.Component;
+
+@Component("jbl")
+public class Jbl implements Audio
+{
+	public void play()
+	{
+		System.out.println("Music from jbl speakers are nice");
+	}
+}
 
 
 
+package com.wipro.demo.beans;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Car {
+	@Autowired
+	@Qualifier("sony")
+	private Audio audio;	
+	
+	public Car() {}
+
+	
+	public Car(Audio audio) {
+		super();
+		this.audio = audio;
+	}
+
+
+	public Audio getAudio() {
+		return audio;
+	}
+
+
+	public void setAudio(Audio audio) {
+		this.audio = audio;
+	}
+
+
+	public void playMusic()
+	{
+		audio.play();
+	}
+}
 
 
 
+package com.wipro.demo.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = {"com"})
+public class MyConfiguration {
+
+}
 
 
 
+package com.wipro.demo;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.wipro.demo.beans.Car;
+import com.wipro.demo.config.MyConfiguration;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(MyConfiguration.class);
+    	Car car = ctx.getBean(Car.class);
+    	car.playMusic();
+        System.out.println( "Hello World!" );
+    }
+}
 
 
 
