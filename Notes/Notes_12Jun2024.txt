@@ -312,53 +312,330 @@ Finish the maven chapter in techademy before lunch. If completed, then learn JDB
 After lunch, we will use maven to create hiberate and spring projects.
 
 --------------------------------------------
-Introduction to Hibernate, Implementing Hibernate program and implementing CRUD operations
+Spring Framework – history features and getting started
 
-	Hibernate f/w gives us lot of .jar files (library files) that are needed to be included to our project.
-But in maven, these jar files are used as maven dependencies.
-
-1) we will create a maven project.
-	in pom.xml		(Project Object Model)
-		we will add the hibernate dependencies
-
-2) hibernate.cfg.xml
-	this xml file configures the connection details	to connect with a specific database
-		url
-		username
-		password
-		driver class name
-		dialect			choose mysql dialect
-
-3) entity class
-	this class is mapped to a table in the database
-
-4) we can either create xml based hibernate mapping file		entity.hbm.xml
-	or
-		use annotations instead of xml hbm
-
-5) get session factory using xml (hibernate.cfg.xml)
-	from session factory, get session
-	open the session
-		do the needful		CRUD
-		for transactions, commit or rollback
-	close the session
+This concept of ORM/ Persistence, and many other concepts like Scalability, Security, Transaction, etc
+were provided by Enterprise Java Beans (EJB)
+That ejb was little complicated so they consider EJB as "Winter" season (they consider winter is difficult to live)
+To simplify the EJB, they introduced a framework which they consider as a "Spring" season of EJB
+	that framework is called as "Spring Framework"	logo of Spring is Grean Leaf (light green in front of dark)
 
 
-		
-demo (without maven. by adding jars)
--------------------------------------------------
-1) create a java project "hibernate-demo-1"
-2) add hibernate jars to this project
-	right click project
-		properties
-			Java Build path
-				libraries
-					add external jars
-			choose the jar files (D:\Jag\wipro\June2024\all\Java\hibernate-demo-1\bin\jars)
-	ensure that the jar files are first copied to your project "bin" folder and then reference them in build path
-3) Employee.java
-	this is the entity class
+Spring framework provides lot of modules
+	Spring Core
+	Spring AOP
+	Spring MVC
+	Spring REST
+	Spring Security
+
+Spring Core
+	bean management
+	what is a bean?
+		in java, if you  create a reusable piece of code, it is called as bean
+		in other languages like c# or vb.net, they are called as "Components"
+		so, a component created in java language is called as "Bean"
+		in spring, f/w, "Component", "Bean" both are same only.
+
+
+	in any project, whatever services are common to any project, they are called as "Generic Services"
+	These generic services are provided by "Container" of the f/ws.
+	In Spring f/w, there is a container called as "IOC" container, which will take care of generic services.
+
+	What is a container?
+		is a special JVM
+		it provides runtime env for a bean to execute
+		provides runtime services also.
+			persistence
+			scalability
+			security
+			transaction management
+			life cycle of beans
+
+
+What is life cycle of bean?
+	The bean must be
+		created
+		passivated
+		activated
+		destroyed
+	by the container to maintain the scalability of the application
+
+Story:
+	suppose, if you create an object of a class and call a method "validateLogin" to check if login is success or failure
+	for every use who login, an object is required
+	for 1M users how many objects required?	1M objects
+	These objects are created in the memory of the server. So server will hang. 
+	It is important that the server should be able to handle the requests no matter, the no of requests are high or low.
+	this ability to handle more or less requests is called as Scalability
+
+	Your object works fine with 1 user at a time
+	but in real production, it will be more users.
+
+	Who will handle this?	Spring f/w will  handle this
+	How?		it will maintain a pool of instances	around 100 objects 
+		if 101st user comes to login?		
+			it will find the most idle object and
+				claim its space for the 101st user.
+				meanwhile, the idle object's state is stored in secondary storage device (passivation)
+			if that idle user, becomes active, then
+			again another idle user is passivated and that space is claimed
+				a new object is created and filled with the state claimed from the secondary storage
+					this is (activation)
+	Onething now, you understand in spring f/w we are NOT going to create object of bean
+		we will get bean from spring f/w
+		so since spring takes care of create, passivate, activate, destroy the bean,
+		we do not worry about the scalability
+
+	in a project, you create a class which has some useful methods like
+			CRUD		addEmployeeToDb	updateEmployeeToDb, tec
+	this useful class can be used in any type of project, (web application, webservice, mobile application)
+		then this is a BEAN		because, it is a component 
+			to be frank, a bean is a class
+
+	What is scalability?
+		ability to handle the increase or decrease in demand
+		if i need more, i subscribe more. if i need less, i subscibe less
+		ability to provision or deprovision based on requirement
+		ability to scale to the increasing or decreasing need
+
+	as bean developer, you focus on the logic that you need to write. Generic services are taken care by spring fw
+
+-------------------------------------------
+First thing we learn in spring framework	
+	is to create a class as a "Bean"
+	a class becomes "Bean", if you configure it as a bean
+	by configuring a class as a bean, you can "getBean" from spring IOC container, (instead of creating an object by yourself)
+
+------------------------------------------
+Maven
+	has a central / remote repository
+		all the jars are present in that repository
+
+
+		https://mvnrepository.com/
+
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>6.1.8</version>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>6.1.8</version>
+</dependency>
+
+
+these dependencies are added to the pom.xml of our maven project
+
+
+maven maintains all jars in your local computer in 
+	C:\Users\rjaga\.m2\repository
+
+once you use these above dependencies in pom.xml
+	maven downloads these relevent jar files to the .m2 
 	
+for all projects, only 1 copy of jars maintained in your .m2 folder
+if you add new dependency in pom.xml, it will be downloaded
+if any dependency you add, and the corresponding .jar files are already there in .m2 folder,
+maven will  not download them.
+
+only those jar not found in .m2 are downloaded
+============================================Spring f/w first demo========================
+======================================================================================
+--------------------------------------------------
+Steps for our 1st spring project (using maven)
+1) in eclipse/ sts, 
+	File -> New -> Project
+			Maven Project	-> Next
+2) choose "org.apache.maven.archetypes" 		"maven-archetype-quickstart"	-> Next
+3) Group id:	(this can be same for multiple projects. All these projects become a group)
+	com.wipro.demo
+Artifact id:	(this is the project name)
+	12-jun-spring-1
+Package:	same as group id
+Finish to create the project
+-------------------
+4) add the spring dependencies to "pom.xml"
+	<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>6.1.8</version>
+		</dependency>
+
+		<!--
+		https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>6.1.8</version>
+		</dependency>
+
+5) create a bean:
+	com.wipro.demo 
+		Employee
+package com.wipro.demo;
+
+public class Employee {
+	private Integer id;
+	private String name;
+	private String department;
+	private Integer salary;
+	
+	public Employee() {}
+
+	public Employee(Integer id, String name, String department, Integer salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary + "]";
+	}
+	
+}
+
+6) create a spring configuration file
+	in src/main/java		(not inside any package) Right click src/main/java and create xml file
+		spring.xml
+
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="emp" class="com.wipro.demo.Employee">
+		<property name="id" value="123" />
+		<property name="name" value="Shreyansh" />
+		<property name="department" value="CSE" />
+		<property name="salary" value="989898" />		
+	</bean>
+</beans>
+
+7) App.java
+	in main method
+		get Bean of "emp" and display:
+
+package com.wipro.demo;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	//get object ref or  xml config
+    	ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
+    	Employee employee= (Employee) ctx.getBean("emp");
+    	System.out.println(employee);
+        System.out.println( "Hello World!" );
+    }
+}
+8) Run as "Java Application"
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
