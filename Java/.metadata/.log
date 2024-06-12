@@ -768,3 +768,57 @@ Caused by: org.eclipse.lsp4j.jsonrpc.ResponseErrorException: The request (id: 23
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 16:16:47.674
 !MESSAGE Boot project ADDED: 12-jun-spring-3
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 16:25:08.105
+!MESSAGE Classpath changed for project: 12-jun-spring-4
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:25:08.112
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:25:08.113
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:25:08.113
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:25:08.114
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:25:08.118
+!MESSAGE The given URI https://jakarta.ee/xml/ns/validation/validation-configuration-3.0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:25:08.120
+!MESSAGE The given URI http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_1.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 16:25:08.429
+!MESSAGE Classpath changed for project: 12-jun-spring-4
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 16:25:08.429
+!MESSAGE Boot project ADDED: 12-jun-spring-4
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 16:28:26.998
+!MESSAGE Classpath changed for project: 12-jun-spring-5
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:28:27.004
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:28:27.004
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:28:27.005
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:28:27.005
+!MESSAGE The given URI https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:28:27.008
+!MESSAGE The given URI https://jakarta.ee/xml/ns/validation/validation-configuration-3.0.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-06-12 16:28:27.010
+!MESSAGE The given URI http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_1.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 16:28:27.302
+!MESSAGE Classpath changed for project: 12-jun-spring-5
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-12 16:28:27.302
+!MESSAGE Boot project ADDED: 12-jun-spring-5

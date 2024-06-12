@@ -1022,7 +1022,215 @@ public class App
 
 
 ---------------------------------------------
+12-jun-spring-4
 
+now, we create a configuration class and specify the base package where the beans are scanned.
+
+package com.wipro.demo;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = {"com"})
+public class MyConfiguration {
+
+}
+
+
+
+package com.wipro.demo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(MyConfiguration.class);
+    	Employee emp=(Employee) ctx.getBean(Employee.class);
+    	System.out.println(emp);
+    	
+    }
+}
+
+
+No changes in Department and Employee class.
+--------------------------------------------------------------------------------------
+I told you that we can mark as class as a Bean using
+	@Component		(or)
+	@Bean
+
+now, i will show you, how to use @Bean annotation to mark a class as a bean
+	@Bean annotation can be used on a method only	(that method is present inside a configuration class)
+
+12-jun-spring-5
+-----------------------
+
+package com.wipro.demo;
+
+public class Department {
+	private Integer id;
+	private String name;
+	private Integer budget;
+	
+	public Department() {}
+
+	public Department(Integer id, String name, Integer budget) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.budget = budget;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getBudget() {
+		return budget;
+	}
+
+	public void setBudget(Integer budget) {
+		this.budget = budget;
+	}
+
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", name=" + name + ", budget=" + budget + "]";
+	}
+	
+}
+
+
+
+package com.wipro.demo;
+
+
+public class Employee {
+	private Integer id;
+	private String name;
+	private Department department;
+	private Integer salary;
+	
+	public Employee() {}
+
+	public Employee(Integer id, String name, Department department, Integer salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary + "]";
+	}
+	
+}
+
+
+package com.wipro.demo;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = {"com"})
+public class MyConfiguration {
+
+	@Bean
+	public Department dept() //method name is the bean name
+	{
+		return new Department(11,"IT",989898989);
+	}
+	
+	@Bean
+	public Employee emp()
+	{
+		Employee emp=new Employee();
+		emp.setId(111);
+		emp.setName("Sai Charan");
+		emp.setDepartment(dept());
+		emp.setSalary(1212121);
+		return emp;
+	}
+}
+
+
+package com.wipro.demo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(MyConfiguration.class);
+    	Employee emp=(Employee) ctx.getBean("emp");
+    	System.out.println(emp);
+    	
+    }
+}
+
+
+-----------------------------------------------------------------------------
 
 
 
