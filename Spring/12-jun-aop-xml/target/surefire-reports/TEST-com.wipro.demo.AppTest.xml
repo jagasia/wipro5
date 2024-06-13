@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.wipro.demo.AppTest" time="0.02" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="D:\Jag\wipro\June2024\all\Spring\12-jun-aop-xml\target\test-classes;D:\Jag\wipro\June2024\all\Spring\12-jun-aop-xml\target\classes;C:\Users\rjaga\.m2\repository\org\springframework\spring-context\5.2.7.RELEASE\spring-context-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-beans\5.2.7.RELEASE\spring-beans-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-core\5.2.7.RELEASE\spring-core-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-jcl\5.2.7.RELEASE\spring-jcl-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-expression\5.2.7.RELEASE\spring-expression-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-context-support\5.2.7.RELEASE\spring-context-support-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-aop\5.2.7.RELEASE\spring-aop-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\aspectj\aspectjrt\1.9.5\aspectjrt-1.9.5.jar;C:\Users\rjaga\.m2\repository\org\aspectj\aspectjweaver\1.9.5\aspectjweaver-1.9.5.jar;C:\Users\rjaga\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Asia/Calcutta"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.boot.library.path" value="D:\Softwares\sts-4.21.1.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.10.v20240120-1143\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\rjaga\AppData\Local\Temp\surefire18222457957347225813\surefirebooter-20240613151019446_3.jar C:\Users\rjaga\AppData\Local\Temp\surefire18222457957347225813 2024-06-13T15-10-19_182-jvmRun1 surefire-20240613151019446_1tmp surefire_0-20240613151019446_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="D:\Jag\wipro\June2024\all\Spring\12-jun-aop-xml\target\test-classes;D:\Jag\wipro\June2024\all\Spring\12-jun-aop-xml\target\classes;C:\Users\rjaga\.m2\repository\org\springframework\spring-context\5.2.7.RELEASE\spring-context-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-beans\5.2.7.RELEASE\spring-beans-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-core\5.2.7.RELEASE\spring-core-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-jcl\5.2.7.RELEASE\spring-jcl-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-expression\5.2.7.RELEASE\spring-expression-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-context-support\5.2.7.RELEASE\spring-context-support-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\springframework\spring-aop\5.2.7.RELEASE\spring-aop-5.2.7.RELEASE.jar;C:\Users\rjaga\.m2\repository\org\aspectj\aspectjrt\1.9.5\aspectjrt-1.9.5.jar;C:\Users\rjaga\.m2\repository\org\aspectj\aspectjweaver\1.9.5\aspectjweaver-1.9.5.jar;C:\Users\rjaga\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\rjaga"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2024-01-16"/>
+    <property name="java.home" value="D:\Softwares\sts-4.21.1.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.10.v20240120-1143\jre"/>
+    <property name="file.separator" value="\"/>
+    <property name="style.color" value="always"/>
+    <property name="basedir" value="D:\Jag\wipro\June2024\all\Spring\12-jun-aop-xml"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\rjaga\AppData\Local\Temp\surefire18222457957347225813\surefirebooter-20240613151019446_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.10+7"/>
+    <property name="user.name" value="rjaga"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-17.0.10+7"/>
+    <property name="localRepository" value="C:\Users\rjaga\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\rjaga\AppData\Local\Temp\"/>
+    <property name="java.version" value="17.0.10"/>
+    <property name="user.dir" value="D:\Jag\wipro\June2024\all\Spring\12-jun-aop-xml"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="D:\Softwares\sts-4.21.1.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.10.v20240120-1143\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:/Softwares/sts-4.21.1.RELEASE//plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.10.v20240120-1143/jre/bin/server;D:/Softwares/sts-4.21.1.RELEASE//plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.10.v20240120-1143/jre/bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files\Java\jdk-11.0.1\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\oraclexe\app\oracle\product\11.2.0\server\bin;D:\app\rjaga\product\12.1.0\dbhome_2\bin;D:\app\rjaga\product\12.1.0\dbhome_1\bin;C:\oraclexe\app\oracle\product\11.2.0\server\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\oraclexe\app\oracle\product\11.2.0\server\bin;D:\Softwares\Oracle\WINDOWS.X64_193000_db_home\bin;C:\Python39\Scripts\;C:\Python39\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\ProgramData\chocolatey\bin;C:\Program Files\Apache Software Foundation\apache-ant-1.10.9\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\VisualSVN Server\bin;D:\Softwares\sonarqube-8.8.0.42792\bin;D:\Softwares\spring-boot-cli-2.5.0-bin\spring-2.5.0\bin;C:\Program Files\Amazon\AWSCLIV2\;D:\Softwares\Gradle\gradle-7.6\bin;C:\Program Files\Amazon\AWSCLI\bin\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Git\cmd;C:\Program Files\MongoDB\Server\6.0\bin;C:\MinGW\bin;D:\Softwares\Oracle\WINDOWS.X64_193000_db_home\precomp\lib\msvc;C:\Program Files\Apache Software Foundation\apache-maven-3.6.3\bin;C:\Program Files\RedHat\Podman\;C:\Program Files\nodejs\;C:\Users\rjaga\AppData\Local\Android\Sdk\cmdline-tools\bin;C:\Users\rjaga\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code;C:\Program Files\Java\jdk-17\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\oraclexe\app\oracle\product\11.2.0\server\bin;D:\app\rjaga\product\12.1.0\dbhome_2\bin;D:\app\rjaga\product\12.1.0\dbhome_1\bin;C:\oraclexe\app\oracle\product\11.2.0\server\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\oraclexe\app\oracle\product\11.2.0\server\bin;D:\Softwares\Oracle\WINDOWS.X64_193000_db_home\bin;C:\Python39\Scripts\;C:\Python39\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\ProgramData\chocolatey\bin;C:\Program Files\Apache Software Foundation\apache-ant-1.10.9\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\VisualSVN Server\bin;D:\Softwares\sonarqube-8.8.0.42792\bin;D:\Softwares\spring-boot-cli-2.5.0-bin\spring-2.5.0\bin;C:\Pro;C:\Users\rjaga\AppData\Local\Programs\Microsoft VS Code\bin;D:\Softwares\sts-4.21.1.RELEASE;;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="17.0.10+7"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="testApp" classname="com.wipro.demo.AppTest" time="0.001"/>
+</testsuite>

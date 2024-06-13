@@ -2,3 +2,465 @@ Day #8:
 ----------
 Introduction to Hibernate, Implementing Hibernate program and implementing CRUD operations, Spring Framework – history features and getting started, Spring Framework – Dependency injection and Contexts, Spring Framework – Configurations, Scope – singleton and prototype, Spring AOP – Introduction, terminologies and advices, Spring AOP – Exception handling, Spring MVC – architecture, view resolvers, Dispatcher, request and response management.
 
+Yesterday, we have discussed about Spring framework
+Spring core
+identify the difference between:
+			ClassPathXmlApplicationContext
+			AnnotationConfigApplicationContext
+			XmlWebApplicationContext
+			FileSystemXmlApplicationContext
+
+---------------------------------------
+In spring framework, there is a support for hibernate.
+spring boot framework, there is a support for hibernate. 
+Not just 1 support, there are various type of hibernate used.
+
+In spring, we can use
+	HibernateTemplate
+
+	this dependency must be added to the pom.xml in order to use Hibernate in our spring project.
+
+
+Steps for using hibernate template in our spring project:
+--------------------------------------------------------------------------
+I will show this demo using MySQL backend.
+
+in mysql workbench:
+	CREATE DATABASE wipro5;
+	use wipro5;
+
+
+in this demo, we use an entity called "Employee". This is called as entity because, this becomes a Table in the db
+Do you remember E-R diagram?		Entity Relationship diagram.		
+the regular entities identified in this diagram becomes tables in db. 
+In program, they become class.		O-R mapping
+
+1) Create a maven  project of quick start archetype:		(quick start means, "java project" using maven)
+	group id:		com.wipro.demo
+	artifact id: 	13-jun-hibernate-template
+	package:		com.wipro.demo
+
+	Finish
+
+2) in pom.xml, we add the following dependencies:	(spring-context, spring-context-support, mysql, spring-orm, hibernate-core)
+
+	  <dependency>
+	  	<groupId>org.springframework</groupId>
+	  	<artifactId>spring-context</artifactId>
+	  	<version>6.1.8</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.springframework</groupId>
+	  	<artifactId>spring-context-support</artifactId>
+	  	<version>6.1.8</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>com.mysql</groupId>
+	  	<artifactId>mysql-connector-j</artifactId>
+	  	<version>8.3.0</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.springframework</groupId>
+	  	<artifactId>spring-orm</artifactId>
+	  	<version>6.1.8</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.hibernate</groupId>
+	  	<artifactId>hibernate-core</artifactId>
+	  	<version>5.6.15.Final</version>
+	  </dependency>
+
+3) xml configuration file		(in this demo, we use xml configuration, remind me for a demo using annotations)
+
+	right click src/main/java and create an xml file	(i name this xml file as applicationContext.xml)
+	it can be anyname.xml
+
+4) configure hibernate in xml file
+
+
+
+
+5) Create the entity class
+	Employee.java
+
+package com.wipro.demo.entity;
+
+public class Employee {
+	private Integer id;
+	private String name;
+	private String department;
+	private Integer salary;
+	
+	public Employee() {}
+
+	public Employee(Integer id, String name, String department, Integer salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.salary = salary;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", department=" + department + ", salary=" + salary + "]";
+	}
+	
+}
+
+5) 
+
+
+
+If class name is Employee		then  table name is EMPLOYEE
+If class name is ContractEmployee	then table name is CONTRACT_EMPLOYEE
+
+If you don't want this behavior, then use @Table(name="Emp")		you decide the table name
+
+--------------------------------
+Spring AOP
+----------------
+	AOP 	stands for 	Aspect Oriented Programming
+
+	AOP is used for cross cutting concerns in programming.
+
+	There is a bean "Bank" that contains methods
+		"withdraw"
+		"deposit"
+
+	now, this is developed by the bean developer.
+	But we belong to another team which focus on	what are the things to do done 
+		before
+		after
+		through
+
+	calling the withdraw and deposit methods.
+
+
+	before withdrawal?		(in ATM)
+		check card validity
+		validate pin number
+		check entered amount	(within limit)
+		check account balance
+		check amount available in the machine
+	
+	after withdrawal?
+		update his account with tran details
+		print receipt
+		
+
+	now, withdraw method can be called by a different bank atm also. Now, how do you advice them to do these?
+		we need to advice WHOEVER is calling my "withdraw" method to do something
+			before and after calling
+		but they will not follow.	They may or they may not
+
+	so what we do now is,
+		allow bean developers only to focus on writing the code of "withdraw" method
+		and whatever releated to before after and through are to be taken care by a separate layer
+		of code called as Aspect
+
+	without touching the bean code,
+	we will create a separate layer of code called aspect
+	that will take care of these before, after and through
+
+
+
+terms used in aop:
+	Aspect
+	Advice
+	JoinPoint
+	Pointcut expression
+
+
+	Aspect is a class that contains advices
+	Advice is a method which is called either before or after or through the bean method
+	JoinPoint is the point of contact between the aspect and method
+	Pointcut expression is a pattern which is used to find the methods that matches pattern, those methods are adviced
+
+
+Demo for AOP:
+bean:
+	Bank
+		withdraw()
+		deposit()
+
+
+1) create a maven project		quickstart
+	12-jun-aop-xml
+
+2) pom.xml
+    <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.2.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>5.2.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aop</artifactId>
+    <version>5.2.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjrt</artifactId>
+    <version>1.9.5</version>
+</dependency>
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.9.5</version>
+</dependency>
+
+3) create a bean
+	package com.wipro.demo;
+
+public class Bank {
+	public void withdraw()
+	{
+		System.out.println("Withdraw method is called now");
+	}
+	
+	public void deposit()
+	{
+		System.out.println("Deposit method is called now");
+	}
+}
+
+
+4) create an aspect class
+package com.wipro.demo;
+
+public class MyAspect {
+	public void beforeAdvice()
+	{
+		System.out.println("Before advice is called now");
+	}
+	
+	public void afterAdvice()
+	{
+		System.out.println("After advice is called now");
+	}
+}
+
+5) spring.xml			(src/main/java)	not inside any package
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop 
+   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+ 	<aop:config>
+		<aop:aspect id="log" ref="logging">
+			<aop:pointcut expression="execution(* model.*.*(..))" id="selectAll"/>
+			<aop:before pointcut-ref="selectAll" method="beforeAdvice"/>
+			<aop:after pointcut-ref="selectAll" method="afterAdvice" />
+		</aop:aspect>
+	</aop:config>
+	 
+	<bean name="logging" class="model.Logging" />
+	<bean name="employee" class="model.Employee" p:id="13"
+		p:name="Raja">
+	</bean>
+</beans>
+
+6)
+package com.wipro.demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
+        Bank bank = (Bank) ctx.getBean("bank");
+        bank.withdraw();
+        bank.deposit();
+    }
+}
+
+
+7) Run  the project as java application
+and see that before / after the methods, the advices are executed based on the point cut expression
+
+------------------------------------------------------------------
+Demo for AOP using annotations (without xml)
+
+1) create a maven project of quickstart archetype
+	13-jun-aop-annotations
+
+2) pom.xml (same set of dependencies as previous demo)
+    <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.2.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>5.2.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aop</artifactId>
+    <version>5.2.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjrt</artifactId>
+    <version>1.9.5</version>
+</dependency>
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.9.5</version>
+</dependency>
+
+3) create a bean
+package com.wipro.demo;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Bank {
+	public void withdraw()
+	{
+		System.out.println("Withdraw method is called now");
+	}
+	
+	public void deposit()
+	{
+		System.out.println("Deposit method is called now");
+	}
+}
+
+4) create an aspect class
+package com.wipro.demo;
+
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@EnableAspectJAutoProxy
+@Component("logging")
+public class MyAspect {
+	
+	@Pointcut("execution(* com.wipro.demo.*.*(..))")
+	public void selectAll()
+	{
+		
+	}
+	
+	@Before("selectAll()")
+	public void beforeAdvice()
+	{
+		System.out.println("Before advice is called now");
+	}
+	
+	@After("selectAll()")
+	public void afterAdvice()
+	{
+		System.out.println("After advice is called now");
+	}
+}
+
+5) MyConfiguration.java
+package com.wipro.demo;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = {"com.wipro.demo"})
+public class MyConfiguration {
+
+}
+
+
+6) App.java
+
+package com.wipro.demo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(MyConfiguration.class);
+    	Bank bank = ctx.getBean(Bank.class);
+    	bank.withdraw();
+    	bank.deposit();
+        System.out.println( "Hello World!" );
+    }
+}
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+

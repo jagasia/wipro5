@@ -21,3 +21,15 @@ Spring framework:
 		singleton
 		prototype
 
+	configuration types
+		type of application context	(MCQ)
+			ClassPathXmlApplicationContext
+			AnnotationConfigApplicationContext
+			XmlWebApplicationContext
+			FileSystemXmlApplicationContext
+
+
+
+			
+
+
