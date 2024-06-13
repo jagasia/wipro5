@@ -453,6 +453,204 @@ public class App
 
 
 ---------------------------------------
+Kindly follow the above steps and do it by yourself
+---------------------------------------
+Spring MVC
+-----------------
+There is spring mvc and there is spring boot mvc.
+
+Spring MVC
+-----------------
+Demo to create Spring MVC 
+--------------------------------------
+	this is basically as web application
+1) i create a dynamic web project		(so that i get a proper web application project structure)
+	13-jun-mvc-1
+
+	project name:	13-jun-mvc-1
+	Target runtime:	it is showing none.
+		since i use java 11, i use apache tomcat 9.0
+		for java above 11, i should use apache tomcat 10 or more
+	Dynamic web module:	4.0
+			if java 17 or above, then it should 5 or above
+	Next -> Next -> Tick the web deployment descriptor so that we get "web.xml" to our project
+		if you have forgotten this, then later, right click project -> Java EE tools -> Generate deployment des stub
+2) convert this project to a maven project
+	right click project -> Configure -> convert to maven project
+
+	now enter 	
+		group id:	com.wipro.demo
+		artifact:	13-jun-mvc-1
+	Finish
+3) in pom.xm		(automatically opened now)
+	since <dependencies> tag is not found, 
+	above <build> tag, you create that
+	and inside dependencies:
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.9.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.3.9.RELEASE</version>
+		</dependency>
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+4) src/main/webapp/WEB-INF/
+	create a sub folder "views"
+	this is where you put all your JSP files
+	lets create a jsp file "index.jsp" inside the view folder
+
+		inside body tag
+			Hello welcome to my page!
+
+5) in web.xml
+	we have to configure the "DispatcherServlet"
+	yesterday, i created a servlet and used url mapping as "/" so it received all the requests.
+	today, i will define servlet definition in web.xml for a pre defined dispatcher servlet (not my own servlet)
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="https://java.sun.com/xml/ns/javaee" xsi:schemaLocation="https://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>spring-mvc-example</display-name>
+
+	<!-- Add Spring MVC DispatcherServlet as front controller -->
+	<servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>
+                org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+       		<param-name>contextConfigLocation</param-name>
+       		<param-value>/WEB-INF/spring-servlet.xml</param-value>
+    		</init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+ 
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/</url-pattern> 
+    </servlet-mapping>
+    
+ </web-app>
+
+
+notice that the name of the servlet we choose is "spring".
+
+6) since the name of the dispatcher servlet we choose is "spring", we need to create a spring configuration file name 
+	must be "spring-servlet.xml"			syntax is <<something>>-servlet.xml
+						something is the name of dispatcher servlet as per web.xml
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-4.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+         http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.wipro.demo" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+</bean>
+</beans>
+
+
+
+in controller, if you say 	"index"
+	it will be prefixed and suffixed as per above xml
+		/WEB-INF/views/index.jsp
+
+7) create a controller class (remember it must be inside the base package (as per xml)
+	sub packages are allowed
+package com.wipro.demo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class MyController {
+	
+	@GetMapping("/home")
+	public String home()
+	{
+		return "index";
+	}
+}
+
+
+8) right click the project and run as "Run on server"
+	in browser url:
+	http://localhost:8080/13-jun-mvc-1/home
+
+Sometimes, port number 8080 may not be available.
+in that case, you can go to "servers" tab in eclipse and
+	double click the server
+		configuration file will open.
+	change port from 8080 to 8081
+and save the file and close
+
+or you can find the process running in 8080 and kill it
+	cmd prompt
+		netstat -aon
+			lists all  the processes running in all port and their pid
+		use task manager to find that process by pid and end the task (pid may not be visible in columns. make it visible)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
