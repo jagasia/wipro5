@@ -1,0 +1,4 @@
+Day #8:
+----------
+Introduction to Hibernate, Implementing Hibernate program and implementing CRUD operations, Spring Framework – history features and getting started, Spring Framework – Dependency injection and Contexts, Spring Framework – Configurations, Scope – singleton and prototype, Spring AOP – Introduction, terminologies and advices, Spring AOP – Exception handling, Spring MVC – architecture, view resolvers, Dispatcher, request and response management.
+
