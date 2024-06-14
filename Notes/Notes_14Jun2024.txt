@@ -116,3 +116,289 @@ Run the Application.java now
 Task:
 Follow the steps given in above demo and do it by yourself.
 
+in spring boot, the mvc project is very simple. Yesterday, we created spring mvc, now, i will create a spring boot mvc
+
+1) create a spring boot application using spring initializr
+	maven
+	war
+	package:	com.wipro.demo
+	artifact:	14-jun-mvc
+	group:	com.wipro.demo
+	java:	17
+	dependencies:
+		spring web
+		spring data jpa
+		h2
+
+2) import the project and go to 
+	application.properties
+
+spring.application.name=14-jun-mvc
+server.port=5001
+#spring.datasource.url=jdbc:h2:mem:jag
+spring.datasource.url=jdbc:h2:file:./data/sampledata
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+3) mvc steps:
+	src/main/webapp
+		here, create folder "WEB-INF/views"
+create the jsp files here:
+	right click "views" folder and create "index.jsp"
+
+
+4) again go to application.properties:
+	spring.mvc.view.prefix=/WEB-INF/views/
+	spring.mvc.view.suffix=.jsp
+
+	remember "/" at the the end of prefix
+
+5) create the controller class
+	you can create inside base package or its sub package
+
+	go to src/main/java
+		right click package "com.wipro.demo"	-> New -> class
+
+	package:	com.wipro.demo.controller
+	class name: MyController
+
+package com.wipro.demo;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class MyController {
+
+	@GetMapping
+	public String home()
+	{
+		return "index";
+	}
+}
+
+
+this "index" will be prefixed and suffixed as per application.properties
+	/WEB-INF/views/index.jsp
+
+6) go to Application.java
+	right click the code "Run As" java application
+
+you see 404 error in browser. Now, check console window:
+
+2024-06-14T10:47:13.178+05:30  WARN 9916 --- [14-jun-mvc] [nio-5000-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : "Path with "WEB-INF" or "META-INF": [WEB-INF/views/index.jsp]"
+
+
+Solution:
+------------
+go to pom.xml and add the following dependency:
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+
+now, restart the project
+
+check localhost:5001
+
+--------------------------------
+Next 
+	we will create a mini project with one entity and do all CRUD operations
+
+Mini project 
+-----------------
+The admin of the online shopping website, wants to
+	add product
+	update product
+	delete product
+	view all products
+	find product by id
+	////there can be other way of searching product by category, price range etc
+
+same project 14-jun-mvc
+can be continued now
+
+1) entity class:	Product.java
+			id
+			name
+			category
+			price
+
+
+2) repository interface:	ProductRepository
+3) service class:		ProductService
+
+4) controller class:		ProductController
+
+5) jsp file:		product.jsp
+
+--------------------
+1) Product.java
+package com.wipro.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Product {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private String name;
+	private String category;
+	private Integer price;
+	
+	public Product() {}
+
+	public Product(Integer id, String name, String category, Integer price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.price = price;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + "]";
+	}
+	
+}
+
+
+2) ProductRepository
+package com.wipro.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.wipro.demo.entity.Product;
+
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer>
+{
+
+}
+
+3) ProductService.java
+package com.wipro.demo.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.wipro.demo.entity.Product;
+import com.wipro.demo.repository.ProductRepository;
+
+@Service
+public class ProductService {
+	@Autowired
+	private ProductRepository pr;
+	
+	public Product create(Product product) {
+		return pr.save(product);
+	}
+	public List<Product> read() {
+		return pr.findAll();
+	}
+	public Product read(Integer id) {
+		Optional<Product> temp = pr.findById(id);
+		Product p=null;
+		if(temp.isPresent())
+		{
+			p=temp.get();
+		}
+		return p;
+	}
+	public Product update(Product product) {
+		Product temp = read(product.getId());
+		if(temp!=null)
+		{
+			temp=product;
+			pr.save(temp);
+		}
+		return temp;
+	}
+	public Product delete(Integer id) {
+		Product temp=read(id);
+		if(temp!=null)
+		{
+			pr.delete(temp);
+		}
+		return temp;
+	}
+	
+}
+
+4) ProductController
+
+5) product.jsp
+I will use JSTL 
+	JSP Standard Tag Library
+
+<groupId>javax</groupId>
+        <artifactId>javaee-api</artifactId>
+        <version>6.0</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.5</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+    </dependency>
+
+
+
+
+
