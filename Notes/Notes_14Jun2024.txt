@@ -381,6 +381,7 @@ public class ProductService {
 I will use JSTL 
 	JSP Standard Tag Library
 
+<dependency>
 <groupId>javax</groupId>
         <artifactId>javaee-api</artifactId>
         <version>6.0</version>
@@ -397,6 +398,18 @@ I will use JSTL
         <artifactId>jstl</artifactId>
         <version>1.2</version>
     </dependency>
+
+
+
+
+----------------
+download this 14-jun-mvc project from 
+	https://github.com/jagasia/wipro5/blob/jag/Spring/14-jun-mvc.zip
+and unzip
+keep it for your reference.
+
+Now, follow the steps in notes and do it by yourself.
+
 
 
 
