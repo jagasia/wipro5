@@ -641,6 +641,83 @@ or you can find the process running in 8080 and kill it
 			lists all  the processes running in all port and their pid
 		use task manager to find that process by pid and end the task (pid may not be visible in columns. make it visible)
 
+--------------------------
+a controller method can return
+	view
+	mode and view
+	response body
+
+	@GetMapping("/home")
+	@ResponseBody
+	public String home()
+	{
+		return "hi welcome this is typed by me now";
+	}
+		when you use @ResponseBody annotation in a method of controller,
+		it modifies the default behavior of the method and
+		the method returns the content ie., response body instead of viewname
+
+	otherwise, if a controller method returns a String, it always means the view name.
+
+	
+----------------------------------
+static context cannot access instance context
+	static method cannot access instance variable
+but
+instance members can access static members
+
+
+class A{ 
+	A()
+	{
+		System.out.print(""From A"");
+	}
+}
+class B extends A{ 
+	B(int z)
+	{
+		z=2;
+	}
+public static void main(String args[]){
+  new B(3);
+	}
+}
+
+
+
+"A) No argument constructor is provided to all Java classes by default	false
+B) No argument constructor is provided to the class only when no constructor is defined.	YES
+C) Constructor can have another class object as an argument				yes
+D) Access specifiers are not applicable to Constructor"		false
+
+
+what is the super class of servlet?
+	HttpServlet
+doGet
+
+ServletConfig	HttpServletRequest	HttpServletResponse	ServletContext
+
+in jsp what are these?
+include	
+forward
+
+init()	
+destroy()	
+service()	
+
+
+<jsp:expression>	<jsp:out>	<%= expression %>	<jsp:output>
+<%! int myVar = 10; %>	<% int myVar = 10; %>	<jsp:variable name="myVar" value="10" />	%@ page var="myVar" value="10" %
+<jsp:useBean>	<jsp:directive.page>	%@page import %	<jsp:include>
+<jsp:include>	<jsp:forward>	<jsp:useBean>	<jsp:setProperty>
+
+types of testing
+annotations related to junit
+	@BeforeEach
+	@BeforeAll
+	
+
+Spring (refer to interview questions)
 
 
 

@@ -1,0 +1,118 @@
+Day #9:
+----------
+Spring Boot – starters, Autoconfiguration, actuators, devtools, thymeleaf views, Spring REST – introduction, advantages, Spring REST – implementing REST and HTTP methods, case study demo with all methods.
+
+Spring boot
+----------------
+Spring boot is introduced above the Spring layer to simplfy, minimize, the complexities of spring applications.
+boot means, something is ready to tie up the application. "Bootstrap" the application.
+
+Firstly, we do not create a spring boot application. We generate the spring boot application from "Spring initializr"
+
+	start.spring.io
+
+you can visit this in browser and choose
+	maven/gradle
+	java version
+	spring boot version
+	group id
+	artifact id
+	jar/war
+	dependencies
+
+and download the zip of the project.
+then unzip and import it to the IDE (eclipse/sts)
+
+This is the concept of starter project. That some initial configurations are performed and give us the working project.
+Spring boot has auto configuration and hence minimized the need for basic configuration system.
+
+1) spring boot provides starter project, from spring initializr
+2) spring boot provides auto configuration
+3) spring boot provides support for 0 xml configuration
+4) spring boot encourages "Convention" over "Configuration"
+5) spring boot provides internal apache tomcat server (it provides 3 types of internal servers including tomcat)
+
+Find the difference between "Spring" and "Spring boot"
+
+
+Convention over Configuration
+-----------------------------------------
+	It means, if you follow the convention (guidelines), then you do not need to configure.
+	ex:
+		In spring, we use "component scan" to specify the base package that contains beans.
+		this helps spring IOC container to scan the beans in that location.
+
+		In spring boot, we can do that. But not necessary. If you store your bean classes inside base package or 		its sub package, then it is not necessary to use "component scan".
+		what is a base package in spring boot?	the package that contains Application (that contains main)
+
+Configuration system in spring boot:
+	application.properties			text file
+	configuration class
+		Application class is annotated by @SpringBootApplication	(this is also a configuration)
+			@SpringBootApplication is a kind of @SpringBootConfiguration which is kind of
+				@Configuration
+
+
+Demo:
+---------
+We are going to create our first spring boot application.
+1) we use spring initializr
+2) STS File -> New -> Spring starter project		(this is not available in eclipse)
+
+----------------
+1) go to browser and type in the address bar
+	start.spring.io
+
+	Project:		Maven
+	Language:		Java
+	Spring Boot:	3.3.0
+	Group:		com.wipro.demo
+	Artifact:		14-jun-1
+	Package:		com.wipro.demo
+	Packaging:		Jar
+	Java:		17
+	Dependencies:	Spring Web
+
+click "Generate" button to download the project as zip.
+
+2) go to downloads folder
+	unzip
+	move the folder to your "workspace"
+	go inside the folder
+	copy this location (where pom.xml is present)
+
+3) in eclipse/sts (import this project)
+	File -> Import -> Existing Maven Projects 
+		-> Next
+	in Root Directory text box, Paste the url		(you may also use Browse button to locate)
+	press tab in keyboard
+		ensure that pom.xml is shown as ticked
+	Finish
+4) go to src/main/java
+	com.wipro.demo				this is base package
+		Application.java			this is your application file (main method is here)
+
+5) run this Application.java 		as java application	(or spring boot application (this option available is sts))
+	Tomcat started on port 8080 (http) with context path '/'
+notice that your application runs in 8080 port
+
+If port 8080 is not available? What will  you do?
+	i) find process running in port 8080 and kill that
+		netstat -aon
+	ii) change the port in which our application should run
+		i want to run in 8081
+	in your project, go to 
+		src/main/resources
+			application.properties
+				type the following:
+					server.port=8081
+	save the file
+
+Run the Application.java now
+	see what happens
+		Tomcat started on port 8081
+
+-------------------------------------------
+Task:
+Follow the steps given in above demo and do it by yourself.
+
