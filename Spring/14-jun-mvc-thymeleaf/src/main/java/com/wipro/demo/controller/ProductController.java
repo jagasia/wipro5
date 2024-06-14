@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wipro.demo.entity.Product;
@@ -31,6 +30,11 @@ public class ProductController {
 		mv.addObject("product",new Product());
 		return mv;
 	}
+//	@GetMapping
+//	public String showProductPage()
+//	{
+//		return "product";
+//	}
 	
 	@PostMapping(value = "/dml", params = "add")
 	public ModelAndView addProduct(@ModelAttribute Product product)
@@ -66,15 +70,6 @@ public class ProductController {
 		mv.addObject("products",products);
 		mv.addObject("product",product);
 		return mv;		
-	}
-	
-	@GetMapping("/eswar")
-	@ResponseBody
-	public String abcd()
-	{
-		return "B.Eswar says yes sir";
-		//basically a controller method should return viewname (jsp)
-		//but here, we return string which is not viewname but content 
 	}
 	
 }

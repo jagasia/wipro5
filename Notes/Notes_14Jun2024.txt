@@ -410,8 +410,180 @@ keep it for your reference.
 
 Now, follow the steps in notes and do it by yourself.
 
+----------------------------------------------------------------------
+in this mvc, we have used JSP
+in the same mvc, we can also use HTML
+	how to use scripts or java code in html? like for loop, if condition, etc
+	we can use "Thymeleaf"
+
+thymeleaf is used to create views basically in html file, with dynamic code
+
+while creating a spring boot project itself we can include this dependency
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+in an existing project also, we can include this dependency in pom.xml
+
+1) i have closed the 14-jun-mvc and named the copied project as
+	14-jun-mvc-thymeleaf
+2) in pom.xml
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+3) instead of jsp, we are going to use "HTML"
+	in application.properties
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.html
+
+	
+4) index.html
+product.html
+	from original project, copy only html code. Remove jsp scripts
+	change the <form> from spring form to html <form>
 
 
+in jsp, jstl:
+--------------
+<table class="table table-bordered table-striped table-hover">
+  			<thead>
+  				<tr>
+  					<th>Id</th><th>Name</th><th>Category</th><th>Price</th><th></th>
+  				</tr>
+  			</thead>
+  			<tbody>
+  				<c:forEach var="p" items="${products }">
+  					<tr>
+  						<td>${p.id }</td>
+  						<td>${p.name }</td>
+  						<td>${p.category }</td>
+  						<td>${p.price }</td>
+  						<td><a href="/product/select?id=${p.id }">Select</a></td>
+  					</tr>
+  				</c:forEach>	
+  			</tbody>
+  		</table>
+
+
+in html, thymeleaf:
+-------------------------
+ <table>
+            <tbody>
+              <tr th:each="row,p : ${products}">
+                <td th:text="${p.id}">${p.id}</td>
+                <td th:text="${p.name}">Thymus Thymi</td>
+                <td th:text="${p.category}">12</td>
+              </tr>
+            </tbody>
+          </table>
+---------------------------------------------------------
+Spring REST
+-------------------
+a MVC project contains everything 
+	front end		view
+	back end		model and controller
+but a RESTful webservice will contain
+	only model and controller
+	there will not be "view"
+	in RESTful webservice, there  is no FRONEND
+	There is only Backend.
+
+How can we book ticket for a movie?
+	i) BookMyShow app
+	ii) BookMyShow website
+	iii) if theatre is INOX, then
+		inoxmovies.com
+	iv) go to theatre and book in the counter. The staff may use a
+		windows application for that theatre
+	v) PayTM insider app
+
+All these are "view"s that are going to acces a single "model"
+	if model is different, then 2 apps can book same seat for multiple users. That is risk is there?
+
+	1 model		but many frontends	i.e., 	many "models"
+
+now, if you have created a MVC project, then how can we allow others to provide their own frontend for our model?
+so, we create only model and controller.
+	so that others can provide "view"
+
+	inox creates 
+		model and controller
+	bookmyshow creates
+		view that access inox model and view
+
+this model and view is created as RESTful webservices
+	website
+		mobile no:.......................
+		message:.......................
+		<<send sms>> button
+
+
+	9898989898	
+	hello world
+	i clicked "send sms" button
+
+	sms webservice
+
+form is submitted to a servlet and that
+servlet calls the webservice
+webservice send sms for us.
+
+our program must be called by someone through internet.
+then  our program must be a web service.
+
+they create frontend. and access our backend.
+
+--------------------------------------------
+in mvc project, we used	@Controller
+in RESTful webservice, we use	@RestController
+
+@RestController	=>	@Controller + @ResponseBody
+
+in rest controller, every method returns content	(we dont need to mention @ResponseBody but it works like that only)
+
+Steps to create our first RESTful webservice using spring boot:
+----------------------------------------------------------------------------------
+1) create a spring boot project
+	14-jun-rest-1
+	maven
+	jar
+	java 17
+	Java
+	group: com.wipro.demo
+	artifact: 14-jun-rest-1
+	package: com.wipro.demo
+
+	dependencies:	Spring Web
+
+2) in mvc, we created folders, we created prefix, suffix, NOTHING such required now.
+	you DONT create jsp or html (VIEWS)
+
+	create a controller
+		right click base package:
+package com.wipro.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+	
+	@GetMapping
+	public String home()
+	{
+		return "Welcome to home page";
+	}
+}
+
+3) run the Application class
+	by default, it runs in 8080 port.
+	if you want to change the port number, then go to application.properties:
+		server.port=5000
+
+	check in browser:
+		http://localhost:8080/
 
 
 
