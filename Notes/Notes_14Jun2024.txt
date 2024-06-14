@@ -586,4 +586,235 @@ public class MyController {
 		http://localhost:8080/
 
 
+---------------------------------
+Git commands
+	spend time to learn the git commands
+git init
+git add
+git commit
+git branch
+git push
+git merge
+git checkout
+git status
+
+each command with multiple options 
+-m
+-M
+-u
+-d
+
+
+how to delete a branch locally	git branch -d <<branchname>>		
+how to delete a remote branch 	git push -d origin/<<branchname>>
+
+static context with instance context
+	static method cannot access instance method
+	instance method can access static method
+
+final
+	constant
+	final class cannot be inherited
+	final method cannot be overridden
+	final data member cannot be changed	constant
+
+Overloading
+	rules
+		int sum(int i, int j)
+		int sum(float i, float j)		//yes overloading
+
+		int sum(int i, float j)
+		float sum(int j, float i)		//not overloading		there is no difference in signature
+
+		return type does not matter in overloading		
+
+
+
+Overriding 
+	rules
+		in my old notes, i have given this
+
+Collections:
+which class is used for what 
+	know the difference between each collection class
+
+ListIterator 
+	travers forward and backward
+	works only for List type of collections
+
+Collections.sort
+	works only for list 
+	cannot be used for Set
+
+Map
+	what is entry set
+	how to traverse a map
+
+	put
+	get
+
+all assessments contain coding challenge (only in core java)
+but MCQs will be according the syllabus upto that module
+
+
+java.util.Date
+	this is most commonly used Date
+
+java.sql.Date
+	for mapping rdbms column (of date type) with our java variable
+
+LocalDate
+	supports accurate date operations
+	Period.between(ld1, ld2);
+
+You should learn to convert
+	java.util.Date to LocalDate
+
+	java.util.Date to java.sql.Date and then to LocalDate
+
+
+Product
+	id
+	name
+	price
+	mfgDate
+----------------------------------------------------------------------------
+HTTP methods
+	what are the HTTP methods do you know?
+
+	GET		to get information from service
+	POST		to add an entity to the existing list 
+	PUT		to update an existing enitity of the list
+	DELETE		to delete an existing entity of the list
+	PATCH		to update some of the properties of the entity
+
+in mvc, there were only GET and POST
+but in RESTful webservice (or rest api)
+	we can use any of these http methods.
+
+You should be able to create a RESTful webservice 
+with CRUD
+
+in browser's address bar, if you enter an URL, then you are definitely making a GET request.
+For other http method requests, we can use
+	POSTMAN 	to call the url using any HTTP method
+
+now a days, we can add swagger dependency in pom.xml so that rest api can be accessed using any http method in browser
+
+
+Steps to create RESTful webservice for "Product" entity using
+these http methods
+
+last time, in mvc, product mvc, we used h2 database. Yesterday, we used mysql db.
+Can we use PostgreSQL now? for this demo?
+
+Steps:
+-------
+1) create a spring boot application
+	spring web
+	sping data jpa
+	postgressql driver
+
+2) application.properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=password
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+server.port=6001
+
+3) entity:
+same Product.java
+4) repository:
+same ProductRepository.java
+5) service:
+same ProductService.java
+6) controller:
+package com.wipro.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wipro.demo.entity.Product;
+import com.wipro.demo.service.ProductService;
+
+@RestController
+@RequestMapping("/product")
+public class ProductController {
+	@Autowired
+	private ProductService ps;
+	
+	@PostMapping
+	public Product create(@RequestBody Product product) {
+		return ps.create(product);
+	}
+	
+	@GetMapping
+	public List<Product> read() {
+		return ps.read();
+	}
+	
+	@GetMapping("/{id}")
+	public Product read(@PathVariable("id") Integer id) {
+		return ps.read(id);
+	}
+	
+	@PutMapping
+	public Product update(@RequestBody Product product) {
+		return ps.update(product);
+	}
+	
+	@DeleteMapping("/{id}")
+	public Product delete(@PathVariable("id")Integer id) {
+		return ps.delete(id);
+	}
+	
+}
+
+7) run the project and check
+
+	http://localhost:6001/product
+
+empty array is found
+
+8) use postman to call 
+	post, put, delete, get, everything
+
+instead of postman, we want to all the users to use browser to test all the methods.
+
+we need to add swagger dependency for that.	
+Swagger before spring boot 3 was different. The steps for swagger in spring boot 2.x is different.
+
+in spring boot 3, just add the following dependency in pom.xml
+
+   <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.0.2</version>
+   </dependency>
+
+http://localhost:6001/swagger-ui/index.html
+
+
+
+
+
+
+
+
+
+
+
+
+
 
