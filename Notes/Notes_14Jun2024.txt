@@ -805,6 +805,11 @@ in spring boot 3, just add the following dependency in pom.xml
 
 http://localhost:6001/swagger-ui/index.html
 
+------------------------------------
+Follow above steps to create a restful webservice using postgreSQL.
+
+
+
 
 
 

@@ -1,0 +1,128 @@
+Git
+Core Java
+Collections
+Java 8 Features, Junit
+Sevlet & JSP,Hibernate & Spring Framework
+
+MCQ practise test
+------------------------
+GIT mcq discussion is over.
+Now, lets start checking your readiness for Java.
+
+1) What is the size of long data type?	8 bytes
+2) Which loop executes atleast once?	do while loop
+3) How do you find the size of an array?	length property		int i=arr.length;
+4) How do you find the length of a String?	length method		int i=str.length();
+5) Which method of String is used to check if the string is present as per a regular expression?
+				matches()			str.matches("[0-9]{10}")
+6) Which of the following is synchronized?
+	HashMap
+	TreeMap
+	StringBuilder
+	StringBuffer
+				ans: StringBuffer
+7) Which of the following is synchronized?
+	StringBuilder
+	HashMap
+	Hashtable
+	LinkedList
+				ans: Hashtable
+8) Which of the following is synchronized?
+	ArrayList
+	Vector
+	HashSet
+	TreeSet
+				ans: Vector
+so, find all the synchronized classes:
+	Stack
+	Vector
+	Hashtable
+	StringBuffer	(is not collection. but synchronized)
+
+9) which keyword is used to ignore the property while synchronization?
+	transient
+10) which keyword is used to ensure that a variable is thread-safe.
+	volatile
+		this will ensure that the threads will not cache this variable. everytime, threads take value from primary memory
+11) what is thread synchronization?
+	ensures that when multiple threads try to access a shared object at a time, they are allowed one by one
+		synchronized(this)
+		synchronized(obj)
+
+12) what are the purpose of these method, related to thread?
+	notify()
+	notifyAll()
+	yield()
+	join()
+	start()
+
+13) IO
+	you need to know about the classes:
+		FileInputStream
+		FileOutputStream
+		FileReader
+		FileWriter
+		BufferedReader
+		BufferedWriter
+		BufferedInputStream
+		BufferedOutputStream
+		ObjectInputStream
+		ObjectOutputStream
+		DataInputStream
+		DataOutputStream
+
+14) What is a functional interface?
+		an interface that contains only one abstract method
+			Comparator, Runnable, Predicate
+		we can use lambda for providing quick implementation of a functional interface
+15) What is a marker interface?
+		an interface that contains no abstract method.
+		ex:	Serializable
+16) What is method reference?	
+		ability to utilize the methods of any class as an implementation of a functional interface
+	what is static method reference?
+
+17) Difference between
+		java.util.Date
+		java.sql.Date
+		java.time.LocalDate
+		java.time.LocalTime
+
+18) Collections:
+	Collections.sort()	works only for List category 
+	ListIterator	works only for List category
+	List maintains the order of the elements
+	List allows duplicates. Any number of null
+
+	Set rejects duplicates
+	Set order is based on the type of the Set. 
+		LinkedHashSet is ordered. it maintains the append order
+
+
+
+public class MyClass {
+long var;
+public void MyClass(long param) { var = param; } // (Line no 1)
+public static void main(String[] args) {
+MyClass a, b;
+a = new MyClass(); // (Line no 2) 
+}
+}
+
+
+
+boolean b = TRUE;			//TRUE is invalid.		true is valid
+byte b = 256;			//range of byte is -128 to 127	
+String s = “null”;			//valid
+int i = new Integer(“56”);		//valid		constructor can accept String and return int
+
+
+-----------------
+1) MCQ test
+2) Coding test
+	coding test IMO is always core java test
+
+
+
+
+
