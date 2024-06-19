@@ -22,24 +22,17 @@
       
     </div>
     <div class="col-sm-4">
-      <h3>Product Page</h3>
-      <a href="/product">Product Page</a>
-      <form method="post" action="/product/dml">
-      	Id:			<input type="number" name="id" class="form-control" />
-      	Name:		<input type="text" name="name" class="form-control" />
-      	Category:	<select name="category">
-      					<option value="0">Choose...</option>
-      					<c:forEach var="c" items="${categories }">
-      						<option value="${c.id}">${c.name }</option>
-      					</c:forEach>
-      				</select>
-      	Price:		<input type="number" name="price" class="form-control" />
+      <h3>Category Page</h3>
+      <a href="/category">Product Page</a>
+      <form:form method="post" action="/category/dml" modelAttribute="category">
+      	Id:			<form:input type="number" path="id" class="form-control" />
+      	Name:		<form:input type="text" path="name" class="form-control" />
       	<br/>
       	<input type="submit" name="add" value="Add" class="btn btn-success" />&nbsp;
       	<input type="submit" name="update" value="Update" class="btn btn-warning" />&nbsp;
       	<input type="submit" name="delete" value="Delete" class="btn btn-danger" />&nbsp;
       	<br/>
-      </form>
+      </form:form>
     </div>
     <div class="col-sm-4">
       
@@ -53,17 +46,16 @@
   		<table class="table table-bordered table-striped table-hover">
   			<thead>
   				<tr>
-  					<th>Id</th><th>Name</th><th>Category</th><th>Price</th><th></th>
+  					<th>Id</th><th>Name</th><th></th>
   				</tr>
   			</thead>
   			<tbody>
-  				<c:forEach var="p" items="${products }">
+  				<c:forEach var="c" items="${categories }">
   					<tr>
-  						<td>${p.id }</td>
-  						<td>${p.name }</td>
-  						<td>${p.category }</td>
-  						<td>${p.price }</td>
-  						<td><a href="/product/select?id=${p.id }">Select</a></td>
+  						<td>${c.id }</td>
+  						<td>${c.name }</td>
+  						
+  						<td><a href="/category/select?id=${c.id }">Select</a></td>
   					</tr>
   				</c:forEach>	
   			</tbody>

@@ -27,6 +27,7 @@ public class DepartmentService {
 		{
 			d=temp.get();
 		}
+//		d.getEmployees();
 		return d;
 	}
 	public Department update(Department department) {
@@ -36,6 +37,7 @@ public class DepartmentService {
 			temp=department;
 			dr.save(temp);
 		}
+//		department.getEmployees();
 		return temp;
 	}
 	public Department delete(Integer id) {

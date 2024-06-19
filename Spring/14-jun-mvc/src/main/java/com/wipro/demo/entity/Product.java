@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -11,12 +12,21 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String name;
-	private String category;
+	@ManyToOne
+	private Category category;
 	private Integer price;
 	
 	public Product() {}
 
-	public Product(Integer id, String name, String category, Integer price) {
+	public Product(String name, Category category, Integer price) {
+		super();
+		
+		this.name = name;
+		this.category = category;
+		this.price = price;
+	}
+	
+	public Product(Integer id, String name, Category category, Integer price) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,11 +50,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
@@ -58,7 +68,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + "]";
+		return "Product [id=" + id + ", name=" + name + ", category=" + category.getName() + ", price=" + price + "]";
 	}
 	
 }

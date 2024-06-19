@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +18,7 @@ public class Department {
 	private Integer id;
 	private String  name;
 	private Long budget;
-	@OneToMany(mappedBy = "department") //mappedBy will prevent creating new table	(is used whenever annotation ends with "Many")
+	@OneToMany(mappedBy = "department", fetch = FetchType.EAGER) //mappedBy will prevent creating new table	(is used whenever annotation ends with "Many")
 	@JsonIgnore
 	private List<Employee> employees;
 	

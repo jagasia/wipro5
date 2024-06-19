@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wipro.demo.entity.Category;
 import com.wipro.demo.entity.Product;
+import com.wipro.demo.service.CategoryService;
 import com.wipro.demo.service.ProductService;
 
 @Controller
@@ -20,6 +22,8 @@ import com.wipro.demo.service.ProductService;
 public class ProductController {
 	@Autowired
 	private ProductService ps;
+	@Autowired
+	private CategoryService cs;
 	
 	@GetMapping
 	public ModelAndView showProductPage()
@@ -27,32 +31,39 @@ public class ProductController {
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("product");
 		List<Product> products = ps.read();
+		List<Category> categories = cs.read();
 		mv.addObject("products",products);
 		mv.addObject("product",new Product());
+		mv.addObject("categories",categories);
 		return mv;
 	}
 	
 	@PostMapping(value = "/dml", params = "add")
-	public ModelAndView addProduct(@ModelAttribute Product product)
+	public ModelAndView addProduct(@RequestParam("id") Integer id,@RequestParam("name") String name,@RequestParam("price") Integer price,@RequestParam("category") Integer categoryId)
 	{
+		Category category = cs.read(categoryId);
+		Product product=new Product(null, name, category, price);
 		System.out.println(product);
 		ps.create(product);
 		return showProductPage();
 	}
 	
 	@PostMapping(value = "/dml", params = "update")
-	public ModelAndView updateProduct(@ModelAttribute Product product)
+	public ModelAndView updateProduct(@RequestParam("id") Integer id,@RequestParam("name") String name,@RequestParam("price") Integer price,@RequestParam("category") Integer categoryId)
 	{
+		Category category = cs.read(categoryId);
+		Product product=new Product(id, name, category, price);
+
 		System.out.println(product);
 		ps.update(product);
 		return showProductPage();
 	}
 	
 	@PostMapping(value = "/dml", params = "delete")
-	public ModelAndView deleteProduct(@ModelAttribute Product product)
+	public ModelAndView deleteProduct(@RequestParam("id") Integer id)
 	{
-		System.out.println(product);
-		ps.delete(product.getId());
+		System.out.println(id);
+		ps.delete(id);
 		return showProductPage();
 	}
 	

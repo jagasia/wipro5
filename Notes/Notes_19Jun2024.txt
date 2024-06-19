@@ -528,7 +528,7 @@ add an employee in department "5" using:
 }
 
 ---------------------------
-Task:
+Task:	(10:16 am)
 Create a REST api with following entities:
 
 	Product
@@ -538,3 +538,183 @@ M products belongs to 1 category
 1 category has M products
 
 complete this and push to git and share the git url when i ask
+
+Put a "completed" message in the chat, if you have completed the task.
+	Nobody has completed the task (from 10:16 am to 11:00 am	=	44 minutes)
+
+How many of you have started this task?
+	put in chat "started"
+
+
+Abhay Kulkarni can you unmute?
+	(joined in mobile)
+
+Akila can you unmute?
+	(joined in mobile)
+	
+Amrita is not found in the  meeting  now. Was present during attendance.
+
+Anilraj share your screen and show me upto what you have done
+	shares the screen and shows the status. Need to follow the steps correctly. some of the 1st step itself skipped.
+Ankit Sidharth Patil
+	not doing the task
+
+Arun Kumar Sinha
+	share your screen
+	shared the screen, Mic is not ON. Not done the task.
+
+
+
+
+
+While asking the following people to share their screen, they were found to be in mobile (not in computer). So they are not doing the task given.
+Abhay Ashok Kulkarni
+AKILA P
+Rakesh Kalavakuri
+Venkata Suraj Puligadda
+
+
+Amrita was not found in the meeting who was present during attendance update.
+--------------------------
+
+
+
+------------------------
+@Entity
+public class Department {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private String  name;
+	private Long budget;
+	@OneToMany(mappedBy = "department") //mappedBy will prevent creating new table	(is used whenever annotation ends with "Many")
+	private List<Employee> employees;
+
+here, whenever we get a department object, say dept (id = 2)
+	we can get the list of employees whose dept is 2
+		these employees belong to the dept #2
+
+	when does this list of employees obtained by the dept object?
+		i) when a dept object is obtained, the list of employees of that dept are also FETCHED	EAGER
+		ii) only when dept.getEmployees() method is called.		LAZY
+
+	Department 
+		contains List<Employee>
+
+	dept.getEmployees()
+
+		when a "dept" object is obtained, will it come with List<Employee>s????
+		or only when i call	det.getEmployees() method, will the List<Employee>s come???
+
+	by default, the fetch type is LAZY
+@OneToMany(mappedBy = "department", fetch = FetchType.EAGER) 	//we changed fetch type to EAGER
+	private List<Employee> employees;
+
+
+	we can observe this, by looking at the console window.
+	in application.properties, we have mention
+		spring.jpa.show-sql=true
+
+	whenever sql statements are sent by hibernate, we can see them in console.
+		lets fetch a department from database by using "id"	find dept by id
+		and observe the console window for the query executed 
+
+
+
+LAZY:
+	select d1_0.id,d1_0.budget,d1_0.name from Department d1_0 where d1_0.id=?
+
+	dept.getEmployees()			now the query to fetch employees will occur
+
+EAGER:
+	select d1_0.id,d1_0.budget,d1_0.name,e1_0.department_id,e1_0.id,e1_0.dateOfJoining,e1_0.name,e1_0.salary from Department d1_0 left join Employee e1_0 on d1_0.id=e1_0.department_id where d1_0.id=?
+
+
+when A has List<B>
+and wew fetch object of A, then 
+	A comes with List<B> is EAGER
+	A comes alone and List<B> comes ONLY when we call a.getBs() is LAZY
+
+
+---------------------
+OAS
+	Open Api Specification
+
+Somebody creates a REST api
+and we are accessing the REST api
+
+Scenario:
+------------
+Suppose, we are creating a web application that allows
+users to search for Flights from a specific source to destination
+	any example for some websites, that can be used 
+	using makemytrip (or) google flight or any other website, we book ticket.
+		all these "views" are going to call "model" via "controller"
+		we cannot write the code to access their database. (airlines) database.
+		we need to call their rest api
+
+
+
+How do you access the following url from your spring project?
+	https://api.instantwebtools.net/v1/airlines/1e24ece1-d35d-4c1d-a6af-1405de6d6c4a
+
+above airlines api allows us to
+	GET 	all airlines
+	GET	an airline by id
+	POST	add a new airline
+
+similarly, when we create a rest api
+	how can we explain this to rest of the world?
+		documentation
+
+	for documenting a rest api, we can use Open Api in spring boot 3
+
+	Spring boot version 3 uses Open Api 2
+
+
+Swagger
+	
+
+
+
+
+to call a rest api from our spring boot project using either
+	i) Feign client
+	ii) Rest Template
+	iii) web client
+
+USING any of these techniques, we can access a rest api from our spring boot project.
+------------------------------------
+Task: (15:24)
+Project name: 	Hungry Food App
+entity:		Food
+	id
+	name
+	category
+	price
+	
+Create a restful webservice that allows user to 
+	1) add food
+	2) update food
+	3) delete food
+	4) get all food 
+	5) find food by id
+
+you have to create 2 projects:
+	1) spring boot rest api		(back end) 	model, rest controller
+	2) spring boot mvc project	(front end)		view, controller
+		from mvc, we need to call rest api	(leave this to me)
+
+complete the REST api for Food now.
+-----------------------------------------------
+hint:
+	entity
+	respository
+	service
+	controller
+
+test the following using POSTMan		(remind me about swagger)
+	GET
+	POST
+	PUT
+	DELETE

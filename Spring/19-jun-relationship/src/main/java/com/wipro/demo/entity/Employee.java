@@ -2,6 +2,8 @@ package com.wipro.demo.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,7 @@ public class Employee {
 	private Date dateOfJoining;
 	private Integer salary;
 	@ManyToOne
+//	@JsonIgnore
 	private Department department;	//this is foreign key
 	
 	public Employee() {}
