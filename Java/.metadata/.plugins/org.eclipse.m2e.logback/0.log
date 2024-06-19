@@ -388,3 +388,4 @@
 2024-06-12 17:17:55,100 [Worker-152: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Jag\wipro\June2024\all\Java\12-jun-loosely-coupled\src\main\resources
 2024-06-12 17:17:55,102 [Worker-152: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Jag\wipro\June2024\all\Java\12-jun-loosely-coupled\src\test\resources
 2024-06-13 09:10:31,506 [Worker-8: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2024-06-17 09:02:51,304 [Worker-7: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.

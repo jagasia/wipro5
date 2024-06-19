@@ -1,0 +1,122 @@
+Hibernate (before spring)
+	hibernate.cfg.xml
+		is the hibernate configuration file
+		that contains information 
+			url
+			username
+			password
+			driver class name
+			dialect
+		all those information indepedent of tables, ie., upto database connection information
+
+
+dialect
+	SQL is available in various forms in various RDBMS
+	Oracle uses isql
+	Microsoft sql server uses t-sql
+	there are slight differences between these sql languages. Basically all are SQL with some difference
+	like, oracle SQL has some functions, that do not work in microsoft sql server
+	when you choose a particular dialect, HIBERNATE WILL WRITE SQL STATEMENTS in that dialect
+
+if entity class name is Employee
+	employee.hbm.xml
+		hibernate mapping file
+		it will map, table name to entity class name
+		properties to columns
+		and can define data type
+		can define primary key, etc
+
+importantly for mcqs, you need to know
+	SessionFactory
+		session
+			open()
+		transaction
+			commit	or rollback every DML statements
+
+
+Spring:
+	Dependency injection
+		setter based injection
+		constructor based injection
+
+	setter based
+		<property>
+	constructor based
+		<constructor-arg>
+
+	Autorwiring
+		byName
+		byType
+
+	bean scope
+		singleton		by default
+		prototype		everytime you "getBean", you get a new instance of the bean
+
+
+	xml configuration
+	annotation configuration
+
+
+
+	what is the difference betwee
+		@Component
+		@Bean
+
+
+@Component
+	is used above the source code of the class
+	@Component
+	public class MyBean
+	{}
+
+
+@Bean
+	is used above the method that returns an object of a bean
+
+@Qualifier
+	is used to choose the dependency based on the bean name		byName autowiring
+
+	bean class is Employee
+	employee	automatically becomes the bean name
+
+
+Sony
+	sony is the name of the bean
+
+
+@ComponentScan
+	is used to specify all base packages
+	it is an array of packages / string
+
+	@ComponentScan(basePackages={"com","com.wipro"})
+
+
+in code lab environment
+	you should know where to enter sample inputs
+	how to enter?
+	in which order to enter?
+
+	run and test the code
+		you can use System.out.println() inside your code
+		it will be useful only when you compile and execute the code for your own observation
+		it will be ignore while submitting the code
+			the method returns a value. That is what they test. They dont test your syso code
+
+		to be able to run the code, there should not be any error.
+			return dummy;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
