@@ -1,0 +1,347 @@
+Day #13
+------------
+15 people joined at 9 am
+
+1) Joining the meeting at 9 am. There is an issue. 13-15 people join on time.
+2) Joining the training using computer or laptop. There is an issue. Around 5 members joined in mobile yesterday.
+3) Doing handson, there is an issue. None of the tasks given were completed by the participants. Even after waiting 1 hour and asking random people to share screen, it is disappointment to see, many have not started. Many have issues in 1st step, but nobody ask support. Except few people like krishnamoorthy.
+4) I have shared lot of handson for core java, none of them shown interest. Usually, for every handson task, there will be lot of doubts, errors, support required, but in this batch, nobody has even discussed anything about that. If i ask, i get demotivated.
+
+
+Spring Boot & Spring REST,Spring Data,Spring Test and API Documentation
+
+Yesterday we have created food-rest-api
+and tested in postman
+
+there are many ways an MVC project can access a Rest api.
+	1) feign client
+	2) rest template
+	3) web client
+
+First we use feign client:-
+Now, we create food-mvc
+
+1) create a spring boot project using spring initializr
+	food-mvc
+	Maven
+	war
+	group:	com.wipro.demo
+	artifact:	food-mvc
+	package:	com.wipro.demo
+dependencies:
+	spring web
+	open feign
+
+finish
+2) we can add jstl dependency in pom.xml
+	for spring boot versions 2.x the jstl dependency will be different.
+but in spring boot 3, we use the following dependencies for jstl:
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<version>3.0.1</version>
+		</dependency>	
+
+3) application.properties:
+server.port=5001
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+4) in src/main/webapp
+	create the folder 
+		WEB-INF/views
+5) inside this "views" folder (which we created just now)
+	add the jsp file
+		food.jsp
+6) create the controller class.
+	always create inside the base package or its sub package.
+package com.wipro.demo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@Controller
+@RequestMapping("/food")
+public class FoodController {
+	
+	@GetMapping
+	public String home()
+	{
+		return "food";
+	}
+	
+	
+	
+}
+
+7) error:
+"Path with "WEB-INF" or "META-INF": 
+solution:
+	in pom.xml add the tomcat dependency
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+
+------------------------------------
+A simple working MVC project is being done.
+
+now, this mvc should access REST api.
+using feign:
+---------------
+1) create a food class in model package:
+package com.wipro.demo.model;
+
+public class Food {
+	private Integer id;
+	private String name;
+	private Integer price;
+	private String category;
+	
+	public Food() {}
+
+	public Food(Integer id, String name, Integer price, String category) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.category = category;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	@Override
+	public String toString() {
+		return "Food [id=" + id + ", name=" + name + ", price=" + price + ", category=" + category + "]";
+	}
+	
+}
+
+2) create a food api interface inside api package:
+package com.wipro.demo.api;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.wipro.demo.model.Food;
+
+@FeignClient(name = "food-api", url = "http://localhost:5000/food")
+public interface FoodApi {
+
+	@PostMapping
+	public Food addProduct(@RequestBody Food food);
+	
+	@GetMapping
+	public List<Food> retrieveAllProducts();
+	
+	@GetMapping("/{id}")
+	public Food findProductById(@PathVariable("id") Integer id);
+	
+	@PutMapping
+	public Food updateProduct(@RequestBody Food food);
+	
+	@DeleteMapping("/{id}")
+	public Food deleteProduct(@PathVariable("id") Integer id);
+}
+
+3) go to application main class and enable feign clients. You can do this in any configuration class.
+	
+package com.wipro.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@SpringBootApplication
+@EnableFeignClients			//very important.
+public class FoodMvcApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FoodMvcApplication.class, args);
+	}
+
+}
+
+4) in FoodController, we autowire the api and use it.
+package com.wipro.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.wipro.demo.api.FoodApi;
+import com.wipro.demo.model.Food;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
+
+@Controller
+@RequestMapping("/food")
+public class FoodController {
+	@Autowired
+	private FoodApi api;
+	
+	@GetMapping
+	public ModelAndView home()
+	{
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("food");
+		//retrieve all food using api
+		List<Food> foods = api.retrieveAllProducts();
+		mv.addObject("foods",foods);
+		return mv;
+	}
+	
+	@PostMapping(value = "/dml", params = "add")
+	public ModelAndView addFood(Food food)
+	{
+		api.addProduct(food);
+		return home();
+	}
+
+	@PostMapping(value = "/dml", params = "update")
+	public ModelAndView updateFood(Food food)
+	{
+		api.updateProduct(food);
+		return home();
+	}
+	
+	@PostMapping(value = "/dml", params = "delete")
+	public ModelAndView deleteFood(Food food)
+	{
+		api.deleteProduct(food.getId());
+		return home();
+	}
+	
+}
+
+
+5) in food.jsp, 
+	steps to use bootstrap:
+by adding the following 2 lines inside the <head> tag of jsp, you are using bootstrap.
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+-----------------------entire code -----------------------------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+	<div class="container-fluid p-5 bg-info text-white text-center">
+		<h1>My First Bootstrap Page</h1>
+		<p>Resize this responsive page to see the effect!</p>
+	</div>
+
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6">
+				<h3>Food Page</h3>
+				<form method="post" action="/food/dml">
+					Id: <input type="number" name="id" class="form-control" /> Name: <input
+						type="text" name="name" class="form-control" /> Price: <input
+						type="number" name="price" class="form-control" /> Category: <input
+						type="text" name="category" class="form-control" /> <br /> <input
+						type="submit" name="add" value="Add" class="btn btn-success" />&nbsp;
+					<input type="submit" name="update" value="Update"
+						class="btn btn-warning" />&nbsp; <input type="submit"
+						name="delete" value="Delete" class="btn btn-danger" />&nbsp;
+				</form>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Price</th>
+							<th>Category></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="f" items="${foods }">
+							<tr>
+								<td>${f.id }</td>
+								<td>${f.name }</td>
+								<td>${f.price }</td>
+								<td>${f.category }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</div>
+</body>
+</html>
+
+---------------------------------------------------------------------------------------------
+
