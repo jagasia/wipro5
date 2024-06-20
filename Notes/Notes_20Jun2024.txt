@@ -414,3 +414,70 @@ public class MyController {
 }
 
 
+Task:
+	use RestTemplate to access a rest api from your spring boot application
+
+Additional Task:
+	try to use Web client to do the same.......
+
+
+Webclient is a reactive spring component
+
+http://localhost:5000/food/1552
+
+
+package com.wipro.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.wipro.demo.model.Food;
+
+@RestController
+public class MyController {
+
+	@GetMapping
+	public String home()
+	{
+		String result="";
+		WebClient api = WebClient.create("http://localhost:5000");
+		api.get()
+		.uri("/food/1552")
+		.retrieve()
+		.bodyToMono(Food.class)
+		.subscribe(System.out::println);
+		
+		
+		return "Hello world...";
+	}
+}
+
+
+
+1) feign client
+2) rest template
+3) web client	(spring reactive -web instead of spring web)
+-------------------------------
+
+Swagger
+	provides documentation for our web  service.
+	very simple: (spring boot 3)
+		just add the following dependencies in pom.xml
+
+   <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.0.2</version>
+   </dependency>
+
+then in browser 
+http://localhost:8080/swagger-ui/index.html
+
+if your rest api url is 
+	http://localhost:5000/food
+then you must enter the following for using swagger:
+	http://localhost:5000/swagger-ui/index.html
+
+we don't enter food in the url because, all such controllers in our project will be covered by the swagger, so we dont be specific to one controller.
+

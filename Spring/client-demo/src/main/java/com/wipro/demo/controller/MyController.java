@@ -20,6 +20,8 @@ public class MyController {
 		RestTemplate rt=new RestTemplate();
 		ResponseEntity<Food> result = rt.getForEntity("http://localhost:5000/food/1552", Food.class);
 		Food food = result.getBody();
+	
+		
 		
 		return "Hello world: "+food;
 	}
