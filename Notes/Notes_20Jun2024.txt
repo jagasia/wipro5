@@ -344,4 +344,73 @@ by adding the following 2 lines inside the <head> tag of jsp, you are using boot
 </html>
 
 ---------------------------------------------------------------------------------------------
+Can you follow the above steps 
+and do it by yourself?
+
+-------------------------------
+Demo:
+	
+How to access a rest api from another spring boot application (another rest api or mvc)
+	this can be done using feign client (which we have already done)
+now we will use 
+	RestTemplate	(this demo)
+	Web client 	(this demo)
+	
+I will create a new spring boot application (to keep it simple)
+	from this new project, lets call REST api (food-rest-api)
+	using Rest Template
+	and then
+	using Web client
+
+
+using RestTemplate, i can access any rest api, using URL from anywhere in a spring boot application
+ex:
+
+		RestTemplate rt=new RestTemplate();
+		ResponseEntity<Food> result = rt.getForEntity("http://localhost:5000/food/1552", Food.class);
+		Food food = result.getBody();
+
+Steps:
+1) create a spring boot application
+	client-demo
+	jar
+	group:	com.wipro.demo
+	artificat:	client-demo
+	package:	com.wipro.demo
+	
+dependencies:
+	spring web
+
+2) application.properties:
+	server.port=5002
+
+3) create a controller
+package com.wipro.demo.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.wipro.demo.model.Food;
+
+@RestController
+public class MyController {
+
+	@GetMapping
+	public String home()
+	{
+		//i am going to call a rest api from here (spring boot app)
+		//every spring boot app, has RestTemplate (no need to add dependencies in pom.xml)
+		//you may create an object of RestTemplate. Or you may autowire it
+		//RestTemplate is used to access any rest api
+		
+		RestTemplate rt=new RestTemplate();
+		ResponseEntity<Food> result = rt.getForEntity("http://localhost:5000/food/1552", Food.class);
+		Food food = result.getBody();
+		
+		return "Hello world: "+food;
+	}
+}
+
 
