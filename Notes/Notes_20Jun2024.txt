@@ -480,4 +480,45 @@ then you must enter the following for using swagger:
 	http://localhost:5000/swagger-ui/index.html
 
 we don't enter food in the url because, all such controllers in our project will be covered by the swagger, so we dont be specific to one controller.
+-----------------------------------------------
+Task:
+create web client, rest template, feign client 
+do them each in a separate project
+to access a rest api
+
+I want you all to completely go through the tutorial videos provided in the techademy.
+Since, till date, topics are covered, i want you all to complete the video learning in techademy
+And ask doubts wherever and clarify with me.
+
+
+
+how many MCQs were there in milestone 1
+
+how many coding questions?
+
+
+Milestone 2:
+-----------------
+hibernate
+spring
+spring mvc
+spring rest
+spring reactive  webflux
+
+
+coding question will  be in core java
+
+{a=2,b=2,c=3}
+
+regex to extract only numbers 
+
+2
+2
+3
+
+each time, you can store them in an array
+
+arr[0]		is prefix
+arr[2]		is suffix
+
 
