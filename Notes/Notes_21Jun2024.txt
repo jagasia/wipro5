@@ -1,0 +1,184 @@
+Day #14
+----------
+20 members found in the meeting at 09:00 am
+it has improved from 13 to 15 to 20
+
+Have you see the change in the schedule?
+The end date of the training is updated to 31-Jul-2024
+
+Introduction to Reactive Programming, Project Reactor and Spring Boot WebFlux, Working with Flux and Mono, Not blocking API, Functional Web in Spring Boot Webflux, Reactive CRUD operation.
+
+
+Reactive Programming
+------------------------------
+Basically, the difference between Spring web and Reactive Spring web in spring boot is
+reactive web follows "Publish-Subscribe" model.
+
+What is Publish Subscribe model?
+	The service will publish and the client subscribe.
+	Actually, take it in a reverse way:
+		The clients subscribe for a service.
+		The server publish the service.
+
+	whoever has subscribed, will get response.
+
+What is the difference?
+	the subscriber and the publisher may not be online
+	they may not know each other
+	ex:
+		When a postman comes to your home, you are there to receive. Then this is synchrozied process.		
+		When a postman comes to your home, you are not there, but there is a small postbox in your gate.
+			the postman put the letter in the postbox. 
+		this model has an advantage, 
+			you will not wait for the postman
+			you & postman may not meet eachother
+
+	whoever has put postbox in their gate, have subscribed for a service.
+	whenever there is a letter for them, they are published
+
+
+what does outlook do?
+	will it keep on checking for any new emails? in infinite loop????????
+	No. it is not checking for new emails in infinite loop.
+	But, whenever a new email comes, the outlook will get notification and then outlook will inform you
+	
+
+in postman example also, 
+	you do not call the postman again and again to check if any post came
+	rather, if a post comes, postman will come.
+	can we call it as a callback
+	exactly we have subscribed
+
+so when we subscribe for a service, it not necessarily will publish the data immediately. But we get response in asynchronous fashion.
+
+	coming to programming
+
+		a.method();		the method is executed immediately and get output.
+
+		a.subscribe();		we do not expect output immediately, but when service publishes the output, we will get response.
+
+
+a.method();		is calling a method in sync mode
+a.subscribe();		is calling a method/ no.	is subscribing for a response. 	async
+
+For asynchronous, we use spring reactive web
+
+what is the advantage of asynchronous programming?
+	we may not miss the response.		(postbox will keep your letter until you come back)
+
+What is the difference between spring web and spring reactive web?
+1) while creating a spring boot application, we add
+	spring web
+now, we add
+	spring reactive web
+2) rest api returns entity
+	
+	@GetMapping
+	public List<Food> retrieveAllFood()
+	{
+		return fs.read();
+	}
+
+	when i call this method, i am calling the method
+
+in reactive, we use
+	@GetMapping
+	public Flux<Food> retrieveAllFood()
+	{
+		return fs.read();
+	}	
+
+	when i call this method, i am subscribing the method
+
+for single entity
+	
+	@GetMapping("/{id}")
+	public Mono<Food> findFoodById(@PathVariable("id") Integer id)
+	{
+		return fs.read(id);
+	}
+
+
+What is Mono and Flux?
+	for single entity, Mono is used
+	for multiple entity, Flux is used
+
+
+Mono
+	0 or 1 entity
+Flux
+	0 or more entity
+
+Food		display food
+List<Food>	get an element from the list and that is food
+
+List<Food> foods= new Food();	//not possible
+but, List<Food> can contain 1 food
+
+List<Food> foods=new ArrayList<>();
+foods.add(new Food());
+
+this list contains only 1 food. that is possible.
+
+
+----------------------------------------------------------
+Demo:
+Lets create a spring reactive web service for food:
+1) create a spring boot app:
+21-jun-webflux-food
+	jar
+	maven
+	group:	com.wipro.demo
+	artifact:	21-jun-webflux-food
+	package: 	com.wipro.demo
+	
+dependencies:
+	spring reactive web
+	h2 database
+	spring data jpa	(NO) instead use the below
+	spring data r2dbc
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-r2dbc</artifactId>
+		</dependency>
+
+2) application.properties:
+server.port=6000
+#spring.datasource.url=jdbc:h2:mem:jag
+spring.datasource.url=jdbc:h2:file:./data/food
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+
+3) entity
+4) repository
+package com.wipro.demo.repository;
+
+import org.springframework.data.repository.reactive.ReactiveSortingRepository;
+import org.springframework.stereotype.Repository;
+
+import com.wipro.demo.entity.Food;
+
+@Repository
+public interface FoodIRepository extends ReactiveSortingRepository<Food, Integer>
+{
+
+}
+
+5) service
+
+refer to the project:
+	21-jun-webflux
+		simple controller with mono and flux example
+
+	21-jun-webflux-food
+		incomplete
