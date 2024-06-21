@@ -182,3 +182,169 @@ refer to the project:
 
 	21-jun-webflux-food
 		incomplete
+
+
+Task:
+Create a spring reactive webflux project and 
+	a controller that returns
+		a String		Mono<String>
+		a list of strings	Flux<String>
+		an object		Mono<Food>
+		a list of object	Flux<Food>
+
+i have given example for the above.
+and then try to use a database backend and use 
+	ReactiveCrudRepository
+------------------------------------------------
+Hibernate inheritance strategy
+	suppose, if there are 3 classes.
+
+Employee
+	ContractEmployee
+		Contractor
+
+now, i can create 1 table in the database for all these 3 classes
+or i can create 1 table per class	ie., for Employee, one table, for ContractEmployee, one table etc
+
+so there are different strategies when there are inheritance among the entity classes.
+
+ @Inheritance(strategy = InheritanceType.SINGLE_TABLE)	
+	what does the above mean?	for all classes in the inheritance hierarchy, a single table is used.
+
+
+ @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+	what does the above mean?	for every class, a separate table is used.
+
+
+
+ @Inheritance(strategy = InheritanceType.SINGLE_TABLE)	 
+@Inheritance(strategy = InheritanceType.JOINED)	 
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)	 
+@MappingSuperClass
+
+
+-----------------
+if the entity class is as follows:
+
+@Entity
+@Table(name="EMP")
+public class Employee
+{
+	@Id
+	private String username;		//this becomes primary key because of @Id annotation		
+	private String department;
+}
+
+for the above entity,
+can you write repository interface code?
+	write in chat window.
+
+	public interface EmployeeRepository extends JpaRepository<Employee, String>
+in my entity, the primary key is String type. 
+
+
+
+------------------------------
+Which annotation can be used to map the JSON obejct coming through request with Java Class Object?
+
+
+In a controller, if a method should return JSON object?
+	normally a controller method will return VIEW
+	instead of returning view, it want to reutrn content?
+		@ResponseBody
+
+
+Which is used by Restful webservice:
+	@Controller	(or)		@RestController
+
+ans:
+	@RestController
+
+" @RestController
+@RequestMapping(""/hello"")
+public class SpringRestController {
+   @GetMapping(""/{name}"")
+   public String hello(@PathVariable String name) {
+	String result=""Hello ""+name; 
+	return result;
+   }
+}"
+
+The following is wrong because, @RequestParam is wrong. @PathVariable is correct
+
+" @RestController
+@RequestMapping(""/hello"")
+public class SpringRestController {
+   @GetMapping(""/{name}"")
+   public String hello(@RequestParam String name) {
+     String result=""Hello ""+name; 
+     return result;
+   }
+}"
+
+
+/{name}		is called as @PathVariable
+
+?name=something	is called as @RequestParam
+
+--------------------
+"public interface CustomerRepository extends JpaRepository<Customer,Integer> {
+	Customer findByEmail(String email);
+}"
+
+
+for update?
+	GET		is used to retrieve data	READ
+	POST		is used to add data		CREATE
+	PUT		is used to update data	UPDATE
+	DELETE		is used to delete data		DELETE
+
+
+" @PutMapping(""/"")
+	public ResponseEntity<Product> editProduct(@RequestBody Product product) {
+		
+	}"	
+
+" @GetMapping(""/api/products"")
+public List<Product> getAllProducts(@RequestParam String category) {
+
+}"	"  @GetMapping(""/api/products"")
+public List<Product> getAllProducts(@PathVariable String category) {
+
+}"	" @GetMapping(""/api/products/{category}"")
+public List<Product> getAllProducts(@RequestParam String category) {
+
+} "	" @GetMapping(""/api/products/{category}"")
+public List<Product> getAllProducts(@PathVariable String category) {
+
+} "
+
+WHICH OF THE ABOVE FILTERS THE PRODUCTS BY ITS CAREGORY?
+	IF THE URL is		localhost:8080/api/products?category=mobile
+	option A		uses @RequestParam		and url does not use {category}
+
+
+
+" @SpringBootApplication 
+public class Application {
+  public static void main(String[] args) {
+      SpringApplication.run(Application.class, args);
+  }
+}"
+
+	
+wrongs:
+	@Configuration
+	@EnableAutoConfiguration
+	@ComponentScan
+
+
+How to enable automatic database schema generation for JPA entities in spring Boot?
+in application.properties
+	what will you do?
+		 By setting spring.jpa.hibernate.ddl-auto property to true
+
+
+
+
+
