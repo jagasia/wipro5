@@ -346,5 +346,7 @@ in application.properties
 
 
 
+Task:
+Prepare for the assessment 2 and ask doubts
 
 
