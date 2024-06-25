@@ -189,6 +189,260 @@ follow the steps in the above demo to
 
 check http://localhost:8761
 and monitor the services running
+Task:
+----------------------------------
+Day 16	25-Jun-24	Tue	Monolithic Application
+You are supposed to create a Monolithic Application
+later this must be translated into micoservices architecture
+A monolithic application means, a single project provides all the services
+Example:
+	One spring boot application is created "e-com-project"
+	entities:
+		Customer		
+		Product
+		Sales
+	repositories:
+		CustomerRepository
+		ProductRepository
+		SalesRepository
+	service classes:
+		CustomerService
+		ProductService
+		SalesService
+	controller classes:
+		CustomerController
+		ProductService
+		SalesService
+you can test this using postman
+or you can use swagger.
+--------------------------------------------
+Load Balancer
+Circuit Breaker
+
+What is circuit breaker?
+	Suppose, a webservice A calls B and then B calls C and then C calls D
+	The response from D -> C-> B -> A	
+
+	in order to ensure the fault tolerance, network can have retry mechanism if a service is not available.
+	C is not available, B is going to retry several times to reach C.
+
+	What happens, if C is available, but has error. 
+	Now, the retry mechanism is going to create endless loop of retrying to access C.
+	You may think that retry mechanism is not necessary. If retry is not there, then the error is carried foward all the way to B and then A
+	
+	So, what ideally should happen? when a service has error, we would like to break the loop.
+	Circuit breaker
+		not only is used to break this loop
+		and also can provide an alternate or callback method to proceed in such case.
+
+
+
+Spring boot actuator
+
+in eureka server, you find lot of services and you click one of them:
+	http://localhost:8383/actuator/info
+
+
+Lombok
+	what is lombok?
+		instead of writing boiler plate code in our program, we can use certain annotations which will in tern
+			generate the boiler plate code
+	what is boiler plate code?
+		public class Employee
+		{
+			private Integer id;
+			
+			public Employee(){}
+			public Employee(Integer id){
+			{
+				this.id=id;
+			}
+			public void setId(Integer id)
+			{
+				this.id=id;
+			}
+			public Integer getId()
+			{
+				return id;
+			}
+		}
+
+	in the above program, 
+		no arg constructor
+		all arg constructor
+		getters
+		setters
+	are called as boiler plate code. Means, it is almost same in every project
+
+
+	if we use lombok dependency in our pom.xml
+	and if lombok is properly configured,
+	then this program can be modified as 
+
+
+		@AllArgConstructor
+		@NoArgConstructor		
+		@Data			//getters and setters
+		public class Employee
+		{
+			private Integer id;
+		}
+
+
+these annotations are written in source code.
+the compiler will generate the constructors, getters, setters, etc during compilation
+
+Lab setup for Lombok:
+	add the lombok dependency in your pom.xml
+	and update the project
+
+C:\Users\rjaga\.m2\repository\org\projectlombok\lombok\1.18.10\lombok-1.18.10.jar
+
+group id:		projectlombok
+artifact id:		lombok
+version:		1.1.18.10
+
+Run this jar file
+	1) double click to run		(or)
+	2) go to cmd in this location and
+		java -jar lombok-1.18.10.jar
+
+in any of the above methods, 
+	it will open a window where you locate the IDE (eclipse/sts)
+and install
+
+Restart IDE		(eclispse / sts)
+
+
+
+
+Task:
+understand circuit breaker using the diagrams in 
+	https://www.vinsguru.com/circuit-breaker-pattern/
+
+and create the example project for circuit breaker using
+	https://www.baeldung.com/spring-cloud-circuit-breaker
+
+
+
+
+@Service
+public class AlbumService {
+    
+    @Autowired
+    private CircuitBreakerFactory circuitBreakerFactory;
+
+    //... 
+
+}
+
+
+
+
+
+public String getAlbumList() {
+    CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
+    String url = "http://localhost:1234/not-real";
+    
+    return circuitBreaker.run(() -> restTemplate.getForObject(url, String.class), 
+      throwable -> getDefaultAlbumList());
+}
+
+
+
+Employee emp=new Employee();
+emp.setId(10);			//setter to enter id
+
+
+Employee emp1=new Employee(20);	//constructor to enter id
+	there are some employees, join and then submit their certificates later
+	day by day one by one they submit
+	so first we need to create the employee in system
+	then use setter to update one by one
+
+
+no arg cons + setter is one option
+all arg cons is another option
+
+
+if Employee class has any constructor with argument
+then compiler will not create default constructor.
+---------------------------
+circuit breaker demo:
+1) create a spring boot application 
+	spring web
+	resilience4j
+
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+    <version>1.0.2.RELEASE</version>
+</dependency>
+
+3) create MyService.java
+package com.example.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class MyService {
+	@Autowired
+	CircuitBreakerFactory cbf;
+	
+	
+	public String getAlbumList() {
+		RestTemplate restTemplate=new RestTemplate();
+	    CircuitBreaker circuitBreaker = cbf.create("circuitbreaker");
+//	    String url = "http://localhost:1234/not-real";
+	    
+	    String url="https://jsonplaceholder.typicode.com/albums";
+	    
+	    return circuitBreaker.run(() -> restTemplate.getForObject(url, String.class), 
+	      throwable -> getDefaultAlbumList());
+	}
+
+	private String getDefaultAlbumList() {
+		// TODO Auto-generated method stub
+		return "Album is not available right now";
+	}
+	
+	
+}
+
+
+4) create controller
+package com.example.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.service.MyService;
+
+@RestController
+public class MyController {
+	@Autowired
+	private MyService ms;
+
+	@GetMapping
+	public String home()
+	{
+		return ms.getAlbumList();
+//		return "hello world";
+	}
+}
+
+5) application.properties
+	server.port=5000
+
+6) run the application 
+	in service, change the url
+		if the url is correct, you get output
+		if the url is wrong, you see that "Album is not available right now"
 
 
 
