@@ -1,0 +1,161 @@
+Day #15
+----------
+10 participants present at 9:00 am
+--------------------------
+Introduction to Microservices
+	What is microservices architecture? compared to monolithic architecture.
+A monolithic application or an application in monolithic architecture, is developed as a single tightly coupled components application.
+For example: what is the difference between a laptop and a desktop?
+	A laptop is tightly coupled with keyboard, touchpad, monitor, cpu all in one unit.
+	A desktop, is loosely coupled with keyboard, mouse, monitor, cpu, etc.
+		If one has a problem, we can replace it easily.
+			keyboard can be changed easily.
+	they all work together as separate components together.
+
+
+Instead of developing an application as a single unit, we are splitting that into multiple units working independently to serve the purpose. 
+Advantage?
+	multiple teams can create those multiple units parallely, and also they run parallely. 
+	some of the units can be provided by 3rd party. Means, all the services are not created by us only.
+	
+Tell me one example for an ecommerce website.
+	amazon
+		does not create all the components of their amazon.com
+	for example,
+		the payment part.	
+		you are provided with variety of payment options
+			credit card
+			debit card
+			wallet
+			UPI
+			net banking
+
+	all these payment options cannot be coded by amazon. 
+	amazon, borrows the functionality from appropriate services.
+	if one of the service is failed, then customer is able to choose another option and proceed.
+	
+	each being a separate web service.
+
+
+	if upi service is down temporarily, it does not mean amazon is down for that time.
+	
+1) developing the services independently
+2) services developed by different service providers
+3) one service being down does not affect other services
+4) provides modularity and easy to maintain
+
+IMO microservices architecture is very good when it comes to Enterprises Integration
+
+EAI		Enterprises Application Integration
+
+How MakeMyTrip application is able to show real time information about Flights?
+	how they are able to show the rooms availability on a particular time? real time data
+	
+	API
+
+so, developing applications as multiple APIs that work together is the key for microservices.
+
+we develop lot of restful webservices
+
+Webservices
+	SOAP
+	RESTful
+
+SOAP provides a single interface / url for the entire webservice that contains lot of web methods.
+so it is not based on microservices architecture.
+
+RESTful webservices provide unique URL for every web method
+so it is based on microservices architecture.
+
+we can develop a restful webservice using dotnet technology
+and that restful webservice can be called from a program developed using java technology.
+	this is called as interoperability
+
+microservices are interoperable.
+
+	if you see any rest controller, you created, 
+		every web method has url
+		there can be some methods for internal purpose, they may not have url, and they are for internal purpose.
+
+Learning microservices, involves, learning to develop restful webservices and additional features of microservices.
+	interact between multiple services		feign client/ rest template/ web client
+	manage the services health and monitor them	eureka server and client
+	balance the load between services	load balancer
+	circuit breaker
+
+learn the microservices architecture and principles
+
+
+Techademy has these chapters with diagrams
+
+What time is our assessment #2
+
+Once you are able to login to assessment, kindly close the meeting window.
+or close the meeting window first.
+come back to meeting only if you face issues.
+
+Syllabus for assessment 2
+-------------------------------
+Spring Boot
+Spring REST
+Spring Data
+Spring Test and API Documentation			Swagger, OpenAPI documentation
+Reactive Programming using Spring Boot WebFlux
+	Mono
+	Flux
+
+	change in dependencies		
+	change in repository
+	
+in techademy whatever related to these chapters
+go through them
+
+Core Java coding challenge
+-----------------------------------
+	every challenge is combination of one or two or three tasks
+	more the task, more complex.
+	if you can split the challenges and handle one by one, you can solve it.
+
+
+ex:
+	finding if a number is prime number or not 		is easy for many of you
+	find the list of prime numbers between x and y	is difficult for some of you
+		what to do?
+			if possible, if allowed, create a method that accepts number and returns true / false (prime)
+			call that method from a loop
+			this makes it very easy.
+
+	finding the list of numbers, where the number itself is prime and every digit is prime	(is very difficult)
+		again, have the method that finds if a number is prime or not
+		call it in a loop
+		if prime, then split the number into digits, call method for every digit to check if it is prime
+		every time, you check, any "false" received, "continue" to next iteration of loop
+
+	finding each digit of a number (you should have practised already)
+		i) using %10 and /10
+		ii) convert num to string and get char arr of string
+			char to int		will give ascii		(-48 will give digit)
+
+-----------------------
+Prepare for the assessment 2 and introduce any value discussions or doubts clarification
+
+Spring Boot
+Spring REST
+Spring Data
+Spring Test and API Documentation			Swagger, OpenAPI documentation
+Reactive Programming using Spring Boot WebFlux
+
+
+Techademy handon assignments
+	have you started uploading your assignment solutions?
+
+So, every day, you are supposed to upload the assignments and progress continuously. 
+Do not keep it pending for someday to work on this.
+
+Day by day you need to submit assignments.
+
+Yes, before deadline you have to complete. But doing day by day will give you confidence.
+Not to wait and do on deadline day.
+
+
+

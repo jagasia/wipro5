@@ -1,0 +1,195 @@
+Day #16
+----------
+11 participants present at 9:00 am
+--------------------------
+Introduction to Microservices
+Monolith Application
+Netflix OSS & Spring Cloud
+
+Understand what is Spring cloud?
+Understand microservices architecture.
+Load balancer
+Circuit breaker
+Netflix Eureka server and client
+Eureka feign client
+
+Basically, you create multiple projects, each being restful webservices.
+they can run simultaneously.
+Now, what are the values added by the above technologies?
+Load balancer?
+
+Load balancing is the process of distributing traffic among different instances of the same application.
+
+To create a fault-tolerant system, it’s common to run multiple instances of each application. Thus, whenever one service needs to communicate with another, it needs to pick a particular instance to send its request.
+
+There are many algorithms when it comes to load balancing:
+
+Random selection: Choosing an instance randomly
+Round-robin: Choosing an instance in the same order each time
+Least connections: Choosing the instance with the fewest current connections
+Weighted metric: Using a weighted metric to choose the best instance (for example, CPU or memory usage)
+IP hash: Using the hash of the client IP to map to an instance
+
+Task:
+Understand what is load balancer and create the application using below:
+Follow these steps to exihibit load balancer.
+	https://www.baeldung.com/spring-cloud-load-balancer
+
+---------------------------------------------------------------------
+Attendance taken at 9:12
+
+
+Restful webservices are stateless.
+means, every request is independent. Each request does not know about other request.
+	sum(2,3)		=>	5
+	differenc		=>	-1	(you remember the values passed to previous request)
+	this is stateful ness
+
+
+	a class has global variables that is "state"
+	you call couple of methods of the class, then the state remembers the value across multiple method call.
+	this is called as stateful ness.
+	But RESTful webservices are stateless.
+
+so, it is possible that you call 2 methods of a single webservice.
+and each time a different instance of the service is providing the service.
+
+several instances of a service are available, and among them
+the load is balanced.
+
+instance 1 gets a request
+instance 2 gets a request
+now, instance 1 completed the response
+instance 1 gets another request
+
+-------------------------------------------------------------------
+1) Spring CLI
+2) Eureka
+
+
+Spring CLI can be installed in a system.
+cmd:
+	Microsoft Windows [Version 10.0.19045.4529]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\rjaga>spring --version
+Spring CLI v2.5.0
+C:\Users\rjaga>
+
+we can find the version of the spring CLI installed in a computer.
+
+using CLI, we can do many things including:
+	build a spring boot application	(generating jar/war/ear)	we can do it using mvn command
+	run a spring boot application	we can use mvn to run 	
+
+i can run a spring boot application very easily in cmd prompt.
+
+
+we are able to run a spring boot application from command prompt.
+why?
+i)	after deploying the application in cloud
+	we may have command prompt only to run the application
+
+ii) 	for CI/CD (continuous integration/ continuous deployment)
+	we may need to run the scripts that will run our project
+	ex:	jenkins, AWS code pipeline
+
+
+--------------------------------
+Eureka
+	we will create multiple rest apis now
+	all these are monitored and maintained using eureka server
+
+Demo:
+---------
+Steps for creating an Eureka server application:
+1) create a spring boot project using spring initializr
+	Type:	Maven
+	Packaging:	Jar
+	Java:	17
+	Language:	Java
+	Group:	com.wipro.demo
+	Artifact:	eureka-server
+	Package:	com.wipro.demo
+	dependencies:
+		Spring Web
+		Eureka Server
+
+Finish
+2) choose a port number for eureka server (8761 is the commonly used port for eureka server)
+	application.properties
+		server.port=8761
+		eureka.client.registerWithEureka = false
+		eureka.client.fetchRegistry = false
+
+
+
+3) 	below @SpringBootApplication, add the following annotation
+		@EnableEurekaServer
+Example:
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaServerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EurekaServerApplication.class, args);
+	}
+
+}
+
+4) Run the application
+5) go to 
+	http://localhost:8761
+
+now, you are able to monitor all the webservices registered to this eureka.
+At this time, there are no webservices registered at all. So lets create couple of webservices and register them to this eureka.
+-------------------------------------------------
+client #1:	customer-service
+1) create a spring boot restful webservice
+	ensure that you added the "eureka discovery client" dependency
+
+2) in application.properties
+
+spring.application.name=customer-service
+
+server.port=8383
+eureka.instance.hostname=localhost
+eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:8761/eureka/
+server.context-path=/customer
+
+3) run the project
+
+4) check eureka server. Now you should be able to see this "customer-service" under:
+	Instances currently registered with Eureka
+---------------------------------------------------
+client #1:	product-service
+1) create a spring boot restful webservice
+	ensure that you added the "eureka discovery client" dependency
+
+2) in application.properties
+
+spring.application.name=product-service
+
+server.port=8384
+eureka.instance.hostname=localhost
+eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:8761/eureka/
+server.context-path=/customer
+
+3) run the project
+
+4) check eureka server. Now you should be able to see this "product-service" under:
+	Instances currently registered with Eureka
+---------------------------------------------------
+
+Task:
+follow the steps in the above demo to 
+	create eureka server running in 8761
+	create customer service running in 8383
+	create product service running in 8384
+
+check http://localhost:8761
+and monitor the services running
+
+
+
+

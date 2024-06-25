@@ -325,7 +325,7 @@ WHICH OF THE ABOVE FILTERS THE PRODUCTS BY ITS CAREGORY?
 
 
 
-" @SpringBootApplication 
+@SpringBootApplication 
 public class Application {
   public static void main(String[] args) {
       SpringApplication.run(Application.class, args);
@@ -348,5 +348,52 @@ in application.properties
 
 Task:
 Prepare for the assessment 2 and ask doubts
+
+
+
+
+
+Difference between 
+	@RequestParam		url:	http://localhost:8080/employee?id=20
+	@PathVariable		url:	http://localhost:8080/employee/20		
+					@RequestMapping("/employee/{id}
+
+@Entity
+public class Employee
+{
+	@Id
+	private Integer id;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer>
+
+
+
+@Query("select e from Employee e where e.salary between :min and :max")
+public List<Employee> findBySalaryRange(@Param("min") Integer min, @Param("max") Integer max)
+
+
+	select e from Employee e where e.salary between :min and :max
+can also be written as
+	from Employee e where e.salary between :min and :max
+
+both are same only
+
+
+@RequestParam
+@PathVariable
+	in both cases, the value is sent in URL
+
+but
+@RequestBody
+	you are not sending the value in address bar URL at all
+	you are sending in the postman body, not in url
+
+	@RequestBody is useful when you send JSON (object)
+
+
+
+
+
+
 
 

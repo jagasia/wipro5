@@ -21,8 +21,8 @@ Spring framework:
 		singleton
 		prototype
 
-	configuration types
-		type of application context	(MCQ)
+What are the spring configuration types?
+		type of application context	
 			ClassPathXmlApplicationContext
 			AnnotationConfigApplicationContext
 			XmlWebApplicationContext
