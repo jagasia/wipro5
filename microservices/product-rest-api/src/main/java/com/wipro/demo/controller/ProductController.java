@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wipro.demo.entity.Customer;
-import com.wipro.demo.service.CustomerService;
+import com.wipro.demo.entity.Product;
+import com.wipro.demo.service.ProductService;
 
 @RestController
-@RequestMapping("/customer")
-public class CustomerController {
+@RequestMapping("/product")
+public class ProductController {
 	@Autowired
-	private CustomerService cs;
+	private ProductService ps;
 	
 	@PostMapping
-	public Customer create(@RequestBody Customer customer) {
-		return cs.create(customer);
+	public Product create(@RequestBody Product product) {
+		return ps.create(product);
 	}
 
 	@GetMapping
-	public List<Customer> read() {
-		return cs.read();
+	public List<Product> read() {
+		return ps.read();
 	}
 	
 	@GetMapping("/{id}")
-	public Customer read(@PathVariable("id") Integer id) {
-		return cs.read(id);
+	public Product read(@PathVariable("id") Integer id) {
+		return ps.read(id);
 	}
 	
 	@PutMapping
-	public Customer update(@RequestBody Customer customer) {
-		return cs.update(customer);
+	public Product update(@RequestBody Product product) {
+		return ps.update(product);
 	}
 	
 	@DeleteMapping("/{id}")
-	public Customer delete(@PathVariable("id")Integer id) {
-		return cs.delete(id);
+	public Product delete(@PathVariable("id")Integer id) {
+		return ps.delete(id);
 	}
 	
 }

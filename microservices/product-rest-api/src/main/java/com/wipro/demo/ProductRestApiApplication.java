@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CustomerRestApiApplication {
+public class ProductRestApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CustomerRestApiApplication.class, args);
-		System.out.println("Customer api is running now");
+		SpringApplication.run(ProductRestApiApplication.class, args);
+		System.out.println("Product api is running now");
 	}
 
 }

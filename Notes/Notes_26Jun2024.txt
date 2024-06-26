@@ -518,6 +518,12 @@ we have tested the customer rest api in postman
 can anyone share the swagger ui dependency in chat?
 
 
+We have created
+	customer rest api
+	product rest api
+
+i will push everything to git now.
+complete the refactoring if you have already done this in monolithic.
 
 
 
