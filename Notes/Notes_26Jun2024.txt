@@ -1,0 +1,526 @@
+Day #17
+----------
+Netflix OSS & Spring Cloud
+---------------------------------------
+17 participants present at 9:00 am
+--------------------------
+Anil
+Vaishnav
+Sai Janardhan
+Tirupathi
+Harshada
+Sejal
+B.Eswar
+Krishnamoorthy
+Adapa Srinivas
+Shreyansh Pandit
+Om Khairkar
+Sai Krishna
+Satya Sai
+Yash Dashpute
+Rakesh
+Parvathi
+Praveen Warad
+------------------------------------------------------------------
+Yesterday, we have created a Monolithic application
+we used spring boot to create a single restful webservice. 
+It is not a monolithic application because, it does not provide all of the 3:
+	Presentation
+	Business logic
+	Data
+
+in our project, except presentation, other 2 were present.
+
+Akila joined now (09:03)
+
+still, our project is monolithic in the way, everything is done in a single project.
+
+today as per topic:
+Netflix OSS & Spring Cloud
+
+
+we will split the application into multiple services
+
+Customer
+Product
+Sales
+
+each done in a separate project
+and how each service can interact with other?
+	RestTemplate or Feign client
+	Web client requires entire application to change from Spring web to Spring webflux (Reactive)
+	Feign client requires additional types to be introduced
+
+Sopan Mule
+Surajit Das
+Ankit Sidharth Patil
+	 has joined now (09:07)
+
+RestTemplate 
+	is chosen now to use as integration tool for rest apis
+	one rest api can call another rest api (using the URL)
+
+Harshada Chaudhari 
+	has joined now (09:09)
+
+Sai Charan
+Arun Kumar Sinha
+	has joined now (09:11)
+
+In this project:
+	when one rest api calls another rest api
+	can we use circuit breaker to call it
+	so that in case of failure or error or unavailability of service, it will call a callback method
+
+Utkarsh Singh
+	has joined now (09:12)
+
+Sankar Vajja
+	has joine now (09:18)
+
+
+
+if mobile number is chosen as Integer
+	then it will allow 10 digit number but the first digit can be <=2	
+	int mobile;
+		while they do testing,
+			they entered dummy		878787
+		during presentation,
+			they enter proper value	9898989898	(this is beyong the range of int)
+		we do not do arithmetic on mobile numbers
+		so it is String chosen for mobile numbers
+		because, string supports RegEx
+
+
+
+if primary key is not an Integer or Long
+you cannot use @GeneratedValue at all.
+in that case, if you want to generate, then you need to 
+	create a method in the service class
+
+in service class
+
+	public String generateCid()
+	{
+		//find the last id found in the customer table
+		//and find the numeric portion and increment it
+		C099	is the last value
+		you use your core java skill to extract characters from index 1 to 3
+		str.substring(1)		099 
+		convert it to int
+		99	+1
+		if it is less thn 3 digit, then append 0s in front
+		C+<number>
+		C100
+		return this string
+
+	
+	}
+	public Customer create(Customer customer)
+	{
+		//call a generateCid() method to get an unique id
+		customer.setId(generageCid());
+	}
+
+
+
+
+If 3 services have 3 entity classes each
+then how do we define relationships	(ex: one to many)
+	So, it is required that we need to have all the entities in all the projects.
+		but in customer rest api, 
+			customer repository
+			customer service
+			customer controller
+and vice versa for other apis
+
+Steps:
+yesterday we created a eureka server. Now, the 3 rest apis we create now, can register themselves with that same eureka server.
+The 3 rest apis we create now will be eureka clients.
+customer rest api
+which database we use?
+	MySql
+	H2
+	PostgreS
+
+
+1) create a spring boot application
+	maven
+	jar
+	java
+	17
+	group: 	com.wipro.demo
+	artifact:	customer-rest-api
+	package:	com.wipro.demo
+	dependencies:
+		Spring Web
+		Eureka Discovery client	
+		Resilience4j		(for circuit breaker)
+		Spring data Jpa
+		MySQL driver
+Finish
+2) appliction.properties
+spring.application.name=customer-rest-api
+server.port=6001
+eureka.instance.hostname=localhost
+eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:8761/eureka/
+
+spring.datasource.url=jdbc:mysql://localhost:3306/wipro5
+spring.datasource.username=root
+spring.datasource.password=
+
+spring.datasource.hikari.connection-timeout=20000
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.maximum-pool-size=12
+spring.datasource.hikari.idle-timeout=300000
+spring.datasource.hikari.max-lifetime=1200000
+
+spring.jpa.show-sql= true
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQLDialect
+spring.jpa.properties.hibernate.id.new_generator_mappings = false
+spring.jpa.properties.hibernate.format_sql = false
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+
+
+G Dheeraj Reddy 
+	has joined now (09:24)
+
+Nalli Udhay Kumar
+	has joined now (09:25)
+
+we have chosen MySQL now
+
+3) Entity
+	we need to create all entites here because, then only 
+	relationships can be provided
+package com.wipro.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Customer {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private String name;
+	private String mobile;
+	
+	public Customer() {}
+
+	public Customer(Integer id, String name, String mobile) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.mobile = mobile;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", mobile=" + mobile + "]";
+	}
+	
+	
+
+}
+
+
+package com.wipro.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Product {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private String name;
+	private Double price;
+	
+	public Product() {}
+
+	public Product(Integer id, String name, Double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+	}
+	
+}
+
+
+
+package com.wipro.demo.entity;
+
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+//@Table(name="ORDER_DETAILS")	if class name is Order, then table name cannot be ORDER, because, ORDER is keyword in sql
+public class Sales{
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private Date dateOfSales;
+	@ManyToOne
+	private Customer customer;
+	@ManyToOne
+	private Product product;
+	private Integer quantity;
+	
+	public Sales() {}
+
+	public Sales(Integer id, Date dateOfSales, Customer customer, Product product, Integer quantity) {
+		super();
+		this.id = id;
+		this.dateOfSales = dateOfSales;
+		this.customer = customer;
+		this.product = product;
+		this.quantity = quantity;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getDateOfSales() {
+		return dateOfSales;
+	}
+
+	public void setDateOfSales(Date dateOfSales) {
+		this.dateOfSales = dateOfSales;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	@Override
+	public String toString() {
+		return "Sales [id=" + id + ", dateOfSales=" + dateOfSales + ", customer=" + customer.getName() + ", product=" + product.getName()
+				+ ", quantity=" + quantity + "]";
+	}
+	
+}
+
+4) repository
+	this is a customer api, so we will have only customer repository
+
+package com.wipro.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.wipro.demo.entity.Customer;
+
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer, Integer>
+{
+
+}
+
+4) service
+package com.wipro.demo.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.wipro.demo.entity.Customer;
+import com.wipro.demo.repository.CustomerRepository;
+
+@Service
+public class CustomerService {
+	@Autowired
+	private CustomerRepository cr;
+	
+	public Customer create(Customer customer) {
+		return cr.save(customer);
+	}
+	public List<Customer> read() {
+		return cr.findAll();
+	}
+	public Customer read(Integer id) {
+		Optional<Customer> temp = cr.findById(id);
+		Customer customer=null;
+		if(temp.isPresent())
+			customer=temp.get();
+		return customer;
+	}	
+	public Customer update(Customer customer) {
+		Customer temp = read(customer.getId());
+		if(temp!=null)
+		{
+			temp=customer;
+			cr.save(temp);
+		}
+		return temp;
+	}
+	public Customer delete(Integer id) {
+		Customer temp = read(id);
+		if(temp!=null)
+		{			
+			cr.delete(temp);
+		}
+		return temp;
+	}
+	
+
+}
+
+5) controller
+package com.wipro.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wipro.demo.entity.Customer;
+import com.wipro.demo.service.CustomerService;
+
+@RestController
+@RequestMapping("/customer")
+public class CustomerController {
+	@Autowired
+	private CustomerService cs;
+	
+	@PostMapping
+	public Customer create(@RequestBody Customer customer) {
+		return cs.create(customer);
+	}
+
+	@GetMapping
+	public List<Customer> read() {
+		return cs.read();
+	}
+	
+	@GetMapping("/{id}")
+	public Customer read(@PathVariable("id") Integer id) {
+		return cs.read(id);
+	}
+	
+	@PutMapping
+	public Customer update(@RequestBody Customer customer) {
+		return cs.update(customer);
+	}
+	
+	@DeleteMapping("/{id}")
+	public Customer delete(@PathVariable("id")Integer id) {
+		return cs.delete(id);
+	}
+	
+}
+
+CUSTOMER REST API is completed now.
+----------------------------------------------------------------------
+we have tested the customer rest api in postman
+can anyone share the swagger ui dependency in chat?
+
+
+
+
+
+
+
+

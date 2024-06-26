@@ -444,6 +444,11 @@ public class MyController {
 		if the url is correct, you get output
 		if the url is wrong, you see that "Album is not available right now"
 
+https://github.com/jagasia/wipro5/tree/jag/microservices/circuit-breaker-demo
 
+Techademy chapters of 
+	Microservices
+
+do the learning and ask doubts. Or initiate discussions among peers.
 
 
