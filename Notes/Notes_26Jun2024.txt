@@ -526,6 +526,32 @@ i will push everything to git now.
 complete the refactoring if you have already done this in monolithic.
 
 
+we have created
+	sales rest api also now
+
+checked them using swagger, it works fine.
+
+So far, we have not call a rest api from another rest api at all.
+
+we want to use 
+	RestTemplate
+	Circuit breaker
+
+so we need to make one rest api call another.
+
+how?
+
+lets introduce real business requirement.
+
+If you create an MVC project that provides UI
+then you will need 
+	RestTemplate
+	Circuit breaker
+	
+this mvc project need to call all these apis
+
+Before I introduce mvc and integration
+try to implement sales rest api by yourself
 
 
 
