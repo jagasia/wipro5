@@ -553,6 +553,15 @@ this mvc project need to call all these apis
 Before I introduce mvc and integration
 try to implement sales rest api by yourself
 
+You have created MVC projects.
+You have created REST apis.
+You learned RestTemplate to access any url from a spring boot application.
+
+Task:
+First you try to create a MVC project for e-com
+and try to access the rest apis.
+
+Later, i will do this as a demo.
 
 
 
