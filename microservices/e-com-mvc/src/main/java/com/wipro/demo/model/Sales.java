@@ -1,32 +1,16 @@
-package com.wipro.demo.entity;
+package com.wipro.demo.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-
-@Entity
-//@Table(name="ORDER_DETAILS")	if class name is Order, then table name cannot be ORDER, because, ORDER is keyword in sql
-public class Sales{
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class Sales {
 	private Integer id;
 	private Date dateOfSales;
-	@JsonIgnore
-//	@JsonBackReference
-	@ManyToOne
 	private Customer customer;
-	@ManyToOne
 	private Product product;
 	private Integer quantity;
-	
-	public Sales() {}
+
+	public Sales() {
+	}
 
 	public Sales(Integer id, Date dateOfSales, Customer customer, Product product, Integer quantity) {
 		super();
@@ -79,8 +63,8 @@ public class Sales{
 
 	@Override
 	public String toString() {
-		return "Sales [id=" + id + ", dateOfSales=" + dateOfSales + ", customer=" + customer.getName() + ", product=" + product.getName()
-				+ ", quantity=" + quantity + "]";
+		return "Sales [id=" + id + ", dateOfSales=" + dateOfSales + ", customer=" + customer.getName() + ", product="
+				+ product.getName() + ", quantity=" + quantity + "]";
 	}
-	
+
 }

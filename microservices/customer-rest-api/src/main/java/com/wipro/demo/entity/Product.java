@@ -1,9 +1,14 @@
 package com.wipro.demo.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -12,6 +17,9 @@ public class Product {
 	private Integer id;
 	private String name;
 	private Double price;
+	@JsonIgnore
+	@OneToMany(mappedBy = "product")
+	private List<Sales> sales;
 	
 	public Product() {}
 
@@ -20,6 +28,15 @@ public class Product {
 		this.id = id;
 		this.name = name;
 		this.price = price;
+	}
+	
+
+	public Product(Integer id, String name, Double price, List<Sales> sales) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.sales = sales;
 	}
 
 	public Integer getId() {
@@ -44,6 +61,15 @@ public class Product {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	
+	public List<Sales> getSales() {
+		return sales;
+	}
+
+	public void setSales(List<Sales> sales) {
+		this.sales = sales;
 	}
 
 	@Override

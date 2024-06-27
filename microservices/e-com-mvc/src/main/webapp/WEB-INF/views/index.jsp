@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container-fluid p-5 bg-info text-white text-center">
- <h1>Wipro Batch Members site</h1>
+  <h1>Wipro Batch Members site</h1>
   <p>We have done ecom portal!</p> 
 </div>
   
@@ -21,8 +21,9 @@
       
     </div>
     <div class="col-sm-4">
-      <h3>Product Page</h3>
-      
+      <h3>Home Page</h3>
+      <a href="/product">Product Page</a><br/>
+      <a href="/sales">Sales Page</a>
     </div>
     <div class="col-sm-4">
 
@@ -33,22 +34,7 @@
       
     </div>
     <div class="col-sm-8">
-      <table class="table table-striped table-bordered table-hover">
-      	<thead>
-      		<tr>
-      			<th>Id</th><th>Name</th><th>Price</th>
-      		</tr>
-      	</thead>
-      	<tbody>
-      		<c:forEach var="p" items="${products }">
-      			<tr>
-      				<td>${p.id }</td>
-      				<td>${p.name }</td>
-      				<td>${p.price }</td>
-      			</tr>
-      		</c:forEach>	
-      	</tbody>
-      </table>
+      
     </div>
     <div class="col-sm-2">
       

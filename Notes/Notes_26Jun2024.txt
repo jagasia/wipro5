@@ -674,3 +674,15 @@ Now, You check my code for mvc accessing product rest api nad
 try to create customer page and access customer rest api
 call the api using rest template via circuit breaker.
 
+Customer
+	id		<primary key>
+
+	SalesRepository
+		List<Sales> findByCustomer(Customer customer);
+
+or admin should be able to find all sales by customer, by product
+
+first do this in rest api and test it in swagger
+then come to mvc
+
+

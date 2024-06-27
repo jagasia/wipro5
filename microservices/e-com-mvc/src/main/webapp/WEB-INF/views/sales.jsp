@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container-fluid p-5 bg-info text-white text-center">
- <h1>Wipro Batch Members site</h1>
+  <h1>Wipro Batch Members site</h1>
   <p>We have done ecom portal!</p> 
 </div>
   
@@ -21,7 +21,15 @@
       
     </div>
     <div class="col-sm-4">
-      <h3>Product Page</h3>
+      <h3>Sales Page</h3>
+      <form action="/sales/customer">
+      	<select name="id">
+      		<c:forEach var="c" items="${customers }">
+      			<option value="${c.id }">${c.name }</option>
+      		</c:forEach>
+      	</select>
+      	<input type="submit" value="View Sales By Customer" class="btn btn-info" />
+      </form>     
       
     </div>
     <div class="col-sm-4">
@@ -33,20 +41,23 @@
       
     </div>
     <div class="col-sm-8">
-      <table class="table table-striped table-bordered table-hover">
-      	<thead>
-      		<tr>
-      			<th>Id</th><th>Name</th><th>Price</th>
-      		</tr>
+    <h2>Sales done by customer</h2><h1>${customer.name }</h1>
+      <table>
+      	<thead class="table table-bordered table-striped table-hover">
+      		<tr><th>Id</th><th>Date of Sales</th><th>Product Name</th><th>Quantity</th><th>Total</th>
       	</thead>
       	<tbody>
-      		<c:forEach var="p" items="${products }">
+      	<c:forEach var="s" items="${customer.sales }">
       			<tr>
-      				<td>${p.id }</td>
-      				<td>${p.name }</td>
-      				<td>${p.price }</td>
-      			</tr>
-      		</c:forEach>	
+      				<td>${s.id }</td>
+      				<td>${s.dateOfSales }</td>
+      				<td>${s.product.name }</td>
+      				<td>${s.quantity }</td>
+      				<td>
+      				${s.product.price * s.quantity }
+      				</td>
+      			</tr>      			
+		</c:forEach>
       	</tbody>
       </table>
     </div>

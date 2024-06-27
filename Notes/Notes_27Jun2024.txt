@@ -1,0 +1,106 @@
+Day #18
+------------
+22 participants present at 09:00
+---------------------------------
+Introduction to Microservices
+Monolith Application
+Netflix OSS & Spring Cloud
+
+the above objectives from 24-27th june
+
+Netflix OSS & Spring Cloud
+	Eureka Server and client
+	RestTemplate (spring boot)
+	Circuit breaker
+
+Day before yesterday (tuesday) we created a monolithic application for ecommerce.
+Yesterday, we split that into multiple rest apis and register them as microservices in eureka server.
+we created a MVC project (frontend) that access the microservices using 
+	RestTemplate via circuit breaker.	
+
+Circuit breaker provides us the stability when a service is down. When a service is down or has error or not available or busy, the retries are creating a problem, so circuit breaker, stops the retries and redirect the request to an error method.
+
+What i asked you to try, 
+	Admin must be able to select a customer
+		and find all sales happened by the customer
+
+	Admin must be able to select a product
+		and find all sales happened over the product
+
+Need you suggestions. How to implement this?
+
+in Customer class, we add a property
+
+	@OneToMany(mappedBy = "customer")
+	private List<Sales> sales;
+	
+
+whenever an annotation ends with "many", then jpa will create a table
+to avoid that, we use mapped by
+
+	@OneToMany(mappedBy = "customer")
+	private List<Sales> sales;
+	
+	whenever a customer object is retrieved,
+	will it always contain list of sales?
+		if so, when will it fetch?
+			when customer object is retrieved?	EAGER
+			or
+			when we call customer.getSales()?	LAZY
+
+LAZY is good. 
+	only when required, we retrieve sales
+	it is latest/ up to date
+
+you retrieve customer at 09:00 am
+call getSales() at 10:00 am
+	the data may be old?
+
+hibernate cache level 1 is always implemented
+hibernate cache level 2 must be configured by us.
+
+
+Let me show you the problem because of circular reference
+	Customer has list of sales
+	Sales has customer
+
+if you get customer object
+	it has sales
+		each sales has a customer
+			that customer has list of sales
+				every sale has customer
+
+can you see a stack overflow
+this stack overflow happens only in JSON string.
+
+not in java object.
+why?
+	in java object, it has reference NOT a copy
+
+
+	a has b		and b has a list of a
+it is not copy of b
+it is reference of b
+so there is no stack overflow
+
+
+----------------------------------
+We have done so many changes now.
+
+customer rest api
+	customer has list of sales
+	sales has customer (we use json ignore)
+	sales has product (we use json ignore)
+because, in customer, they are not significant
+
+check this workspace "microservices"
+eureka-server
+customer-rest-api
+product-rest-api
+sales-rest-api
+ecom-mvc
+
+Try it now
+
+i have done finding sales by customer.
+you will do finding sales by product.
