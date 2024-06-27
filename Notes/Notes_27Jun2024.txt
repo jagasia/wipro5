@@ -268,11 +268,26 @@ in 2.x
 public class MyConfiguration extends WebSecurityConfigurerAdapter
 
 
+in 3.x 	(we are using 3.x)
+---------------------------------------
+we create a configuration class as a POJO class and use annotations
+
+lets understand the ant matchers and permitall.
+
+In any application, we need to access the urls only after authentication.
+but login and signup must be allowed without this security layer.
 
 
 
 
+security-demo
+	check this project now
+	we have created 2 users in our configuration
+	and roles are USER and ADMIN
 
+	in controller, we use @PreAuthorize to specify the roles allowed to access the method.
+
+check and ask doubts.
 
 
 
