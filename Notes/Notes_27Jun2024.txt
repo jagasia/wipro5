@@ -104,3 +104,178 @@ Try it now
 
 i have done finding sales by customer.
 you will do finding sales by product.
+
+Have you all completed?
+
+Steps:
+1) Sales entity class already has "product" property
+2) Product entity class should be updated now
+	List<Sales> sales;
+	ensure the OneToMany with mappedBy is used
+	
+3) This is done in all rest apis.
+but
+4) in product rest api
+	Product class
+	List<Sales> sales;	is not ignored
+	
+	Sales class
+	product:		is ignored
+
+-------------------------------------------------------------------------------
+Spring security
+----------------------
+	Tell me what do you think spring security is?
+
+Preventing data access from unauthorized members
+Provides authentication
+Authentication
+Authorization
+
+It is not related to files. it is about access to our restful webservices
+
+Authentication vs Authorization
+	what is the difference?
+Authentication
+	checks if it is a valid user or not?
+	you are an user
+	are you really the user, whom you claim to be?
+	username & password are accepted and checked to decide if the authentication is successful or failure
+
+Authorization
+	a valid user is allowed to access or not?
+	some users are allowed to access some urls
+	which user is allowed what? that is authorization
+	user might have logged in successfully. But it does not mean, the user can access any url
+	RBA		Role Based Access is used in Authorization
+
+
+Spring boot security has changed a lot from 
+	spring boot 2x to 3x
+
+A major change has happened.
+
+I will give you little bit of demo in spring security now.
+After you practice them, i will give you ellaborate demo on that.
+
+Demo1:
+----------
+while creating a spring boot application, we include the following dependency:
+	spring boot security
+
+1) create a spring boot app
+	Maven
+	Jar
+	17
+	Java
+	group:		com.wipro.demo
+	artifact:		security-demo
+	package:		com.wipro.demo
+	dependencies:
+		Spring web
+		Spring security
+Finish
+
+2) Lets create a controller
+package com.wipro.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+
+	@GetMapping
+	public String home()
+	{
+		return "Hello world";
+	}
+}
+
+3) application.properties
+	server.port=7000
+
+4) run the application as "Java Application"
+	or "Spring boot app"
+
+in console, we notice this:
+
+Using generated security password: 79b63259-7a91-4de7-bc2d-f64d141b989d
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+
+5) lets go to browser:
+http://localhost:7000/
+
+we are seeing a login page now. instead of showing "Hello world"
+
+what should i enter in this login page?
+	username:	user
+	password: 79b63259-7a91-4de7-bc2d-f64d141b989d
+
+
+now, we see "Hello world"
+
+once this login is successful, we will be allowed to access any other urls
+
+now, lets create couple of getmappings and restart. 
+When we restart the application/service, a new password is generated.
+
+52b84c9e-a1b1-4e97-b128-e6188648192b
+
+now, i am able to login once, and after that, every other url is allowed.
+
+Now, how can we change the username and password (of our choice) instead of random one?
+in application.properties:
+-----------------------------------
+spring.security.user.name=shreyansh
+spring.security.user.password=praveen
+
+
+now, restart.
+
+In console, you do not find any password being generated.
+
+lets check any url in browser
+
+we are able to login using the username and password we configured in the application.properties.
+
+Task:
+--------
+Try it yourself:
+Create a spring boot application and create couple of controller methods and try to access them
+	i) using generated password
+	ii) using configured password
+
+Next:
+
+But, application.properties is a text file, and there is no privacy to keep password there.
+
+
+in spring boot applications, we have different ways of configuration
+	1) xml configuration		(very rarely used)
+	2) application.properties	(most commonly used)
+	3) configuration class		
+
+Configuration class has changed completely from spring boot version 2.x to 3.x
+
+
+
+in 2.x
+--------
+@Configuration
+public class MyConfiguration extends WebSecurityConfigurerAdapter
+
+
+
+
+
+
+
+
+
+
+
+
+
