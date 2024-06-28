@@ -197,3 +197,660 @@ update wsl:
 
 Restart computer
 
+----------------------
+What is JWT?
+	JSON Web token
+this will contain encrypted information about the user identity, expiry duration, etc
+a security configuration will be updated with JWT Filter, which will receive the token sent in the header part of the request.
+jwt dependencies are required so that we get
+Jwt util		contains methods to createToken, generateToken, retrieveUserFromToken, set expiry duration
+Jwt filter		requests come with a header, that header contains token, the token should be received by filter
+now, users should login using
+	post mapping and send their credentials as request body
+	username and password alone i will send to login
+	this info is secret info, so we should not send in URL. we send in request body
+	if you want to send in request body then it should be an object so what is the class?
+		AuthRequest
+			username
+			password
+related libraries
+we have to create
+	jwt util
+	jwt filter
+but using those libraries
+--------------------------------------------------------------------------
+Steps for spring security jwt:
+1) create a spring boot app
+	java
+	maven
+	jar
+	group: com.wipro.demo
+	artifact: security-jwt
+	package: com.wipro.demo
+	dependencies:
+		spring web
+		spring security
+		spring data jpa
+		mysql driver
+
+
+Finish.
+
+Once the project is created and ready,
+2) go to pom.xml and add the following dependencies:
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-api</artifactId>
+    <version>0.11.5</version>
+</dependency>
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-impl</artifactId>
+    <version>0.11.5</version>
+</dependency>
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-jackson</artifactId>
+    <version>0.11.5</version>
+</dependency>
+
+
+3) in application.properties:
+
+spring.main.allow-circular-references=true
+
+spring.application.name=demo
+server.port=5000
+spring.datasource.url=jdbc:mysql://localhost:3306/wipro5
+spring.datasource.username=root
+spring.datasource.password=
+
+spring.datasource.hikari.connection-timeout=20000
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.maximum-pool-size=12
+spring.datasource.hikari.idle-timeout=300000
+spring.datasource.hikari.max-lifetime=1200000
+
+spring.jpa.show-sql= true
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQLDialect
+spring.jpa.properties.hibernate.id.new_generator_mappings = false
+spring.jpa.properties.hibernate.format_sql = false
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+
+4) what are all required?
+
+entity
+	user
+repository
+	user repo
+service
+	user details service
+configuration
+	we will use this service
+controller
+	we will have mappings and use pre authorize to specify who is allowed and who is not
+
+
+5) package com.wipro.demo.entity;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+public class UserInfo {
+    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String roles;
+
+    public UserInfo() {}
+
+	public UserInfo(int id, String name, String email, String password, String roles) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.roles = roles;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+    
+}
+6) Repository
+
+package com.wipro.demo.repository;
+
+
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.wipro.demo.entity.UserInfo;
+
+@Repository
+public interface UserInfoRepository extends JpaRepository<UserInfo, Integer> {
+    Optional<UserInfo> findByName(String username);
+}
+
+
+7) jwt service
+
+package com.wipro.demo.service;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+@Component
+public class JwtService {
+
+    public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+    public String generateToken(String userName) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, userName);
+    }
+
+    private String createToken(Map<String, Object> claims, String userName) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(userName)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+    }
+
+    private Key getSignKey() {
+        byte[] keyBytes= Decoders.BASE64.decode(SECRET);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getSignKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    private Boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+
+}
+
+8) user details entity
+package com.wipro.demo.entity;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class UserInfoDetails implements UserDetails {
+
+    private String name;
+    private String password;
+    private List<GrantedAuthority> authorities;
+
+    public UserInfoDetails(UserInfo userInfo) {
+        name = userInfo.getName();
+        password = userInfo.getPassword();
+        authorities = Arrays.stream(userInfo.getRoles().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}
+
+9) service
+package com.wipro.demo.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.wipro.demo.entity.UserInfo;
+import com.wipro.demo.entity.UserInfoDetails;
+import com.wipro.demo.repository.UserInfoRepository;
+
+@Service
+public class UserInfoService implements UserDetailsService {
+
+    @Autowired
+    private UserInfoRepository repository;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        Optional<UserInfo> userDetail = repository.findByName(username);
+
+        // Converting userDetail to UserDetails
+        return userDetail.map(UserInfoDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
+    }
+
+    public String addUser(UserInfo userInfo) {
+        userInfo.setPassword(encoder.encode(userInfo.getPassword()));
+        repository.save(userInfo);
+        return "User Added Successfully";
+    }
+
+
+}
+
+10) jwt filter
+package com.wipro.demo.filter;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.wipro.demo.service.JwtService;
+import com.wipro.demo.service.UserInfoService;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+// This class helps us to validate the generated jwt token
+@Component
+public class JwtAuthFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private UserInfoService userDetailsService;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String authHeader = request.getHeader("Authorization");
+        String token = null;
+        String username = null;
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+            username = jwtService.extractUsername(token);
+        }
+
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            if (jwtService.validateToken(token, userDetails)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        }
+        filterChain.doFilter(request, response);
+    }
+}
+
+11) configuration
+package com.wipro.demo.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.wipro.demo.filter.JwtAuthFilter;
+import com.wipro.demo.service.UserInfoService;
+
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+public class SecurityConfig {
+
+    @Autowired
+    private JwtAuthFilter authFilter;
+
+    // User Creation
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserInfoService();
+    }
+
+    // Configuring HttpSecurity
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth/generateToken").permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/user/**").authenticated())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/admin/**").authenticated())
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+
+    // Password Encoding
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+
+}
+
+12) authrequest entity
+package com.wipro.demo.entity;
+
+public class AuthRequest {
+
+    private String username;
+    private String password;
+
+    public AuthRequest() {}
+
+	public AuthRequest(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+    
+}
+
+
+13) controller
+
+must have a post mapping that accepts authrequest as request body
+and on successful login, it should return a jwt token
+	this post mapping login method must be allowed without authentication.
+
+package com.wipro.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wipro.demo.entity.AuthRequest;
+import com.wipro.demo.entity.UserInfo;
+import com.wipro.demo.service.JwtService;
+import com.wipro.demo.service.UserInfoService;
+
+@RestController
+@RequestMapping("/auth")
+public class UserController {
+
+    @Autowired
+    private UserInfoService service;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @GetMapping("/welcome")
+    public String welcome() {
+        return "Welcome this endpoint is not secure";
+    }
+
+    @PostMapping("/addNewUser")
+    public String addNewUser(@RequestBody UserInfo userInfo) {
+        return service.addUser(userInfo);
+    }
+
+    @GetMapping("/user/userProfile")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public String userProfile() {
+        return "Welcome to User Profile";
+    }
+
+    @GetMapping("/admin/adminProfile")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public String adminProfile() {
+        return "Welcome to Admin Profile";
+    }
+
+    @PostMapping("/generateToken")
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        if (authentication.isAuthenticated()) {
+            return jwtService.generateToken(authRequest.getUsername());
+        } else {
+            throw new UsernameNotFoundException("invalid user request !");
+        }
+    }
+
+}
+
+-----------------------
+Run the project
+
+http://localhost:5000/auth/welcome
+	this works because, this is not intercepted by security config.
+
+go to postman:
+we can signup (become a new user or create a new user) by using the following:
+
+post:	http://localhost:5000/auth/addNewUser
+in request body we need to send "userInfo" object
+
+{
+    "id":1,
+    "name":"sai",
+    "email":"sai@wipro.com",
+    "password":"sai@123",
+    "roles":"ROLE_USER"
+}
+
+send this and a new row is added in mysql  database table.
+
+We have signedup now.
+
+But in order to access any url, we must "login" and get a jwt token.
+and use that token in headers while accessing secured end point (url).
+
+Shall we login as user sai now?
+
+in post man:
+choose "POST"
+url:	http://localhost:5000/auth/generateToken
+in body:
+{
+    "username":"sai",
+    "password":"sai@123"
+}
+send...
+
+we have logged in and got the token.
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYWkiLCJpYXQiOjE3MTk1NTg0NzYsImV4cCI6MTcxOTU2MDI3Nn0.AMJPxkypbYk3O1N4RoAIIwO-W4TnptbNPLvoC-4RF38
+
+use this token while calling any endpoints (url) that are allowed for user role.
+
+GET
+http://localhost:5000/auth/user/userProfile
+	this is allowed for users role as USER
+
+in post man, go to headers tab
+Authorization 		Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYWkiLCJpYXQiOjE3MTk1NTg0NzYsImV4cCI6MTcxOTU2MDI3Nn0.AMJPxkypbYk3O1N4RoAIIwO-W4TnptbNPLvoC-4RF38
+
+
+now check that you are allowed to access.
+
+then
+
+http://localhost:5000/auth/admin/adminProfile
+using user token, we are not allowed to access this.
+
+login as admin and use the token to access this url.
+

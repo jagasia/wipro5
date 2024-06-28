@@ -20,7 +20,7 @@ public class SecurityConfig {
   
     // User Creation 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) { 
+    public UserDetailsService	 userDetailsService(PasswordEncoder encoder) { 
   
         // InMemoryUserDetailsManager 
         UserDetails admin = User.withUsername("sai") 
