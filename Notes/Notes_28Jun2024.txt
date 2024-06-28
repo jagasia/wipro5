@@ -11,7 +11,7 @@ Event Driven Microservices with Apache Kafka
 The above topics are assessed in the Milestone assessment #3
 -----------------------------------------
 Understand and appreciate the architecture of Microservice, 
-Understand and appreciate the 12 Factory methodology and its implications on the Microservices architecture, 
+Understand and appreciate the 12 Factor methodology and its implications on the Microservices architecture, 
 Implement Microservices using Spring Boot framework, 
 Refactor Monolithic application into Micro services based Application, 
 Setup Service Registry and register Micro services and enable discovery pattern, 
@@ -854,3 +854,55 @@ using user token, we are not allowed to access this.
 
 login as admin and use the token to access this url.
 
+The project is pushed to git in following url:
+https://github.com/jagasia/wipro5/tree/jag/security
+
+Try this by yourself.
+
+------------------------------
+Before lunch, we have created the spring boot security application
+that allows adding users
+	password is encrypted.
+that allows logging in and generate jwt token
+the token is used to access other endpoints
+	in header		
+		Authorization 	Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYWkiLCJpYXQiOjE3MTk1NTg0NzYsImV4cCI6MTcxOTU2MDI3Nn0.AMJPxkypbYk3O1N4RoAIIwO-W4TnptbNPLvoC-4RF38
+
+
+1) how long this token is valid?
+	it is valid for the duration mentioned in the jwt service
+	usually it is 10 hours
+	in our project, it is 30 minutes
+.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+	
+2) suppose, if there are several projects (spring boot rest apis)
+running and interacting with each other, 
+then how this token is accepted by other services?
+	there should be a same secret key used by all these services. Isn't it?
+public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+	this is mentioned in the jwt service
+
+now, we are using postman to test these endpoints.
+later, we will call these endpoints from ReactJs application
+
+
+
+https://github.com/jagasia/spring-boot-3-security-jwt
+
+https://github.com/jagasia/spring-boot-3-security-jwt-code
+
+Assignment:
+-----------------
+Understand and appreciate the architecture of Microservice, 
+	What is the difference between Monolithic and Microservices architecture?
+	What are the advantages and disadvantages of both.
+
+
+What are the 12 Factory methodology and its implications on the Microservices architecture, 
+
+Task:
+Spring boot security jwt
+
+implement the security jwt by following the steps.
+
+13 Steps are there in this notes itself. download notes from git.
