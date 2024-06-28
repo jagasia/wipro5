@@ -278,8 +278,24 @@ In any application, we need to access the urls only after authentication.
 but login and signup must be allowed without this security layer.
 
 
+	//admin
+	@GetMapping("/about")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')") 
+	public String about()
+	{
+		return "About us";
+	}
+	
+	//user
+	@GetMapping("/contact")
+	@PreAuthorize("hasAuthority('ROLE_USER')") 
+	public String contact()
+	{
+		return "Contact us";
+	}
 
 
+Task:
 security-demo
 	check this project now
 	we have created 2 users in our configuration
@@ -289,7 +305,43 @@ security-demo
 
 check and ask doubts.
 
+-----------------------------------------------------
+This login form where username and password are entered, will not be useful when we use POSTMAN
+while using postman, we do not use browser and hence, no login page will come.
+so, we need to create a controller Post mapping for login itself.
+that url, we can access from postman and send the credentials in body
 
+Next question.
+Every REST api runs independently. 
+Every call to rest api is STATELESS.
+Means, each call does not know about previous call.
+
+So, authenticated user will start calling other methods. But REST api do not remember them (that they have been authenticated)
+
+in browser, it uses cookies( session ) to remember that you are authenticated. But in rest api, called from postman??????
+So, how can we ensure that subsequent calls to rest api is allowed (after authentication)?
+
+now, we are discussing about calling rest apis from postman. 
+Later, we will be calling rest api from ReactJs applications.
+
+Arun says JWT tokent. That is the answer.
+
+You are purchasing a ticket for a movie in the morning. The show timing is in the evening.
+How will the staff know that you have purchased the ticket?
+How will they authorise you to enter the screen?
+	You show a ticket to them. They will allow if you show the ticket.
+
+Same way, a rest api can allow you to access by checking your JWT token.
+
+JWT	-	JSON Web Token
+
+JSON 	-	Javascript Object Notation
+
+
+Go through the Techademy Tutorial videos
+and also progress in Assignment submission.
+
+Ask doubts wherever required.
 
 
 

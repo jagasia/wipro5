@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests() 
                 .requestMatchers("/login").permitAll() 
                 .and() 
-                .authorizeHttpRequests().requestMatchers("/**").authenticated() 
+                .authorizeHttpRequests().requestMatchers("/api/v2/**").authenticated() 
 //                .and() 
 //                .authorizeHttpRequests().requestMatchers("/auth/admin/**").authenticated() 
                 .and().formLogin() 

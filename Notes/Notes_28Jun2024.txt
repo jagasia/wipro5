@@ -1,0 +1,199 @@
+Day #19
+-----------
+23 participants present at 09:00
+-----------------------------------------
+Introduction to Microservices
+Monolith Application
+Netflix OSS & Spring Cloud
+Client-Side Circuit Breakers – Spring Cloud Circuit Breaker with Resilience4J, Other Spring Cloud Projects
+Event Driven Microservices with Apache Kafka
+
+The above topics are assessed in the Milestone assessment #3
+-----------------------------------------
+Understand and appreciate the architecture of Microservice, 
+Understand and appreciate the 12 Factory methodology and its implications on the Microservices architecture, 
+Implement Microservices using Spring Boot framework, 
+Refactor Monolithic application into Micro services based Application, 
+Setup Service Registry and register Micro services and enable discovery pattern, 
+Build scalable Microservices and implement client-side load balancing, 
+Implement fault-tolerance services using circuit breakers, 
+Set up centralized configuration with Spring Cloud Config Server and client, 
+Apply the API gateway pattern through Spring Cloud Gateway and setup routes, 
+Manage distributed log tracing with Spring cloud Sleuth and zipkin, 
+Understand and apply Spring Security – basic auth, CORS, 
+Understand and implement Event driven Microservices with Apache Kafka.
+
+--------------------
+in yesterday's demo in spring security,
+we used couple of users configured in the Security configuration class
+
+in configuration class:
+	we can autowire a "service"
+	
+the service implements UserDetailsService
+	in service, we can autowire a "repository"
+
+the repository interface extends JpaRepository<MyUser, String>
+	findByUsername
+
+entity MyUser implement UserDetails or extend User (of spring core security)
+
+
+
+
+
+package com.example.demo.entity;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+
+@Entity
+@Table(name = "USER_MASTER")	//USER is a keyword in SQL.
+public class MyUser extends User{
+	@Id
+	private String username;
+	private String password;
+
+	public MyUser()
+	{
+		super("jag","jag",new ArrayList<>());
+	}
+	
+	public MyUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, authorities);
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "MyUser [username=" + username + ", password=" + password + "]";
+	}
+
+	
+}
+
+
+package com.example.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.entity.MyUser;
+
+@Repository
+public interface MyUserRepository extends JpaRepository<MyUser, String>
+{
+
+}
+
+
+-------------------
+For kafka, we need docker.
+
+what is docker?
+	do you know virtual machine/ pc?
+		yes. our cloud lab is a virtual machine.
+		now, a virtual machine is heavy weight. why?
+		because, the entire computer is working in another computer.
+
+
+	instance of a cloud lab or virtual machine,
+		is heavy that the entire operating system and the apps installed are loaded in our RAM
+Now, lets see an alternate idea.
+	instead of loading the entire desktop or OS in our RAM, 
+	can we load only the necessary system files or drivers or CONTAINER? that is enough to run our program?
+
+That idea leads to CONTAINERISATION vs VIRTUAL MACHINES
+
+Virtualization is the concept used by both.
+but containers are light weight.
+
+	ex: in cloud lab, you see the DESKTOP of another computer. Means, entire OS is loaded in a window.
+	but in case od Containers, you do not see any desktop or even entire OS is not loaded.
+
+
+In another perspective.
+	You are doing a project.
+	the project is tested in your computer.
+	it works absolutely fine.
+	now, you take it to your clients place.
+	there when you run, you face lot of problems?
+		is it something that is possible?
+
+		yes. The OS may be different?	64 bit vs 32 bit problem?
+		version of the java or sql
+		so many factors may lead to failure in executing the app
+
+
+	now, imaging, CONTAINERISING our application
+	container means, it contains all that is necessary to run an application
+		compiler / interpreter/ memory necessary, system files, drivers, etc etc
+
+	Now, you have done the project in windows computer using java,
+		created a container
+	and that can run in any computer
+		in linux?	yes
+		in unix?	yes
+		in mac?	yes
+	java is not installed? yes, it runs. Because, container has everything
+
+	we can containerise an application using DOCKER
+	then that container can run in any computer 
+		different OS
+		no java installed
+		anything is different 
+	no problem, if DOCKER is there in that computer, that is enough
+
+now, we do lot of projects,
+	for each, we install so many things in our computer.
+	somehow after installing, updating many things
+	we run our project in our computer.
+
+	but in aws cloud, again, we have to setup all these things
+	to make our application run there?
+	difficult.
+
+	so, we containerize our application in docker
+	and that docker image can be executed in aws
+
+docker image, when it is executed, it becomes container.
+
+
+install docker for windows 
+	https://docs.docker.com/docker-for-windows/install/
+	after downloading 
+		Docker Desktop Installer.exe
+	execute the above downloaded file
+
+Restart computer
+
+update wsl:
+	Download the Linux kernel update package
+	https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+	execute it
+
+Restart computer
+
