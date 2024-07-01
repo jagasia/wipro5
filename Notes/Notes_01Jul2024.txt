@@ -1,0 +1,234 @@
+Day #20:
+--------------
+22 participants present at 09:00
+----------------------------------------
+Milestone 3
+-----------------
+Introduction to Microservices
+Monolith Application
+Netflix OSS & Spring Cloud
+Client-Side Circuit Breakers – Spring Cloud Circuit Breaker with Resilience4J, Other Spring Cloud Projects
+Event Driven Microservices with Apache Kafka
+
+complete the tasks given by me
+go through demos given by me
+watch the chapters in techademy
+prepare for mcqs
+interview questions 
+
+the topics pending in milestone 3:
+	Event Driven Microservices with Apache Kafka
+
+Kafka can be
+	Apache Kafka
+	MSK		Managed services for kafka	(AWS)
+
+Lets understand Kafka
+	it is based on Publisher Subsriber model
+	can anyone tell me what is Pub- Sub model is?
+
+
+	Publisher Subscriber model is different from point to point communication or synchronous communication
+	sms vs phone call.
+	for sms, we dont need the receiver to be online. When the receiver is not online, you cannot make call. you call will fail.
+	we have discussed enough about this.
+
+So, I will show only demo for kafka, where, 
+one publisher will publish the message, 
+whoever have subscribed, will be able to see the message.
+
+docker service must be running in our system.
+currently in my system
+	 the docker daemon is not running
+so i will open docker desktop that will start my docker service
+when i opened docker desktop, i found the bottom left corner, showing docker engine not running (orange color)
+later, it started the engine and it become green color
+
+Steps for Apache kafka:
+------------------------------
+kafka docker image is there in hub.docker.com
+we can pull that image and run in our computer.
+
+docker is installed in a computer, means,
+we may not necessarily install many things,
+	ex:
+		mysql is not present in my computer (assumption)
+		but docker is there
+		so i can pull docker image of mysql and run it in my system.
+		and practise all sql commands in my system
+
+
+2 docker images we need
+1) zookeeper
+	2181
+2) kafka
+	9092
+
+
+
+we need to run 2 docker images at a time simultaneously means, we need a docker compose file
+
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+
+this file is saved as docker_compose.yml
+
+then we run this file using
+
+docker compose up
+	this command is executed in a location where docker_compose.yml file is present
+
+now that i have opend cmd in the location where docker_compose.yml if present
+	docker compose up
+
+now, open another cmd prompt to check if zookeeper and kafka are running now.
+
+docker ps
+docker container ls
+	both commands are same. You can also use -a switch to check hidden containers that are running.
+
+what is container?
+	the image that is running is a container
+	one image can be run many times to get many containers
+	program vs process?		what is a process? Process is a running instance of a program
+
+
+--------------------
+C:\Users\rjaga>docker ps
+CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                                                NAMES
+77b004a7bca2   wurstmeister/zookeeper   "/bin/sh -c '/usr/sb…"   2 minutes ago   Up 2 minutes   22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp   kafka-zookeeper-1
+c63e5186005a   wurstmeister/kafka       "start-kafka.sh"         2 minutes ago   Up 2 minutes   0.0.0.0:9092->9092/tcp                               kafka-kafka-1
+
+C:\Users\rjaga>
+
+
+
+Now that both zookeeper and kafka are running.
+
+lets start our demo for subscribe and publish
+
+1) Cmd to create a producer.
+first check the container id of the kafka	c63e5186005a 
+
+docker exec -it c63e5186005a bash
+
+now we got the shell /bash/ cmd prompt of kafka
+
+2) in this bash, we create a producer (publisher)
+
+kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
+this command creates a topic.
+in pub sub model there are 2 types of message containers
+	queue
+	topic
+
+------------------------publisher is created now--------------------
+lets create subscribers
+so get kafka bash using the same command:
+	docker exec -it c63e5186005a bash
+
+now to create a consumer:
+	kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test
+
+now, consumer is ready to receive message from publisher.
+you can create several cmd prompts and create consumers.
+--------------------------------------------------------------------
+Complete steps:
+--------------------
+Kafka services and MSK (Managed Services for Kafka)
+-----------------------
+	what is kafka service?
+
+		Publish - Subscribe model
+
+	Publisher = Producer
+	Subscriber = Consumer
+
+See practical demo:
+-------------------
+	The producer and consumer are not online.
+	They are related via "Topic"
+		JMS	i) queue	ii) topic
+
+		
+
+ docker
+	use docker images
+		kafka
+		zookeeper
+		
+	how to run two docker images together?
+		docker-compose.yml
+
+0) create a "docker-compose.yml" file:
+-----------------------------------
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+
+1) docker compose up
+	in a location in cmd prompt where "docker-compose.yml" is present
+
+	this is going to run the docker images 
+
+2) lets create a producer
+	open a new cmd prompt
+C:\Users\rjaga>docker ps
+CONTAINER ID   IMAGE                    COMMAND                  CREATED             STATUS             PORTS                                                NAMES
+98a2ea29060f   wurstmeister/kafka       "start-kafka.sh"         About an hour ago   Up About an hour   0.0.0.0:9092->9092/tcp                               kafka_kafka_1
+2c9ea685d4f3   wurstmeister/zookeeper   "/bin/sh -c '/usr/sb…"   About an hour ago   Up About an hour   22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp   kafka_zookeeper_1
+
+C:\Users\rjaga>docker exec -it 98a2ea29060f bash
+bash-5.1# kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic test
+Created topic test.
+bash-5.1#
+
+
+bash-5.1# kafka-console-producer.sh --broker-list localhost:9092 --topic test
+>this is the message
+abcd
+>efgh
+>ijkl
+>emop
+>qrst
+
+
+
+3) lets create a receiver
+docker ps -a
+	note down the container id of kafka
+C:\Users\rjaga>docker exec -it 98a2ea29060f bash
+bash-5.1# kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test
+this is also a message
+abcd
+1234
+efgh
+ijkl
+mnop
+qrst
+
+
