@@ -32,11 +32,11 @@ public class App {
 //		raja=new Student();
 //		raja.speak();
 //		
-//		Teacher jag=new Teacher();
+		Teacher jag=new Teacher();
 //		raja=jag::abcd;			//method reference (instance)
 		
 //		raja.speak();
-		
+//		raja=jag::run;			//error
 		raja=Teacher::run;		//static method reference
 		raja.speak();
 	}

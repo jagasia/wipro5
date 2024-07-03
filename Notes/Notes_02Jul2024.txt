@@ -1,0 +1,219 @@
+Day #21
+------------
+20 participants present in the meeting at 09:00
+----------------
+We have few presentations given by the following participants:
+Krishnamoorthy
+Shreyansh
+Anil
+Sai Janardhan
+
+
+We had very good learnings, knowledge transfer from them.
+I want one of you to practically demonstrate the use of "Load balancer"
+
+What was the reason, we used circuit breaker?
+	when a service A calls B.
+	B is down (or) B has errors (or) some failure,
+		there is a retry mechanism that will retry accessing B
+	We may need to break here to avoid endless looping
+	circuit breaker allows us to redirect to a method in such case.
+
+circuit breaker has 2 things
+	1) the service which needs to be called
+	2) callback method
+		is executed when calling the service is failure
+
+---------------------------------------------
+Task
+------
+Create 2 restful web services
+call first from the second using client side load balancer.
+
+
+Demo:
+---------
+1) create a spring boot application using spring initalizr
+	maven
+	jar
+	java
+	17
+	group:	com.example
+	artifact:	product-service
+	package:	com.example.productservice
+	dependencies:
+		spring web
+		spring cloud loadbalancer
+2) create an model "Product"
+package com.example.productservice;
+
+public class Product {
+    private Long id;
+    private String name;
+    private double price;
+
+    // Constructors, getters, and setters
+    public Product() {}
+
+    public Product(Long id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+}
+3) create a controller
+package com.example.productservice;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ProductController {
+
+    @GetMapping("/products/{id}")
+    public Product getProductById(@PathVariable Long id) {
+        // For simplicity, returning a hardcoded product. In a real application, you'd query the database.
+        return new Product(id, "Sample Product", 99.99);
+    }
+}
+4) application.properties:
+	server.port=5000
+
+-----------------------------------------------------
+now, lets create another spring boot project
+1) create a spring boot project using spring initalizr
+	group:	com.example
+	artifact:	order-service
+	package:	com.example.orderservice
+	jar
+	maven
+	java
+	17
+	dependencies:
+		spring web
+		spring cloud load balancer
+
+2) copy the Product.java from product service project to her
+3) application.properties:
+	server.port=5001
+	
+
+spring:
+  cloud:
+    loadbalancer:
+      instances:
+        product-service:
+          - uri: http://localhost:8081
+          - uri: http://localhost:8082
+
+	spring.cloud.loadbalancer.instances.product-service.uri=http://localhost:5001
+----------------------------------------------------
+What is collection framework?
+	in java, collections framework provides some datastructures,
+	that overcome the limitations of arrays (what are the limitations of arrays? fixed length and contiguous memory)
+
+	Collection f/w includes interfaces and classes
+	that can be used to create datastructures that can grow or shrink (scalable) in nature
+
+each type of collection or each class in collection api has a definite behavior or structure
+	structure is how they are organized or arranged or represented in memory
+	behavior is how they behave when you add elements
+		while adding duplicates
+		
+What are the main interfaces of the Java Collections Framework?
+	List
+	Set
+		are the main interfaces in java collections
+	Map
+		is an application of collection
+
+List
+	all lists are ordered. means, the elements are always added at one end (usually at last position)
+
+Set
+	HashSet
+		order is based on hashCode() and equals()
+	TreeSet
+		order is based on Comparable or Comparator
+	LinkedHashSet
+		is ordered. similar to List
+
+Stack
+	the elements are added at top only.		(removed from top only)
+
+
+
+100,88,90,12,5,18
+
+What is the difference between Collection and Collections?
+Collections
+	sort()
+	reverse()
+	reverseOrder()
+	replaceAll
+
+Collection
+	is an interface
+	and whichever class implements this interface
+		becomes collection
+
+
+
+in exception,
+	what is the difference between throw and throws?
+
+
+What are the differences between List, Set, and Map?
+
+What is the difference between HashMap and Hashtable?
+
+Hashtable is a legacy class 
+	all legacy collections are synchronized
+	
+HashMap is not synchronized
+
+
+What is the difference between ArrayList and LinkedList?
+	can you believe if i say, "LinkedList" has index
+
+
+
+
+HashSet uses internally a HashMap
+
+
+
+
+
+
+
+
+
+
+
+

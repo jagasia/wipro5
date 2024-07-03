@@ -1,0 +1,196 @@
+Day #22
+------------
+17 participants present in the meeting at 09:00
+----------------
+
+Event Driven Microservices with Apache Kafka
+
+We can install apache kafka in our system
+and we create java programs to
+	create topic
+	create producer	(publisher)
+	create consumer	(subscriber)
+
+Topic is the point where, the subscriber and publisher are related.
+Producer does not know the consumers.
+Consumers subscribe for the topic (created by producer)
+When producer publishes information on the topics,
+	all those consumers who have subscribed receive the information
+
+Steps for apache kafka:
+1) installation:
+	https://www.javatpoint.com/installation-of-apache-kafka
+
+we get a folder containing .bat files 
+2) creating producer:
+	https://www.javatpoint.com/creating-kafka-producer-in-java
+3) https://www.javatpoint.com/creating-kafka-topics
+4) https://www.javatpoint.com/creating-kafka-consumer-in-java
+
+-----------------
+Demo:
+---------
+steps for installing apache kafka
+1) go to 
+https://kafka.apache.org/downloads
+
+under binary section:
+Scala 2.13  - kafka_2.13-3.7.1.tgz (asc, sha512)
+
+we have downloaded the zip file.
+2) i copied to d:\softwares\kafka\software folder
+i extracted the zip here
+
+D:\Softwares\Kafka\software\kafka_2.13-3.7.1
+
+in cmd prompt: at this location
+
+if the path is too long, we get error. so we moved the kafka_2.1... folder to d: directly
+
+D:\kafka_2.13-3.7.1
+D:\kafka_2.13-3.7.1\bin\windows\kafka-topics.bat
+
+now run the kafka-topics.bat
+it shows all the commands
+
+3) by setting the env variable, we will be able to run this kafka batch files from anywhere in our system.
+i) copy the location
+	
+in path env variable, append the path
+	D:\kafka_2.13-3.7.1\bin\windows
+
+4) now open a cmd prompt in any location and run
+	kafka-topics.bat
+
+it works.
+now you can see datazookeeper folder being created
+
+----------------------------------------
+Installing zookeeper
+1) in D:\kafka_2.13-3.7.1
+	create a new folder "data"
+2) Open the newly created data folder and create two more folders under it. 
+Name the folders as 'zookeeper' and 'kafka'.
+
+3) copy the following location
+D:\kafka_2.13-3.7.1\data\zookeeper
+
+and go to config\zookeeper.properties
+
+edit the dataDir path
+	dataDir=D:\kafka_2.13-3.7.1\data\zookeeper
+
+4) zookeeper service is ready to start.
+
+go to cmd prompt in the following location
+	D:\kafka_2.13-3.7.1 
+
+zookeeper-server-start.bat config\zookeeper.properties
+
+now, it starts zookeeper server
+
+
+5) go to config\server.properties
+
+log.dirs=D:\kafka_2.13-3.7.1\data\kafka
+
+6) go to D:\kafka_2.13-3.7.1	in cmd prompt
+
+kafka-server-start.bat config\server.properties
+
+now you can see datakafka folder being created
+---------------
+
+now, the following services are running in our system
+1) zookeeper running in 2181
+2) kafka server running in 9092
+
+------------------------------------------------------kafka installation is over-------------------------------------
+installation means, we did not install anything.
+we got some .bat files, which are used to run the servers
+-------------------------
+=======================================
+now lets start Kafka programming in java
+
+we will create a topic
+we will create a producer
+we will create lot of consumers who subscribe for the topic 
+producer's message reaches all consumers
+
+1) create a maven project
+	quickstart archetype
+	group:	com.wipro.demo
+	artifact:	kafka-producer
+	package:	com.wipro.demo
+
+2) in pom.xml
+	we will add the following dependencies:
+
+<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+<dependency>
+    <groupId>org.apache.kafka</groupId>
+    <artifactId>kafka-clients</artifactId>
+    <version>3.7.1</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>2.0.13</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>2.0.13</version>
+</dependency>
+
+
+3) in App.java
+
+package com.wipro.demo;
+
+import java.util.Properties;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	String bootstrapServers="127.0.0.1:9092";
+    	Properties properties=new Properties();
+    	properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+    	properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+    	properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+    	KafkaProducer first_producer = new KafkaProducer<>(properties);
+    	ProducerRecord<String, String> record=new ProducerRecord<String, String>("my_first", "Hi this is Jag");
+        System.out.println( "Hello World!");
+        
+        first_producer.send(record);
+        first_producer.flush();
+        first_producer.close();
+    }
+}
+
+
+4) open a new cmd prompt and create a consumer:
+kafka-console-consumer -bootstrap-server 127.0.0.1:9092 -topic my_first -group first_app
+
+5) now run the App.java to publish the message in the topic
+
+6) notice themessage in consumer.
+
+-------------------------
+After completing the producer,
+try with consumer

@@ -83,14 +83,14 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
 
-this file is saved as docker_compose.yml
+this file is saved as docker-compose.yml
 
 then we run this file using
 
 docker compose up
-	this command is executed in a location where docker_compose.yml file is present
+	this command is executed in a location where docker-compose.yml file is present
 
-now that i have opend cmd in the location where docker_compose.yml if present
+now that i have opend cmd in the location where docker-compose.yml if present
 	docker compose up
 
 now, open another cmd prompt to check if zookeeper and kafka are running now.
@@ -231,4 +231,146 @@ ijkl
 mnop
 qrst
 
+
+--------------------------------------
+What is lambda in java 8?
+What are the main benefits of using lambda expressions?
+	lambda is used to provide quick implementation of functional interface
+	using lambda, we do not need to create a class that implements a functional interface.
+	before java 8, anonymous implementations were done for which a concise way is provided by lambda
+
+ex:
+	Collections.sort(list, <<here, we need to provide the object of a class that implements Comparator>>);
+
+	instead of creating a new class that implements Comparable interface, we use lambda
+
+	Collections.sort(list, (a,b)-> a.compareTo(b));
+
+
+	Lambda is similar to arrow functions in javascript.
+
+@FunctionalInterface
+
+Do you remember the use of @Override annotation?
+	even if you do not use @Override annotation, 
+		if the sub class method, is same as super class method
+		then it is overriding only. All rules of overriding applies.
+		but if the signature is different, then it will not be considered as overriding.
+
+	if you use @Override annotation,
+		then you get error, if the sub class method signature is different
+		of if any of the overriding rules are violated, you get error.
+
+Same way,
+	@FunctionalInterface annotation ensures that you follow the rules of a functional interface. (1 abstract method)
+
+
+What is the Streams API in Java 8?
+	Stream api is introduced to work on collections in java
+	streams does not affect the collection, but
+	produces a copy of the collection that is manipulated
+
+a collection of integers in an array list, is copied to a stream and you sort the stream, filter the stream,
+the original collection is unaffected, but the stream returns a copy of the data which is manipulated.
+
+	the result of a stream is another stream and hence it is cascading, so it is called as Stream
+
+There are some 
+	intermediate operations
+		filter, sort
+	terminal operations
+		forEach, collect
+
+
+	List<Integer> s1=list.stream();
+	List<Integer> s2=s1.filter((a)->a>100);
+	List<Integer> s3=s2.sort();
+	this is heavy because, 3 more copies of the list. totally 4 collections are there.
+	so, instead of that,
+
+	list.stream()
+	.filter((a)a>100)
+	.sort()
+	.forEach(System.out::println);
+
+	so here, list is the original collection, we got 1 stream		(instead of 3 streams)
+
+
+What is method reference?
+----------------------------------
+Again, while we need to implement a functional interface, instead of creating a class that implements functional interfac,e
+we can refer an existing method using method reference operator ::
+
+example:
+	class A
+	{
+		public void method1()
+		{
+		}
+	}
+
+	public class App
+	{
+		public static void main(String args[])
+		{
+			//Thread t1=new Thread(<<expect an implementation of Runnable);
+			Thread t1=new Thread(new A()::method1);
+		}
+	}
+
+
+
+example i gave on that day:
+
+interface Person
+{
+	void speak();
+}
+
+class Student implements Person
+{
+	public void speak()
+	{
+		System.out.println("Student speaks");
+	}
+}
+
+class Teacher //does not implement Person
+{
+	public void talk()
+	{
+		System.out.println("Teacher talks");
+	}
+	public static void teach()
+	{
+		System.out.println("Teacher teaches");
+	}
+}
+public class App
+{
+	public static void main(String []args)
+	{
+		Person p=new Student();
+		p.speak();		//Student speaks
+		Teacher t=new Teacher();
+		p=t::talk();		//method reference
+		p.speak();		//Teacher talks
+
+		p=Teacher::teach();	//static method reference		no need for object
+		p.speak();		//Teacher teachers
+	}
+}
+
+the above is an example for "instance" method reference
+
+static method reference?
+	<<classname>>::<<methodname>>
+
+t.teach();		//is allowed in java
+Teacher.teach();	//is better
+but when it comes to static method reference, it is not allowed.
+
+
+------------------------------
+Go through the interview questions and initiate discussion
 
