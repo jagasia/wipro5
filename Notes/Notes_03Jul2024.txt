@@ -192,5 +192,203 @@ kafka-console-consumer -bootstrap-server 127.0.0.1:9092 -topic my_first -group f
 6) notice themessage in consumer.
 
 -------------------------
-After completing the producer,
-try with consumer
+Interview questions:
+--------------------------
+What is the difference between an abstract class and an interface?
+
+How to call a rest api?	from a java program.
+	using spring cloud:
+		open feign	(feign client)
+	using spring boot	
+		RestTemplate	(spring web)
+		Web client		(spring webflux/ reactive spring boot)
+
+1) feign client
+2) rest template
+3) web client
+4) in core java, itself, we can call a rest api
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class NetClientGet {
+    public static void main(String[] args) {
+        try {
+
+            URL url = new URL("http://localhost:8080/my-first-rest-project/rest/home");//your url i.e fetch data from .
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "text/xml");
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP Error code : "
+                        + conn.getResponseCode());
+            }
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+            BufferedReader br = new BufferedReader(in);
+            String output;
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+            }
+            conn.disconnect();
+
+        } catch (Exception e) {
+            System.out.println("Exception in NetClientGet:- " + e);
+        }
+    }
+}
+
+
+abstract methods are allowed only inside abstract class and interface
+in interfaces, the keyword "abstract" is not used. But an empty method is abstract only.
+in abstract class, methods can be abstract or implement
+	both are allowed
+	it is not compulsory to have only abstract methods inside an abstract class
+
+upto Java version 7,
+	interfaces contain only abstract methods.
+but from java 8 onwards,
+	interfaces can contain
+		abstract methods
+		methods with body if they are 
+			default (or)
+			static
+
+in all versions, the data members inside an interface can be
+	public static final only
+means, constants are allowed inside interfaces,  but not variables
+
+
+Difference between interface and abstract class:
+	an abstract class is meant for inheritance
+	the sub classes must implement/ override all abstract methods of an abstract class.
+
+	an interface is meant to be implemented by the classes
+	an interface can be inherited by another interface
+	a class that implements an interface is forced to override all abstract methods of that interface.
+
+How interface is used to achieve multiple inheritance?
+
+
+
+if a class inherits a super class, the sub class gets benefit of inheritance
+if a class implement an interface, is there any benefit?
+	interface benefits by providing compatibility or support or type reference.
+	but that cannot be equal to inheritance
+
+
+X inherits A and B		in c++ 	multiple inheritance is allowed
+
+a class X implements A and B	in java	can you compare this with multiple inheritance?
+	NO
+
+
+
+interface Person
+{
+	void speak();
+}
+
+class Student implements Person
+{
+	public void speak()
+	{
+		System.out.println("Student speaks");
+	}
+}
+
+class Teacher implements Person
+{
+	public void speak()
+	{
+		System.out.println("Teacher speaks");
+	{
+{
+
+public class App
+{
+	public static void main(String args[])
+	{
+		Person raja=null;
+		raja=new Student();
+		raja.speak();
+		raja=new Teacher();
+		raja.speak();
+	}
+}
+
+
+
+
+
+
+Go through the interview questions and share your answers in chat
+	share the question and answer together
+	
+anybody's answer can be taken into discussion also in an intent to understand better
+
+
+a class has properties
+	what is a property?
+		a non public data member, which can be set value using setter method is a property
+
+there are 2 ways we can set the value to a data member of a class
+	1) using constructor
+	2) using setter
+
+while learning spring core,
+	you learned Dependency Injection
+	1) setter based injection
+	2) constructor based injection
+
+College college=new College();		//constructor without argument is used here
+college.setName("IITM");		//setter based injection
+
+College college=new College("IITM");	//constructor based injection
+
+after setting the value, if you want to change??????
+	college.setName("IIT Madras");	//how will you use constructor here?
+
+
+Arrays.sort()
+Collections.sort()
+Collections is a class
+	sort() is a static method
+	if sort is not a static method (then it is called as instance method)
+		then, you should create an object of the class and call  the method
+
+if you want to call a method of a class, then you will create an object of the class and then
+	obj.method();
+
+but "sort" being a static method, we dont need an object of Collections to call it
+simply 	<<classname>>.methodname();
+
+	Collections.sort();
+
+static member of a class does not belong to any particular object of the class. It belongs to the class.
+So i can call a static method even before any object is created.
+So that static method cannot access instance methods or instance variables (because, they are not available)
+
+static
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

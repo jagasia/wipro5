@@ -1,0 +1,88 @@
+Day #23
+----------
+20 participants present at 09:00
+----------------------------------------
+Introduction to Microservices
+Monolith Application
+Netflix OSS & Spring Cloud
+Client-Side Circuit Breakers – Spring Cloud Circuit Breaker with Resilience4J, Other Spring Cloud Projects
+Event Driven Microservices with Apache Kafka
+
+Milestone 3 assessment planned tomorrow 05-Jul-2024
+
+Understand and appreciate the architecture of Microservice, 
+Understand and appreciate the 12 Factor methodology and its implications on the Microservices architecture, 
+Implement Microservices using Spring Boot framework, 
+Refactor Monolithic application into Micro services based Application, 
+Setup Service Registry and register Micro services and enable discovery pattern, 
+Build scalable Microservices and implement client-side load balancing, 
+Implement fault-tolerance services using circuit breakers, 
+Set up centralized configuration with Spring Cloud Config Server and client, 
+Apply the API gateway pattern through Spring Cloud Gateway and setup routes, 
+Manage distributed log tracing with Spring cloud Sleuth and zipkin, 
+Understand and apply Spring Security – basic auth, CORS, 
+Understand and implement Event driven Microservices with Apache Kafka.
+
+API Gateway
+CORS		cross origin resource sharing
+
+we will use CORS when we learn react
+from ReactJs application, we will access the REST apis
+	but that is normally restricted since react origin is different from rest api
+	1) we will add @CrossOrigin annotation in our controller and specify the pattern / url from which we allow access
+	2) when we use spring security, we will also enable CORS in security configuration		http.cors()
+
+
+
+Kafka is useful for publisher/subscriber model
+	where, the clients subscribe for the topic
+	and the publisher publishes to topic
+	whoever subscribed get update from the topic
+
+If you are doing a ticket booking portal project,
+then you will be showing trailers and trailers show a button "I am interested".
+The movie is currently in "coming soon" status.
+Once the movie has got release date and the ticket booking is open now,
+we must notify all those who "shown interest" in that movie, so that they can come and book the ticket.
+
+MCQ
+Coding challenge
+
+8, 10, 17, 4, 6, 2, 11, 13
+
+what is the maximum product of any 2 numbers and that number is present in this list.
+
+find the product of every 2 number
+take 1st number and multiply it by all other numbers right side
+take 2nd number and multiply it with all other numbers right side
+ 
+everytime you get a product
+check if the product is found as an element in this list?
+	yes means,
+		check this with maxProduct variable
+			if this product is > max then
+				update max
+
+at the end of the loop,
+	max will contain the answer
+
+
+
+
+
+for loop to print each element of the list
+8
+10
+17
+
+create inner loop to get the second operand of product
+
+8 17
+8 10
+8 4
+
+--------------------
+10 17
+10 4
+
+-------------------------
