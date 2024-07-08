@@ -387,4 +387,83 @@ Task:
 use w3schools css chapter
 identify different types of css selectors.
 
+------------------------------------------------
 
+I have created 6 textboxes that you can see in browser.
+whenever cursor gets into the textbox, (by click or by tab)
+the text box background color should become yellow (so that it will highlight which text box is active now)
+
+what is the selector in css that selects all text boxes?
+
+	        input[type=text] {
+            background-color: yellow;
+        }
+
+now, this style should apply only when cursor comes to a particular textbox
+	we can specify the event on which style must apply.
+	what is the event we want to choose?	event is "focus" event
+
+can you say some events?	
+	click
+	dblclick
+	focus
+	blur
+	keyup
+	keydown
+	keypress
+
+in js, you might have used
+	onclick
+	onblur
+	onfocus
+	onkeyup
+
+
+
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input[type=text]:focus {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" name="" id=""><br>
+    <input type="text" name="" id=""><br>
+    <input type="text" name="" id=""><br>
+    <input type="text" name="" id=""><br>
+    <input type="text" name="" id=""><br>
+    <input type="text" name="" id=""><br>
+    <input type="button" value="submit">
+</body>
+</html>
+
+
+border
+	in css is a combination of 3 border styles
+
+
+            border-color: blue;
+            border-width: 15px;
+            border-style: solid;
+instead of above 3 lines:
+	border: 15px solid blue;
+
+
+
+border: 15px solid #ff00ff;
+
+border:15px solid rgb(255,0,0)
+
+background-color: rgba(255, 0, 0, 0.3)
+last argument is alpha for transparency.  	between 0 to 1
+0.1 being complete transparent
+0.9 being no transparent
+0 and 1 also allowed
