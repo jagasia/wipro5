@@ -1,0 +1,390 @@
+Day #25:
+-----------
+25 participants present at 09:00
+
+HTML & CSS
+-------------------
+We are going to finish HTML & CSS today.
+
+What is frontend?
+	whatever user interface/ presentation/ view/ input output etc
+	are called as frontend.
+
+When we created MVC projects, of course, "view" is front end. That means, mvc projects have frontend also.
+Except that, whatever we learned so far, was related to backend development
+
+Backend means, something that runs in "Server".
+
+what is client server?
+	client is used for input and output or presentation or view etc
+	client is frontend or frontend is viewed in client
+	sometimes front end runs in client
+
+	JSP is always UI or frontend. JSP is meant for presentation or view
+	Servlets can be used as view or controller. (mostly controller)
+
+	JSP, Servlets when they act as view, they run at server and produce output that are sent to browser. they are front end but server side.
+	
+	server side script means a program that runs in server and produce output that are displayed in browser.
+	they produce output or not. they are displayed or not. but they are scripts that are capable for computation / calculation / validation or something
+
+client side scripts
+	javascript
+	vbscript
+
+these are programs sent to browser and run in browser itself.
+	(provided they are not restricted by the browser)
+
+server side scripts
+	servlet
+	jsp
+	asp
+	php
+
+these are programs run in server and then send the output to browser
+
+
+example:
+------------
+	if you print the time using a script,
+		client side script is used to print a time means,
+			it prints the client computer time
+		server side script is used to print a time means,
+			it prints the server computer time
+
+Facebook.com
+	the web pages are present in server.
+	not in my computer.
+	when i visit facebook.com, the web pages 
+		comes from server to my computer browser
+		my computer becomes a client now
+
+	
+----------------------
+
+HTML is not scripting language.
+	it is a markup language meant for presentation
+
+a data can be displayed in browser using html
+html elements decide how to print that data in browser.
+
+<b>	bold
+<i>	italic
+<u>	underline
+<h1>	largest heading
+<h6>	smallest heading
+<ul>
+	<li>India</li>
+	<li>Pakistan</li>
+</ul>
+
+CSS
+	styling the html elements using Cascading Style Sheet
+
+Bootstrap
+	is an application of css
+	somebody has done lot of style definitions using css
+	
+
+table
+heading
+paragraph
+form input
+list
+	unorderd
+	ordered
+
+in html, style is an attribute
+
+attributes:
+	id
+	class
+	style
+	
+<p style="text-align: center;color:blue;background-color:aquamarine;">This is a paragraph</p>    
+
+
+Task:
+---------
+Kindly complete practise of HTML in all the topics 
+
+
+CSS
+------
+Before CSS was introduced or became popular, i was doing all the formatting /styling in html itself.
+If you want to change
+	color
+	background color
+	alignment
+	
+etc
+all these styling or formatting were done in html itself.
+
+
+CSS - Cascading StyleSheet
+
+is introduced for styling, so i was thinking what is the advantage of using CSS?
+
+CSS adds style to html pages.
+but when i can do the styling in html language itself, what is advantage of using css?
+
+
+suppose, i have 10 html pages. All these pages must look consistent.
+if i use html based styling, them i have to repeat the styling in all the 10 pages.
+if any change is decided, then i have to repeat the change everywhere.
+
+ex:
+
+	<p align="right">....</p>
+	<p align="right">....</p>
+	<p align="right">....</p>
+
+
+if we need to change this alignments to center
+
+	<p alight="center">....</p>
+	<p alight="center">....</p>
+	<p alight="center">....</p>
+	<p alight="center">....</p>
+
+
+if i use css:
+
+p
+{
+	text-align:right;
+}
+
+<p>.....</p>		i am not styling in html
+<p>.....</p>
+<p>.....</p>
+<p>.....</p>
+
+
+
+
+if i want paragraph align to center
+
+p
+{
+	text-align:center;
+}
+
+
+<p>.....</p>
+<p>.....</p>
+<p>.....</p>
+<p>.....</p>
+can you see that, a change happen in one location reflect everywhere.
+
+
+in 2009, i worked in a company as webapp developer
+i create form input elements and 
+there was another team for aesthetics. They are good in CSS
+they give me a css file that i apply in my webpages.
+when i run the code, it looks so nice.
+I dont bother styling my webpages. That is taken care by another team
+
+benefit of css?
+	separate the roles of web designer and developer.
+	designer work on css
+	developer work on html
+
+we an use css in 3 ways:	(interview question also)
+	inline
+	internal
+	external
+
+inline:
+	css styling is applied on an element using 
+	the style applies to the current element only.
+		style attribute
+		<p style="color:blue;text-align:center">this is paragraph</p>
+
+internal:
+	css styling is applied to the current document only
+		style element
+
+	<style>
+		p
+		{
+			color:blue;
+			text-align:center;
+		}
+	</style>
+	<p>this is a paragraph</p>		style is applied to all paragraphs in the current document
+
+external:
+	css styling is applied to all documents where this css file is imported
+	a separate .css file is created and referred in required html files using
+		<link> element
+
+
+
+
+example for inline:	(style attribute)
+-------------------------
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<p style="color:red">THis is para 1</p>    
+<p>this is second paragraph</p>
+<p style="color:aqua">Third para</p>
+</body>
+</html>
+
+
+example for internal:	(style element)
+-----------------------------
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            text-align: center;
+            color:yellow;
+        }
+    </style>
+</head>
+<body>
+    <p>THis is a para</p>
+    <p style="color:blue">This is second para</p>
+    <p>Third para</p>
+</body>
+</html>
+
+here, internal styling is done using <style> element
+it is applied to all elements where selector is matching
+
+but notice the second para. it has inline style also. So, inline overrides, the internal.
+
+
+example:
+external style sheet: (<link>)
+lets create orange.css file now:
+
+orange.css:
+-----------------
+p{
+    color:orange
+}
+
+h1{
+    color:lightgoldenrodyellow
+}
+
+
+
+five.html
+----------------------
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- to apply css file to this doc -->
+     <link rel="stylesheet" href="orange.css">
+    
+</head>
+<body>
+    <p>THis is a paragraph</p>
+</body>
+</html>
+
+
+
+
+
+notice that
+     <link rel="stylesheet" href="orange.css">
+is used to apply a css file to a html page.
+similarly, for many html pages, we can apply 1 css and 
+it will be consistent. A change in 1 css can reflect everywhere
+
+also, we can apply, multiple css files to one html page also.
+
+understand, when external css says "paragraphs should be displayed in orange color"
+it is applied. But if internal style says paragraphs in red, then internal wins
+if inline is there, inline wins.
+what happens if id selector is used? id wins
+
+Selectors:
+------------
+so far all examples we used uses "element" selector
+
+p		//this is element selector.
+{
+	color:blue
+}
+
+
+there can be 
+	id selector
+	class selector
+
+
+example for id selector:
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- to apply css file to this doc -->
+     <link rel="stylesheet" href="orange.css">
+    <style>
+        #p1
+        {
+            color:blue
+        }
+    </style>
+</head>
+<body>
+    <p>THis is a paragraph</p>
+    <p id="p1">THis is second para</p>
+</body>
+</html>
+
+example for class selector:
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .xyz
+        {
+            color:yellow
+        }
+    </style>
+</head>
+<body>
+<p>one</p>    
+<p class="xyz">two</p>
+<p>three</p>
+<p class="xyz">four</p>
+</body>
+</html>
+
+here, whichever element has a class "'xyz" is applied with color yellow
+
+it can be para, it can be heading, or anything that  has class=xyz
+
+then it is applied
+
+if we create styling that applies to multiple html pages, then create external css file and apply that in required html pages.
+if we create styling that applies only to current web page, then use internal style
+if we need to apply style only to a particular element, use inline
+
+
+Task:
+use w3schools css chapter
+identify different types of css selectors.
+
+

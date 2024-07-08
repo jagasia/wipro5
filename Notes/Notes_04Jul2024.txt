@@ -86,3 +86,12 @@ create inner loop to get the second operand of product
 10 4
 
 -------------------------
+Task:
+Prepare for MCQs in 
+Setup Service Registry and register Micro services and enable discovery pattern, 
+Build scalable Microservices and implement client-side load balancing, 
+Implement fault-tolerance services using circuit breakers, 
+Set up centralized configuration with Spring Cloud Config Server and client, 
+
+Go through the steps for Spring cloud API gateway
+https://medium.com/@donheins39/building-an-api-gateway-using-spring-boot-3-cloud-gateway-and-eureka-bc6fbdd12880
