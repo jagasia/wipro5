@@ -215,3 +215,67 @@ and very important methods of Arrays in javsacript
 
 
 
+Example for for loop:
+var arr=["India","Australia","Sri lanka","Pakistan"];
+for(var i=0;i<arr.length;i++)
+{
+    console.log(arr[i]);
+}
+
+var arr=["India","Australia","Sri lanka","Pakistan"];
+for(var x of arr)
+{
+    console.log(x);
+}
+
+
+var arr=["India","Australia","Sri lanka","Pakistan"];
+for(var x in arr)
+{
+    console.log(x);
+}
+
+
+
+
+var arr=["India","Australia","Sri lanka","Pakistan"];
+arr.sort();
+for(var x of arr)
+{
+    console.log(x);
+}
+
+
+var arr=["India","Australia","Sri lanka","Pakistan"];
+arr.sort();
+arr.reverse();
+for(var x of arr)
+{
+    console.log(x);
+}
+
+
+What is the difference between var and let in javascript
+	var is used to declare variables. We can declare a variable many times in javascript using var.
+	let does not allow us to redeclare a variable.
+
+
+Task:
+identify the operators used in javascript.
+	=	for assigning
+	==	for checking equality
+	===	for checking equality and also same type
+
+arithmetic
+logical
+comparison
+assignment
+ternary
+
+Task:
+identify the functions in javascript related to
+	strings
+	dates
+	numbers
+	arrays
+

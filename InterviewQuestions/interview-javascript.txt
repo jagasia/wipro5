@@ -1,0 +1,3 @@
+What is the difference between var and let in javascript
+	var is used to declare variables. We can declare a variable many times in javascript using var.
+	let does not allow us to redeclare a variable.
