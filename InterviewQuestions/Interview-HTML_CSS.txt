@@ -1,4 +1,18 @@
-1) How do you display unordered list as square shape?
+1) what are the features of html5?
+		semantic tags
+		additional input elements
+			<input type=date
+			<input type="range"	
+			<input type="number"
+			<input type="email"
+			these will work / validate only when you submit the form
+		placeholder, required, pattern 
+			these attributes		
+		audio, video tags	(that do not require to install any plugins in browser for media)
+		geo location
+		webstorage	(sessionStorage, localStorage)
+
+2) How do you display unordered list as square shape?
 answer:  use "list-style-type" css property in style attribute of ul element with value "square"
 example:
 <ul style="list-style-type:square;">
@@ -7,7 +21,7 @@ example:
     <li>Pakistan</li>
 </ul>
 
-2) How do you start the ordered list from 3?
+3) How do you start the ordered list from 3?
 answer: start attribute of ol element and value to 3
 example:
 <ol start="3">
@@ -16,14 +30,14 @@ example:
     <li>Pakistan</li>
 </ol>
 
-3) What are the three ways css can be used?
+4) What are the three ways css can be used?
 	inline
 	internal
 	external
 
-4) When i use all these three types, which will win?
+5) When i use all these three types, which will win?
 	inline wins internal wins external
 	id selector wins
 
-5) Tell me different types of selectors in css
+6) Tell me different types of selectors in css
 

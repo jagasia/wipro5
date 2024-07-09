@@ -1,0 +1,21 @@
+/* # is used for id selector
+. is used for class selector */
+.blue
+{
+    color:blue
+}
+
+.text-center
+{
+    text-align: center;
+}
+
+.green
+{
+    color:green
+}
+
+.bg-info
+{
+    background-color: aqua;
+}
