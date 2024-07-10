@@ -1,0 +1,61 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function removeItem(array, itemToRemove) {
+        const index = array.indexOf(itemToRemove);
+        console.log("Before:", array);
+        if (index !== -1) {
+          array = array.slice(0, index).concat(array.slice(index + 1));
+        }
+        console.log("After:", array);
+        return array;
+      }
+
+      // Example usage:
+      const myArray3 = [1, 2, 3, 4, 5];
+      // Removes the element 3
+      removeItem(myArray3, 3);
+
+      function fnAdd() {
+        var country = document.getElementById("txtCountry").value;
+        var temp = localStorage.getItem("countries");
+        if (temp != null) temp += "," + country;
+        else temp = country;
+        localStorage.setItem("countries", temp);
+        console.log(temp);
+      }
+      function fnRemove() {
+        var country = document.getElementById("txtCountry").value;
+        var temp = localStorage.getItem("countries");
+        if (temp == null) {
+          alert("Nothing to remove");
+        } else {
+          //loop all countries and check if any country matches to remove
+          console.log("These are the countries found");
+          console.log(temp);
+          var arr = temp.split(",");
+          for (var c of arr) {
+            if (c == country) {
+              alert("found");
+              arr=removeItem(arr,c);
+              console.log("Now the array:");
+              console.log(arr);
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    Enter the name of country:
+    <input type="text" name="" id="txtCountry" />
+    <input type="button" value="Add" onclick="fnAdd()" />
+    <input type="button" value="Remove" onclick="fnRemove()" />
+    <br />
+    <h2>List of countries:</h2>
+    <div id="div1"></div>
+  </body>
+</html>

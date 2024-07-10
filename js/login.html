@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fnLogin()
+        {
+            var username=document.getElementById("txtUsername").value;
+            var password=document.getElementById("txtPassword").value;
+            if(username==password)
+            {
+                //display the output in div1
+                document.getElementById("div1").innerHTML='<font color="red">Login failed</font>';
+            }else{
+                document.getElementById("div1").innerHTML='<font color="green">Login is successful</font>';
+            }
+        }
+    </script>
+</head>
+<body>
+Username: <input type="text" name="" id="txtUsername"><br>
+Password: <input type="password" name="" id="txtPassword"><br>
+<input type="button" value="Login" onclick="fnLogin()">
+<div id="div1"></div>
+</body>
+</html>

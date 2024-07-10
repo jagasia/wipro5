@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fnAdd()
+        {
+            // var no1;//how to get input from a textbox?
+            // var no2;//use DOM
+            var no1=document.getElementById('no1').value;
+            var no2=document.getElementById("no2").value;
+            var sum=parseInt(no1)+parseInt(no2);
+            alert(sum)
+        }
+    </script>
+</head>
+<body>
+    Number 1: <input type="number" name="" id="no1"><br/>
+    Number 2: <input type="number" name="" id="no2"><br>
+    <input type="button" value="Sum" onclick="fnAdd()">
+</body>
+</html>

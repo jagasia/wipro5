@@ -1,0 +1,282 @@
+Day #27
+----------
+When i learned javascript, there were lot of new js versions evolving, and on those days, the browsers were requested to update.
+now a days, we dont find that much request to update our browsers.
+
+Introduction to Javascript, client side scripting,Javascript functions, FE, IIFE, Arrays, Date and Time Objects, Closures, DOM Objects, JSON, JSON - Objects, arrays etc, JSON-Ajax
+
+
+IIFE
+	immediately invoked function expression
+
+usually, we create a function once. and call the funtion many times.
+iife, we define the function where it is called also.
+arrow functions in javascript (similar to lamdba in java)
+
+Yesterday evening the last doubt you asked:
+
+
+
+<script>
+	document.getElementById("txt").value=100;	//error
+	//there is no element with id=txt so far from top to bottom
+</script>
+<input type="text" id="txt" />
+<script>
+	document.getElementById("txt").value=100;	//works
+	//now, there is an element with id=txt
+</script>
+
+you are writing the javascript code directly in script tag, so it is  executed from top to bottom
+
+if you write it inside a function. then that code is not executed, until we call the function.
+if we call the function after the page is rendered, then there is no problem
+
+
+
+DOM
+--------
+	Document Object Model
+
+if we can represent the html document as an object
+you may ask it may contain lot of elements, not one element.
+the entire html document can be considered as 1 element that contains all other elements, as a Tree.
+
+DOM represent the document as a tree object in memory
+
+root element is the root node in the tree
+we can access any particular element in the document
+using its id
+
+document
+	is the object that represent the entire document tree
+	there are methods like
+		getElementById
+		getElementsByName
+
+
+var no1=document.getElementById('no1').value;
+
+if you dont use value, you got an object representation of the text box
+
+document.getElementById('no1')	is object of textbox
+in that object, one of the property "value" property is used to 
+get or set the value of the text box
+
+            var no1=document.getElementById('no1').value;
+            var no2=document.getElementById("no2").value;
+            var sum=no1+no2;
+            alert(sum)
+
+if no1=2
+no2=3
+
+then what is the output?
+	ans:	23
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fnAdd()
+        {
+            // var no1;//how to get input from a textbox?
+            // var no2;//use DOM
+            var no1=document.getElementById('no1').value;
+            var no2=document.getElementById("no2").value;
+            var sum=parseInt(no1)+parseInt(no2);
+            alert(sum)
+        }
+    </script>
+</head>
+<body>
+    Number 1: <input type="number" name="" id="no1"><br/>
+    Number 2: <input type="number" name="" id="no2"><br>
+    <input type="button" value="Sum" onclick="fnAdd()">
+</body>
+</html>
+
+Task:
+----------
+create a login page and accept username and password as input from the user.
+on clicking the "Login" button, 
+if username and password are same, login should be failed
+else login is successful.
+failure message should be displayed below the "Login" button in red color
+success message in green color.
+
+Krishnamoorthy and Rakesh have completed
+
+
+value property is used for scalar elements like
+	input:text
+
+but for containers like
+	p
+	div
+	span
+
+we do not use "value" property. instead, we use
+	innerHTML
+	innterText
+
+what is the difference?
+	innerText
+		will display html code also as text
+	innerHTML
+		process the html code and produce the output
+
+Task:
+-------
+Create a html page
+Enter the country name:...................................(textbox)	Add button
+<br/>
+List of countries:
+(here, there should be an unordered list of countries
+
+Note:
+User will enter a country name in the textbox and click Add button
+the country name must be added to the below list
+
+
+Use 1 textbox and add button
+on adding, 
+the list should grow
+-----------------------------------------
+solution:
+----------------
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fnAdd()
+        {
+            var country=document.getElementById("txtCountry").value;
+            document.getElementById("div1").innerHTML+="<li>"+country;            
+            document.getElementById("div1").innerHTML+="</li>";    
+        }
+    </script>
+</head>
+<body>
+Enter the name of country:
+<input type="text" name="" id="txtCountry">
+<input type="button" value="Add" onclick="fnAdd()">
+<div id="div1">
+</div>
+</body>
+</html>
+
+
+-------------------------------------------------
+How to use localStorage or sessionStorage
+These are web storages introduced in html5
+
+these have methods
+	setItem
+	getItem
+	removeItem
+
+if you store an item in localStorage, it is stored permanently
+
+if you store an item in sessionStorage, it is stored until we logout / close browser.
+
+an item is a key value pair
+how to store an item in localStorage?
+	localStorage.setItem("name",value);
+
+how to get an item from localStorage?
+	var value=localStorage.getItem("name");
+
+Lets modify this program with an array:
+----------------------------------
+array methods
+	push	to add an element
+	pop	to remove the last element
+
+
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function removeItem(array, itemToRemove) {
+        const index = array.indexOf(itemToRemove);
+        console.log("Before:", array);
+        if (index !== -1) {
+          array = array.slice(0, index).concat(array.slice(index + 1));
+        }
+        console.log("After:", array);
+        return array;
+      }
+
+      // Example usage:
+      const myArray3 = [1, 2, 3, 4, 5];
+      // Removes the element 3
+      removeItem(myArray3, 3);
+
+      function fnAdd() {
+        var country = document.getElementById("txtCountry").value;
+        var temp = localStorage.getItem("countries");
+        if (temp != null) temp += "," + country;
+        else temp = country;
+        localStorage.setItem("countries", temp);
+        console.log(temp);
+      }
+      function fnRemove() {
+        var country = document.getElementById("txtCountry").value;
+        var temp = localStorage.getItem("countries");
+        if (temp == null) {
+          alert("Nothing to remove");
+        } else {
+          //loop all countries and check if any country matches to remove
+          console.log("These are the countries found");
+          console.log(temp);
+          var arr = temp.split(",");
+          for (var c of arr) {
+            if (c == country) {
+              alert("found");
+              arr=removeItem(arr,c);
+              console.log("Now the array:");
+              console.log(arr);
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    Enter the name of country:
+    <input type="text" name="" id="txtCountry" />
+    <input type="button" value="Add" onclick="fnAdd()" />
+    <input type="button" value="Remove" onclick="fnRemove()" />
+    <br />
+    <h2>List of countries:</h2>
+    <div id="div1"></div>
+  </body>
+</html>
+
+
+---------------------------------------------
+Task:
+create a login page
+
+	username:.....................
+	password:......................<<show password button>>
+	remember me: <<checkbox>>
+	<login button>
+
+if remember me is ticked,
+then if you close this webpage
+and open again
+it should remember your username and password
+ie., the username textbox should automatically show username and password
+
+on clicking the show password button, the password must become visible.
+
+
