@@ -358,6 +358,142 @@ to print hello world
 
 
 
+---------------------
+when you get error
+	npm i create-react-app
+		you are getting error.
+
+solution:
+	this create-react-app installation needs the following components to be installed successfully.
+	if not, we will install them one by one globally once
+
+
+react
+react-dom
+react-scripts
+cra-template
+
+	all these to be installed manually
+
+npm i -g react
+npm i -g react-dom
+npm i -g react-scripts
+npm i -g cra-template
+
+
+------------------------------------
+npm i -g create-react-app
+
+if we do this once, -g (globally) that is enough
+
+npx create-react-app <<appname>>
+we use everytime.
+
+we have created the reactjs application now,
+in App.js
+	we have modified the code.
+
+we can create the home page in App.js
+and we can plug components here.
+
+Demo:
+lets create the home page in App.js
+
+shall we use bootstrap?
+	i) by adding bootstrap CDN 
+		where is html code?????
+			the only html file we have is index.html	in public folder
+
+	ii) install bootstrap component in cmd prompt
+
+1) adding bootstrap cdn to our html page
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+add these lines inside <head></head> in index.html file
+
+2) in App.js
+	add the home page content
+
+-------------------------------
+Now, you have created the home page
+	App.js
+
+now, lets create components and plug them in App.js	
+App.js is a component 
+
+How to create components in reactjs?
+	1) class based component
+	2)  function based component	(functional component)
+		arrow function also
+
+among these 2 approaches, functional/ arrow functional components are very popular.
+class based component is not much used in industry. So lets learn class based component first and then move to function based.
+
+Demo:
+creating a hello world component using 
+	class based approach
+	function based approach
+	arrow functional approach
+
+
+i) lets create a folder "components" inside "src"
+	right click "src" and create a folder "components"
+		lets create all components in this folder only
+
+use firstletter capital for the component name
+
+A class component compulsorily have a "render" method
+it can have any number of methods, but "render" is compulsory
+
+const { Component } = require("react");
+
+class Hello extends Component
+{
+    render(){
+        return <div>
+            Hello world.....
+        </div>
+    }
+}
+
+this component cannot be plugged in other components,
+until we export this component. export makes this component "public"
+
+const { Component } = require("react");
+
+class Hello extends Component
+{
+    render(){
+        return <div>
+            Hello world.....
+        </div>
+    }
+}
+export default Hello;
+
+
+
+Now, lets plug this component in App.js
+
+in App.js
+	choose where to plug this component
+		<Hello />
+
+notice that an import is required:
+
+import Hello from './components/hello';
+	you may write this on the top or
+	use ctrl space while typing <Hello />
+
+
+
+Task:
+Create a class component and plug it in App component.
+
+
+
+
 
 
 
