@@ -204,3 +204,162 @@ Task:
 Understand what is JSX and its usage.
 
 After this activity, we move to lab setup for reactJs.
+--------------------------------------------
+str="hello";
+//change that "h" into "H"
+str="Hello";
+	this is what happens when you use DOM
+
+vdom:
+	we change only that "h" to "H"
+	not the entire doc tree
+	this is possible because, we do the change in the virtual tree
+	not the actual tree
+
+virtual dom is faster than dom
+
+ReactJs
+---------
+since nodejs is already installed, we can create reactjs projects
+using any of the following methods:
+
+1) using npx
+2) using npm
+
+using npx:
+	npx create-react-app app1
+using npm:
+	npm install create-react-app
+	create-react-app app1
+
+in cmd prompt or in vscode terminal:
+--------------------------------------------------
+i suggest you to create a project in cmd prompt and then open it in vscode
+why?
+
+1) in one terminal the project should be running for ever
+	and changes can reflect immediately in browser
+2) we view the project output in browser
+
+---------------------
+Demo:
+create a reactjs project:
+1) go to D:\Jag\wipro\June2024\all\reactjs in cmd
+npx create-react-app krish
+
+2) now "krish" folder is created and it contains the files
+go inside this folder
+
+cd krish
+
+3) open this folder in vs code using following command:
+	code .
+
+if that does not work, then open vs code and open the krish folder there
+
+4) in cmd prompt 
+D:\Jag\wipro\June2024\all\reactjs\krish		
+ensure that you are inside the project folder
+
+now, run the project using:
+
+npm start
+
+5) open browser and check localhost:3000
+
+
+6) look at the project folder
+understand the folders inside.
+
+i) node_modules
+	this is the library folder
+	without this folder, we cannot run our project
+	when i push my files to github,
+		git will ignore this folder, because, there is a .gitignore file that mentions the folders to ignore.
+	this folder is ignored for good, because, this is a huge folder with around 50k files
+
+if some reactjs project is pulled from github, 
+then understand they never have this node_modules folder
+so, we an bring this node_modules to our project folder anytime using the command
+	npm install
+
+ii) src
+	this is where, we write our code
+	our code will be 
+		components
+		services
+		etc
+iii) package.json
+	this is the configuration file that is similar to pom.xml in maven
+	it will contain the libraries installed in this project
+	we can modify this file later for some reasons
+iv) public 
+	this folder contains the image files, icons, etc
+	this folder contains 
+		index.html
+
+	this is the only html file present in our project
+	this is the home page
+	
+in reactjs, we do not create pages.
+we create components
+	that contains
+		html code
+		javascript code
+		css code
+	everything a component contains
+	
+we will plug the components on root component or child component
+
+v) index.js
+	this is the root component for our project
+
+in index.html, you can notice a div
+    <div id="root"></div>
+
+now in index.js
+you can see
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+now, notice, <App />
+App component is plugged in the index.js
+
+we use this approach
+we create components and plug them in other components.
+
+App.js
+	contains the scaffholding ie., the basic structure of home page
+
+we need to plug all our components inside App.js or its sub components
+
+------------------------------
+Task:
+Create a react js application, run it
+and modify the App.js
+to print hello world
+
+1) open the folder where you want to create the project.		Later, moving this project folder to another location is difficult
+2) create the app
+	npx create-react-app <<projectname>>
+3) cd <<projectname>>
+4) open vs code in this location
+	code .
+5) in cmd prompt:
+	npm start
+6) check browser 
+	localhost:3000
+7) modify App.js
+	to print hello world
+
+
+
+
+
+
+
+
