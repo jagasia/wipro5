@@ -4,10 +4,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
+        
+        function pageLoad()
+        {
+            var username=localStorage.getItem("username");
+            var password=localStorage.getItem("password");
+            document.getElementById("txtUsername").value=username;
+            document.getElementById("txtPassword").value=password;
+            
+        }
         function fnLogin()
         {
             var username=document.getElementById("txtUsername").value;
             var password=document.getElementById("txtPassword").value;
+            var remember=document.getElementById("chkRememberMe").checked;
+            if(remember)
+            {
+                localStorage.setItem("username",username);
+                localStorage.setItem("password",password);
+            }
             if(username==password)
             {
                 //display the output in div1
@@ -18,9 +33,10 @@
         }
     </script>
 </head>
-<body>
+<body onload="pageLoad()">
 Username: <input type="text" name="" id="txtUsername"><br>
 Password: <input type="password" name="" id="txtPassword"><br>
+<label for="chkRememberMe">Remember me</label> <input type="checkbox" name="" id="chkRememberMe"><br>
 <input type="button" value="Login" onclick="fnLogin()">
 <div id="div1"></div>
 </body>

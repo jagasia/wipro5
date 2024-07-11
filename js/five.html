@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fnSave()
+        {
+            var id=document.getElementById("id").value;
+            var name=document.getElementById("name").value;
+            var phone=document.getElementById("phone").value;
+            var doj=document.getElementById("doj").value;
+            var employee={id:0,name:'',phone:'',doj:''};
+            employee.id=id;
+            employee.name=name;
+            employee.phone=phone;
+            employee.doj=doj;
+            // console.log(employee);
+            //convert an object to JSON string
+            var str=JSON.stringify(employee);
+            // console.log(str);
+            localStorage.setItem("employee",str);
+        }
+        function fnRetrieve()
+        {
+            var str=localStorage.getItem("employee");
+            //convert JSON string to object
+            var employee=JSON.parse(str);
+            //populate the values of employee to the form input elements
+            document.getElementById("id").value=employee.id;
+            document.getElementById("name").value=employee.name;
+            document.getElementById("phone").value=employee.phone;
+            document.getElementById("doj").value=employee.doj;
+        }
+    </script>
+</head>
+<body>
+Id: <input type="number" name="" id="id"><br>
+Name: <input type="text" name="" id="name"><br>
+Phone: <input type="text" name="" id="phone"><br>
+Date of Joining: <input type="date" name="" id="doj">
+<input type="button" value="Save" onclick="fnSave()">    
+<input type="button" value="Retrieve" onclick="fnRetrieve()">
+</body>
+</html>

@@ -1,0 +1,206 @@
+Day #28
+------------
+Introduction to Javascript, client side scripting,Javascript functions, FE, IIFE, Arrays, Date and Time Objects, Closures, DOM Objects, JSON, JSON - Objects, arrays etc, JSON-Ajax
+
+
+JSON
+how to convert a json string into object and vice versa
+
+what is an object? in javascript
+	an object can contain many properties inside
+	it is like a composite type
+	we do not need to create a class so that we create object in javascript
+	we can directly create any object
+
+
+Id: <input type="number" name="" id="id"><br>
+Name: <input type="text" name="" id="name"><br>
+Phone: <input type="text" name="" id="phone"><br>
+<input type="button" value="Save">    
+<input type="button" value="Retrieve">
+
+when save button  is clicked, the details should be stored in localStorage
+when retrieve button is clicked, then the details retrieved from localStorage must be populated to the form inputs
+
+if you can have 3 localStorage, then you know how to do.
+But if 1 localStorage should contain all these 3, then you can use an object (that contains 3 info in itself)
+
+object:-
+{id: '2', name: 'Malinga', phone: '9878899'}
+
+json:-
+{"id":"2","name":"Malinga","phone":"989898"}
+
+
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fnSave()
+        {
+            var id=document.getElementById("id").value;
+            var name=document.getElementById("name").value;
+            var phone=document.getElementById("phone").value;
+            var doj=document.getElementById("doj").value;
+            var employee={id:0,name:'',phone:'',doj:''};
+            employee.id=id;
+            employee.name=name;
+            employee.phone=phone;
+            employee.doj=doj;
+            // console.log(employee);
+            //convert an object to JSON string
+            var str=JSON.stringify(employee);
+            // console.log(str);
+            localStorage.setItem("employee",str);
+        }
+        function fnRetrieve()
+        {
+            var str=localStorage.getItem("employee");
+            //convert JSON string to object
+            var employee=JSON.parse(str);
+            //populate the values of employee to the form input elements
+            document.getElementById("id").value=employee.id;
+            document.getElementById("name").value=employee.name;
+            document.getElementById("phone").value=employee.phone;
+            document.getElementById("doj").value=employee.doj;
+        }
+    </script>
+</head>
+<body>
+Id: <input type="number" name="" id="id"><br>
+Name: <input type="text" name="" id="name"><br>
+Phone: <input type="text" name="" id="phone"><br>
+Date of Joining: <input type="date" name="" id="doj">
+<input type="button" value="Save" onclick="fnSave()">    
+<input type="button" value="Retrieve" onclick="fnRetrieve()">
+</body>
+</html>
+
+
+
+How do you show errors?
+	bootstrap 5
+		is-invalid
+
+how to dynamically apply a class or remove?
+	in react it is very easy
+
+
+when you work with servlets and jsp,
+suppose
+jsp file has a "dropdownlist"	<select>
+on selecting an option, it will not create a submission to servlet
+	only when submit button is clicked, it will post the form to the servlet.
+	also submit button creates refresh
+
+but we do not want refresh 
+	we do not want submit
+	when we select an option in dropdownlist
+
+How can we call a server side script from a javascript function
+because, a dropdownlist can create client side event only
+	from client side event, we handle using js function
+	from a javascript from how to call a servlet or server side script.
+
+AJAX
+	2007
+	Asynchronous Javascript And XML
+	without refreshing a page, we are able to access server side scripts
+
+
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "servlet1", true);
+  xhttp.send();
+}
+</script>
+
+
+
+
+
+
+
+
+http://localhost:8080/11-jul-ajax/MyServlet?no1=2&no2=3
+
+-------------------------
+Virtual DOM concepts, JSX concepts.
+
+Nodejs
+	must be installed in our system
+	it is installed in cloud lab
+	
+how to check node version
+	node --version
+
+Virtual DOM
+	this is the advantage of ReactJs
+
+DOM vs Virtual DOM
+	in DOM, we are working on the document directly
+	in virtual DOM, we work on a virtual object of the document in memory
+	which is very faster and light weight.
+
+Task:
+	Identify what  is virtual DOM
+	and difference between DOM and Virtual DOM
+
+since ReactJs uses virtual DOM, it has advantage over other f/ws like angular
+
+
+JSX
+	Javascript XML
+	Javascript extension
+	Javascript extension to React
+
+
+allows us to use HTML/ XML in javascript
+
+example
+	var str="<div><h1>Heading</h1></div>";
+	this is a string version of html
+
+
+
+
+
+Username: <input type="text" name="" id="txtUsername"><br>
+Password: <input type="password" name="" id="txtPassword"><br>
+<label for="chkRememberMe">Remember me</label> <input type="checkbox" name="" id="chkRememberMe"><br>
+<input type="button" value="Login" onclick="fnLogin()">
+<div id="div1"></div>
+
+this entire above text cannot be stored as 
+var str='here we cannot fit all those above html code';
+
+so solution is
+
+use ``	instead of ''
+
+where is this ` found in keyboard?		left side of 1
+
+JSX is not a string version of html at all
+
+Task:
+	Identify what  is virtual DOM
+	and difference between DOM and Virtual DOM
+
+
+Task:
+Understand what is JSX and its usage.
+
+After this activity, we move to lab setup for reactJs.
