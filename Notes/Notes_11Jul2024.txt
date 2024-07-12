@@ -492,10 +492,107 @@ Task:
 Create a class component and plug it in App component.
 
 
+import { Component } from "react";
+
+export default class Hi extends Component
+{
+    render()
+    {
+        return <div>
+            Hi...
+        </div>
+    }
+}
+
+
+notice the export default used in top.
+
+
+
+------------------------------------
+Demo:
+Functional component:
+
+lets create 
+
+function About()
+{
+    return <div>About us</div>
+}
+export default About;
+
+
+
+Task:
+Create one functional component and plug it in App.js
+
+Task:
+Create a Login component and plug it in App component.
+use bootstrap
+	Username:
+	Password:
+		<<Login button>>
 
 
 
 
+Demo:
+lets create a arrow function component, (This is most commonly followed approach)
 
+let Login=()=><div>
+<h3 className="text-center">Login Page</h3>
+Username:<input type="text" id="username" className="form-control" />
+Password:<input type="password" id="password" className="form-control" /><br/>
+<input type="button" value="Login" className="btn btn-info" />
+</div>
 
+export default Login;
+--------------------------------------------
 
+props and state
+---------------------
+What is "props"
+	props = properties
+used for getting input from parent component
+
+ex:
+	in html
+		<table border="2">
+
+here, border is given as input to the table component.
+
+Lets see example for props in class based component:
+
+Hello is a class component, how to pass props?
+	using constructor
+
+background-color. Did you mean backgroundColor?
+
+background-color		in java / javascript a variable name cannot have -
+backgroundColor
+
+in Hello.js:
+--------------
+
+const { Component } = require("react");
+
+class Hello extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        console.log(props);
+    }
+    render(){
+        return <div>
+            {2 * 5}
+            <p style={{'color':this.props.color,'backgroundColor':this.props.backgroundColor}}>Hello All.....</p>
+            <input type={'text'} />
+        </div>
+    }
+}
+export default Hello;
+
+in App.js
+-------------
+<Hello backgroundColor="yellow" color="blue" /><br/>

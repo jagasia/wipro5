@@ -1,0 +1,136 @@
+Day #29
+------------
+Props and State
+---------------------
+What is the purpose of "props"?
+	input from parent component to child component
+
+in App.js
+	<Hello color="red" />
+
+here, App component passes input to Hello component
+
+there can be many inputs
+
+a props is an object
+
+<Hello backgroundColor="yellow" color="red" />
+
+here, the props sent from App to Hello is
+	{backgroundColor:'yellow',color:'red'}
+
+
+Demo:
+i am creating a react js application "12-jul-1" in react folder
+	npx create-react-app 12-jul-1
+
+cd 12-jul-1
+code .				open the vs code in current location
+npm  start				to run the project in port 3000
+
+---------------------------
+we have seen example for props in class component yesterday
+we can learn state in class component now.
+
+later, we can learn props and state in function component and we will continue to use function component always
+
+state?
+	state is used to retain some information across events
+
+in java, state is the instance/ static variables at class level
+they retain data across several method calls.
+So they are like global variables for a particular clas..
+
+in react, state is also similar to global variable for a component.
+to retain information across several events.
+
+1) bootstrap 
+	how to install bootstrap
+	i)	npm i bootstrap@5.0.2
+	ii)	in index.js file add the folowing in the top
+			import "bootstrap/dist/css/bootstrap.min.css";
+(or)
+we may add the cdn in index.html <head> portion.
+
+2) lets put scaffholding in App.js
+3) create a "components" folder under src
+4) under components, create Login.js
+this time, we learn class based component for props and state
+
+            Username:<input type="text" id="username" className="form-control" />
+            Password:<input type="password" id="password" className="form-control" />
+            <br/>
+            <input type="button" value={'Login'} className="btn btn-info" />
+
+5) lets handle click event of login button:
+    fnLogin()
+    {
+        alert('Login button is clicked')
+        
+    }
+
+    render(){
+        return <div>
+            Username:<input type="text" id="username" className="form-control" />
+            Password:<input type="password" id="password" className="form-control" />
+            <br/>
+            <input type="button" value={'Login'} className="btn btn-info" onClick={this.fnLogin} />
+
+        </div>
+    }
+
+6) lets create state
+	state is like global variable / instance variable of the component
+
+
+import { Component } from "react";
+
+class Login extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.state={username:'dummy',password:'dummy',status:''};
+        this.fnUpdate=this.fnUpdate.bind(this);
+        this.fnLogin=this.fnLogin.bind(this);
+    }
+
+    fnLogin()
+    {
+        if(this.state.username==this.state.password)
+        {
+            //failed
+            this.setState({status:'Login failed'})
+        }else{
+            //success
+            this.setState({status:'Login successful'})
+        }
+    }
+
+    fnUpdate(event)
+    {
+        // alert(event.target.name)
+        this.setState({[event.target.name]:event.target.value})
+    }
+
+    render(){
+        return <div>
+            Username:<input type="text" name="username" className="form-control" onChange={this.fnUpdate} />
+            Password:<input type="password" name="password" className="form-control" onChange={this.fnUpdate} />
+            <br/>
+            <input type="button" value={'Login'} className="btn btn-info" onClick={this.fnLogin} />
+            <br/>
+            Username: {this.state.username} <br/>
+            Password: {this.state.password} <br/>
+            <br/>
+            <div>
+                {this.state.status}
+            </div>
+        </div>
+    }
+}
+export default Login;
+
+Task:
+Create a login component and use state to bind the textbox values to the state and
+validate login and display the status of login
