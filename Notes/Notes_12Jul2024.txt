@@ -19,6 +19,8 @@ a props is an object
 here, the props sent from App to Hello is
 	{backgroundColor:'yellow',color:'red'}
 
+https://forms.office.com/r/q44j2qDf7B
+
 
 Demo:
 i am creating a react js application "12-jul-1" in react folder
@@ -134,3 +136,18 @@ export default Login;
 Task:
 Create a login component and use state to bind the textbox values to the state and
 validate login and display the status of login
+
+
+-----------------
+Validation
+whenever username is less then 3 letters, make it invalid
+use a state "uvalid" to true or false
+if uvalid is false, 
+then classname of username =		form-control is-invalid
+
+
+Gender
+	use radio button and assign the selected gender and display
+
+checkbox
+	store all the selected options in an array
