@@ -1,6 +1,7 @@
 import './App.css';
 import Login from './components/Login';
 import Mathematics from './components/Mathematics';
+import ProductForm from './components/ProductForm';
 import ProductGrid from './components/ProductGrid';
 
 function App() {
@@ -12,6 +13,22 @@ function App() {
 </div>
   
 <div className="container mt-5">
+  
+  <hr/>
+  <div className="row">
+    <div className="col-sm-4">
+      <h3>Column 1</h3>
+      <Mathematics/>
+    </div>
+    <div className="col-sm-4">
+      <h3>Column 2</h3>
+        <ProductForm/>
+    </div>
+    <div className="col-sm-4">
+      <h3>Column 3</h3>        
+      <Login/>
+    </div>
+  </div>
   <div className="row">
     <div className="col-sm-2">
     </div>
@@ -19,21 +36,6 @@ function App() {
       <ProductGrid/>
     </div>
     <div className="col-sm-2">
-    </div>
-  </div>
-  <hr/>
-  <div className="row">
-    <div className="col-sm-4">
-      <h3>Column 1</h3>
-
-    </div>
-    <div className="col-sm-4">
-      <h3>Column 2</h3>
-        <Mathematics/>
-    </div>
-    <div className="col-sm-4">
-      <h3>Column 3</h3>        
-      <Login/>
     </div>
   </div>
 </div>
