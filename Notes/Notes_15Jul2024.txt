@@ -107,3 +107,186 @@ declare the status
 	Login failed	(if username and password are same)
 	Login success	(if different)
 
+
+
+we can create arrow functional component:
+
+const Login=()=><div>
+    Login here
+</div>
+
+export default Login;
+
+
+--------------------
+but if we want to add some functions and hooks in this,
+it is not possible to do, unless we modify this
+
+const Login=()=>
+{
+    return <div>
+    Login here
+</div>
+}
+export default Login;
+
+
+----------------------
+notice the difference. 
+{ with return
+
+------------------
+
+
+we are able to write functions:
+
+const Login=()=>
+{
+    function fn1()
+    {
+        alert("hello")
+    }
+    return <div>
+    Login here
+</div>
+}
+export default Login;
+
+
+
+
+
+---------------
+const Login=()=>
+{
+    //write your functions here
+    return <div>
+    Login here
+</div>
+}
+export default Login;
+
+
+-------------------complete code is-----------------
+import { useState } from "react";
+
+const Login=()=>
+{
+    //write your functions here
+    const [username, setUsername]=useState();
+    const [password, setPassword]=useState();
+    const [status, setStatus]=useState();
+
+    function fnUpdate(event)
+    {
+        var source=event.target.id;
+        switch(source)
+        {
+            case "username":
+                setUsername(event.target.value);
+                break;
+            case "password":
+                setPassword(event.target.value);
+                break;
+        }
+    }
+
+    function fnLogin()
+    {
+        var uname=username;
+        var pwd=password;
+        if(uname==pwd)
+        {
+            setStatus("Login Failed")
+        }else{
+            setStatus("Login success")
+        }
+        
+    }
+    let x='';
+    if(status=="Login success")
+        x="alert alert-success";
+    else if(status=="Login Failed")
+        x="alert alert-danger";
+    else
+        x="invisible";
+    return (
+        
+    <div>
+    Username:<input type="text" id="username" className="form-control" onChange={fnUpdate} />
+    Password:<input type="password" id="password" className="form-control" onChange={fnUpdate} />
+    <br/>
+    <input type="button" value="Login" className="btn btn-info" onClick={fnLogin} />
+    <br/><br/>
+    <div className={x}>{status}</div>
+    
+</div>)
+}
+export default Login;
+
+-----------------------
+i am going to modify this
+
+instead of writing a separate function for fnUpdate
+the textbox change event can have arrow function
+
+using arrow function:
+-------------------------------
+import { useState } from "react";
+
+const Login=()=>
+{
+    //write your functions here
+    const [username, setUsername]=useState();
+    const [password, setPassword]=useState();
+    const [status, setStatus]=useState();
+
+    // function fnUpdate(event)
+    // {
+    //     var source=event.target.id;
+    //     switch(source)
+    //     {
+    //         case "username":
+    //             setUsername(event.target.value);
+    //             break;
+    //         case "password":
+    //             setPassword(event.target.value);
+    //             break;
+    //     }
+    // }
+
+    function fnLogin()
+    {
+        var uname=username;
+        var pwd=password;
+        if(uname==pwd)
+        {
+            setStatus("Login Failed")
+        }else{
+            setStatus("Login success")
+        }
+        
+    }
+    let x='';
+    if(status=="Login success")
+        x="alert alert-success";
+    else if(status=="Login Failed")
+        x="alert alert-danger";
+    else
+        x="invisible";
+    return (
+        
+    <div>
+        {username}:{password}<br/>
+    Username:<input type="text" id="username" className="form-control" onChange={(event)=>{ setUsername(event.target.value) }} />
+    Password:<input type="password" id="password" className="form-control" onChange={(event)=>{ setPassword(event.target.value) }} />
+    <br/>
+    <input type="button" value="Login" className="btn btn-info" onClick={fnLogin} />
+    <br/><br/>
+    <div className={x}>{status}</div>
+    
+</div>)
+}
+export default Login;
+
+

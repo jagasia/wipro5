@@ -9,7 +9,7 @@ function Mathematics()
     function fnAdd()
     {
         var total=parseInt(no1)+parseInt(no2);
-        setSum(total);        
+        setSum(total);
     }
 
     function fnUpdate(event)

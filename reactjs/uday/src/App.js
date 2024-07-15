@@ -1,4 +1,5 @@
 import './App.css';
+import Login from './components/Login';
 import Mathematics from './components/Mathematics';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
     </div>
     <div class="col-sm-4">
       <h3>Column 3</h3>        
-
+      <Login/>
     </div>
   </div>
 </div>
