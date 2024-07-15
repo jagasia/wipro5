@@ -290,3 +290,172 @@ const Login=()=>
 export default Login;
 
 
+Task:
+create an arrow function component for the same
+if you have done login component, now do maths component (using arrow)
+or vice versa
+
+share the screenshot in chat
+
+24 including me at 11:49
+-----------------------------------
+
+Life cycle of component.
+
+
+the component is loading, loaded and refresh during the course of rendering.
+
+so, we need to understand some life cycle hooks
+so that we will get the data up to date in our browser.
+
+in funcational component
+	we use hooks
+		useEffect()
+		useState()
+		useContext()
+	
+
+in class component
+	we use event handler methods
+		constructor()
+		componentDidMount()
+		getDerivedStateFromProps()
+		componentWillUnmount()
+		
+
+
+
+for class component, life cycle method:
+	https://www.freecodecamp.org/news/react-component-lifecycle-methods/
+
+for functional component, life cycle hooks:
+	https://www.freecodecamp.org/news/react-lifecycle-methods-and-hooks-for-beginners/
+this contains both class and functional component lifecycle methods and hooks
+
+
+Component Life Cycle methods.
+Multiple components interacting each other, Reading the data from in-memory, React application interfacing with backend server for data (json-server).
+
+
+Do anybody know what is json server?
+
+we can run a json server in our system and create a simple rest api that accept/return json
+
+
+Note:
+First, you need to check json-server installed globally or not. or you can install it globally by
+
+npm install -g json-server
+If you install it locally in your project, use npx to run it
+
+npx json-server --watch db.json
+
+
+
+
+
+Steps to run a json server.
+1) create a file with extension .json
+	db.json
+inside this file, create a basic json
+
+
+2) inside this file, create a json string.
+{
+	"products":[
+		{"id":"1","name":"Pen","price":10}
+	]
+}
+
+3) install json server
+	npm install json-server
+
+4) run this db.json using json server:
+	json-server db.json
+(or)
+npx json-server --watch db.json
+
+now check
+localhost:300
+
+
+to see all products
+
+http://localhost:3000/products
+
+use postman to 
+add, update, delete, select
+
+
+
+
+Now, that we got a rest api
+	http://localhost:3000/products
+
+shall we create front end for this in reactjs?
+
+how react can access rest api?
+--------------------------------------
+1) install axios to our project
+2) use axios to call rest api using
+	get
+	post
+	put
+	delete
+
+since json server and react js both runs in same port number
+it is not possible to run both simultaneously.
+
+so lets run json server in different port number.
+how?
+	npx json-server --watch -p 4000 db.json
+
+http://localhost:4000/products
+
+-------------------
+steps to access rest api from reactjs.
+
+1) in reactjs project location
+	npm i axios
+
+2) lets create all the code that access rest api inside a service class
+	i) inside "src" folder, lets create "services" folder
+	ii) inside "services" folder, lets create "ProductService.js"
+
+
+3) in ProductService.js
+import axios from "axios";
+class ProductService {
+    URL = 'http://localhost:4000/products'
+
+    fnGetAllProducts() {
+        return axios.get(this.URL);
+    }
+
+
+    fnAddProduct(product) {
+        return axios.post(this.URL, product);
+    }
+
+    fnUpdateProduct(product)
+    {
+        return axios.put(this.URL+"/"+product.id,product);
+    }
+
+    fnDeleteProduct(id)
+    {
+        return axios.delete(this.URL+"/"+id);
+    }
+}
+
+
+//this is not a component. Note "new" and ()
+export default new ProductService();
+
+4) lets create ProductGrid.js
+to display all products in tabular format
+
+5) we need to call the ProductService method to get all products as array
+and store it in a state
+
+
