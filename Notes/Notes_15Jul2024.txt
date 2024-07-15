@@ -1,0 +1,109 @@
+Day #30
+-----------
+Life Cycle,Composable Components,Form handling
+
+So far, 
+we have learned to 
+	create a reactjs application
+	create a class component
+	create a functional component
+
+in class component, 
+	we learned to use props and state
+in functional component,
+	we are going to learn to use props and state now.
+
+1) create a reactjs app
+	npx create-react-app uday
+2) cd uday
+3) code .
+4) npm start
+
+-----------------------------
+5) install bootstrap in our app
+	npm i bootstrap@5.3.3
+in index.js
+	import "bootstrap/dist/css/bootstrap.min.css";
+-------------
+6) create a "components" folder under "src"
+7) create a functional component
+	lets create a form 
+		Number 1:
+		Number 2:
+			<<add button>>
+
+
+function Mathematics()
+{
+    return <div>
+        Number 1:<input type="number" id="no1" className="form-control" />
+        Number 2:<input type="number" id="no2" className="form-control" /><br/>
+        <input type="button" value="Add" className="btn btn-info" />
+    </div>
+}
+export default Mathematics;
+
+
+8) lets create state in functional component:
+
+syntax for state in class component, is entirely different from functional component
+
+
+we use hooks
+	useState is a hook
+
+import { useState } from "react";
+
+function Mathematics()
+{
+    const [no1, setNo1]=useState(0);
+    const [no2, setNo2]=useState(0);
+    const [sum, setSum]=useState(0);
+
+    function fnAdd()
+    {
+        var total=parseInt(no1)+parseInt(no2);
+        setSum(total);        
+    }
+
+    function fnUpdate(event)
+    {
+        var source=event.target.id;
+        switch(source)
+        {
+            case "no1":
+                setNo1(event.target.value);
+                break;
+            case "no2":
+                setNo2(event.target.value);
+                break;
+        }
+        console.log("Now the state is:");
+        console.log(no1);
+        console.log(no2);
+    }
+    return <div>
+        {no1}:{no2}<br/>
+        Sum={sum}<br/>
+        Number 1:<input type="number" id="no1" className="form-control" onChange={fnUpdate} />
+        Number 2:<input type="number" id="no2" className="form-control" onChange={fnUpdate} /><br/>
+        <input type="button" value="Add" className="btn btn-info" onClick={fnAdd} />
+    </div>
+}
+export default Mathematics;
+
+--------------------------------
+Task:
+
+Create a login component (functional component)
+create states:
+	username
+	password
+	status
+
+bind the state to the change event of the textboxes
+on login button click,
+declare the status
+	Login failed	(if username and password are same)
+	Login success	(if different)
+
