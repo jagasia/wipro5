@@ -38,3 +38,55 @@ Create a signup form
 and introduce form validations.
 
 
+----------------------------------------------------
+What is routing?
+	in reactjs, we do not create pages. we create components
+
+	so, how can we navigate/ show component in a particular area of another component?
+
+1) routing must be installed in our project
+	npm i react-router-dom
+
+2) in index.js
+	notice that App is plugged
+		<App />
+
+cover this App by browser router
+<BrowserRouter>
+      <App />
+</BrowserRouter>
+
+3) where do we want to render the components?
+	in App component, we choose a location
+	ideally, middle column of three columns
+
+for this demo, i have created a new project
+	router-demo
+
+in App component
+
+      <Routes>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='/about' element={<About />}></Route>
+        <Route path='/contact' element={<Contact />}></Route>
+      </Routes>
+
+create a Nav component
+and update the hyper links to
+	/
+	/about
+	/contact
+	/about
+
+plug the Nav in App
+
+Task:
+create a new react js application
+install the following
+	bootstrap
+	react-router-dom
+create few components
+and create a nav component
+in app component rended the corresponding component according the link clicked in nav
+
+
