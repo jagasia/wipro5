@@ -47,4 +47,9 @@ public class FoodService {
 		return food;
 	}
 	
+	public List<String> getAllCategories()
+	{
+		return fr.getAllCategories();
+	}
+	
 }

@@ -24,5 +24,10 @@ class FoodService
     {
         return axios.delete(this.URL+"/"+id)
     }
+
+    getAllCategories()
+    {
+        return axios.get(this.URL+"/categories");
+    }
 }
 export default new FoodService();

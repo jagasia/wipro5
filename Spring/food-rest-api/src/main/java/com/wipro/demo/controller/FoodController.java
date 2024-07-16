@@ -48,4 +48,11 @@ public class FoodController {
 		return fs.delete(id);
 	}
 	
+	
+	@GetMapping("/categories")
+	public List<String> getAllCategories()
+	{
+		return fs.getAllCategories();
+	}
+	
 }

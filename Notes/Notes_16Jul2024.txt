@@ -149,5 +149,24 @@ Solution:-
 @CrossOrigin annotation in rest controller
 
 
+Task
+
+Now, that i have accessed rest api from our reactjs application,
+i want you all to create the product form and complete the CRUD
 
 
+
+
+<input list="myselect" id="myoptions"/>
+<datalist id="myselect">
+<option>option 1</option>
+<option>option 2</option>
+<option>option 3</option>
+<option>option 4</option>
+</datalist>
+
+Task:
+
+I have completed Add food
+Kindly complete Update and Delete food
+Also try to add select button  in the grid
