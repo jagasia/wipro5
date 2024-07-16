@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import About from './components/About';
 import Contact from './components/Contact';
+import Food from './components/Food';
+import FoodGrid from './components/FoodGrid';
 import Home from './components/Home';
 import Nav from './components/Nav';
 
@@ -25,6 +27,7 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         <Route path='/about' element={<About />}></Route>
         <Route path='/contact' element={<Contact />}></Route>
+        <Route path='/food' element={<Food/>}></Route>
       </Routes>
     </div>
     <div class="col-sm-4">
@@ -32,6 +35,15 @@ function App() {
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
     </div>
+  </div>
+  <div className='row'>
+    <div className='col-sm=2'></div>
+    <div className='col-sm=8'>
+      <Routes>
+        <Route path="/food" element={<FoodGrid />}></Route>
+      </Routes>
+    </div>
+    <div className='col-sm=2'></div>
   </div>
 </div>
     </div>

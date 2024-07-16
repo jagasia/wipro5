@@ -67,6 +67,7 @@ in App component
 
       <Routes>
         <Route path='/' element={<Home />}></Route>
+        <Route path='/home' element={<Home />}></Route>
         <Route path='/about' element={<About />}></Route>
         <Route path='/contact' element={<Contact />}></Route>
       </Routes>
@@ -88,5 +89,65 @@ install the following
 create few components
 and create a nav component
 in app component rended the corresponding component according the link clicked in nav
+
+---------------------------------------
+1) Form handling using Formik, Yup.
+2) Understanding HOC Concepts, Implementing simple HOC Component.	(Akila)
+3) Routing Transition Concepts (Transition into and Transition from). 	(Rakesh)
+4) Buffers and Stream, Node JS Modules, Node JS OS, Process, Net, Web and Socket.io Module, Node JS With RDBMS and Mongo DB.
+5) Life cycle methods and hooks
+	methods for class component		
+	hooks for functional component
+
+
+topic 1 and 4 are given to everyone except Akila and Rakesh.
+
+Any time, tomorrow, i will ask one of you randomly to present
+
+
+Demo:
+We already learned to access a rest api from reactjs.
+can you tell me? how did we access rest api from reactjs?
+	by using axios.
+
+v.good Anil.
+
+Now, can we access the rest api we created using spring boot?
+do you remember,  that we created rest apis using spring boot?
+
+basically, those rest apis are not allowed to be accessed from reactjs because of 
+	CORS policy
+	what is CORS?
+		Cross Origin Resource Sharing
+
+
+in our spring boot controller,
+	we need to use
+		@CrossOrigin 
+
+suppose, if we have used spring security,
+	then in security configuration
+		http
+		.cors()
+
+otherwise, you get error
+that you can see in browser console.
+
+Lets see a demo for reactjs + spring boot rest api integration
+Demo:
+
+our rest api runs in
+	http://localhost:5000/food
+
+shall we create a reactjs application for 	CRUD on this rest api?
+
+Error:-
+Access to XMLHttpRequest at 'http://localhost:5000/food' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+Solution:-
+
+@CrossOrigin annotation in rest controller
+
+
 
 
