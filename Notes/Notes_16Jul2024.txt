@@ -1,0 +1,40 @@
+Day #31
+-----------
+we created a json server for products
+
+http://localhost:4000/products
+
+i have shown you example for
+	POST		add product to the server
+	GET		all products and display in tabular format
+
+i asked you to complete
+	PUT
+	DELETE
+
+Today, I have completed them also.
+
+Form handling includes form validation also.
+
+there should be some rules for each attribute 
+	id	cannot be negative or zero
+	name	First letter must be capital, and atleast there should be 3 letters, no numbers
+	price	cannot be negative or zero
+
+How to do you validate these information?
+when do you want to show error messages?
+
+if they leave the textbox, it can validate		blur
+when we enter the data itself it can validate		keyup
+first time, when they enter the data, it should wait,
+
+
+
+{idError && <div className="text-danger">{idError}</div>}
+
+Task:
+
+Create a signup form 
+and introduce form validations.
+
+

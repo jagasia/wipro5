@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "Pen",
-      "price": 15
+      "price": "16"
     },
     {
       "id": "2",
@@ -14,11 +14,6 @@
       "id": "3",
       "name": "Sharpner",
       "price": 17
-    },
-    {
-      "id": "4",
-      "name": "Geometry box",
-      "price": "100"
     },
     {
       "id": "5",
