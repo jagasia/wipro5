@@ -120,6 +120,8 @@ const ProductForm=()=>{
         <input type="button" value="Add" className="btn btn-success" onClick={fnAdd} />
         <input type="button" value="Update" className="btn btn-warning" onClick={fnUpdate} />
         <input type="button" value="Delete" className="btn btn-danger" onClick={fnDelete} />
+        ...
     </div>
+
 }
 export default ProductForm;

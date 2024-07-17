@@ -1,0 +1,88 @@
+Day # 32
+------------
+Form handling using Formik, Yup.
+
+Yesterday, we handled the form validation.
+if you observe what we have done,
+that leads to a new library/ f/w that is Formik
+
+difference between state and useRef
+
+
+useEffect:
+
+is used to invoke asynchronous code
+ex:
+	axios methods are asynchronous
+
+whenever, we call a service method that returns
+	axios.get or post or anything
+
+we are not actually calling the method. Rather, we subscribe to the method
+and we provide the ref to a callback method while subscribing
+
+.then((response)=>{})
+
+this is how we subscribe
+and when ready, the call back method is invoide by axios
+we provided arrow function as callback method
+
+
+Form handling using Formik, Yup.
+--------------------------
+formik component will enclose
+the properties of the form,
+their rules, their error messages
+
+it is a validation tool for reactjs
+
+Formik Yup demo:
+---------------------------
+1) create a reactjs application:
+	npx create-react-app formik-yup-demo
+2) cd formik-yup-demo
+3) code .
+4) npm i formik yup
+5) npm start
+
+
+
+
+import { useFormik } from "formik";
+import * as Yup from 'yup';
+
+const Product=()=>{
+    const formik=useFormik({
+        initialValues:{id:0,name:'',price:0},
+        validationSchema:Yup.object({
+            id:Yup.string().required("Id is mandatory"),
+            name:Yup.string().required("Name is mandatory"),
+            price:Yup.string().required("Price is mandatory")
+        })
+    },
+
+    );
+return <div>
+Id:<input type="text" id="id" className={`form-control ${formik.errors.id && "is-invalid"}`} onChange={formik.handleChange} value={formik.values.id} />
+{   formik.errors.id && <p className="text-danger">{formik.errors.id}</p> }
+Name:<input type="text" id="name" className={`form-control ${formik.errors.name && "is-invalid"}`} onChange={formik.handleChange} value={formik.values.name}  />
+{   formik.errors.name && <p className="text-danger">{formik.errors.name}</p> }
+Price:<input type="text" id="price" className={`form-control ${formik.errors.price && "is-invalid"}`} onChange={formik.handleChange} value={formik.values.price}  />
+{   formik.errors.price && <p className="text-danger">{formik.errors.price}</p> }
+<br/>
+<input type="button" value="Submit" className="btn btn-info" />
+</div>
+}
+export default Product;
+
+
+Task:
+use formik yup 
+i have done "required" validation
+you try 
+	email
+	date
+	min
+	max
+	length
+	pattern
