@@ -24,3 +24,18 @@ HOC is going to wrap my component while plugging it in App component.
 
 Demo:
 -------------
+check hoc-demo project
+
+Task:
+----------
+and create a new reactjs application
+and create Login component
+create couple of Hoc components and ensure 
+hoc component is able to decorate the login component
+in any ways
+	color
+	bg color
+	title
+or anything
+
+check by plugging login component in the App
