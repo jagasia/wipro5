@@ -39,3 +39,24 @@ in any ways
 or anything
 
 check by plugging login component in the App
+
+
+localStorage
+sessionStorage
+
+once a user logs in successfully, 
+their jwt token must be stored in localStorage (token has a validity period)
+
+
+----------------------------
+Preparation for interview
+Techademy has "Q & A"
+
+Techademy learning
+	Higher Order Components, Render Props, React Context API & React Router,Routing Transition
+
+
+and share your observations 
+if req,
+	show demo
+	
