@@ -1,0 +1,26 @@
+Day # 33
+-----------
+HOC
+Understanding HOC Concepts, Implementing simple HOC Component.
+
+HOC is useful for 
+	cross cutting
+	decorator pattern
+
+Suppose, if you have created a withdrawal component/ deposit component/ print last 10 transaction
+these components, can be accessed only if the user has already logged in
+or while accessing these components, it should prompt the user to login.
+
+So, those who create these components do not bother about before and after things to be done.
+I create withdrawal component.
+But someone who uses this component, has to take care - what needs to be done before and after
+
+this is what cross cutting is all about. We discussed this during spring AOP.
+
+now, instead of just plugging the withdrawal component into my App component,
+I can decorate/ cover/ enclose this component inside a HOC
+
+HOC is going to wrap my component while plugging it in App component.
+
+Demo:
+-------------

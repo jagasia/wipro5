@@ -13,6 +13,7 @@ const Product=()=>{
 
     );
 return <div>
+<form onSubmit={formik.handleSubmit}>
 Id:<input type="text" id="id" className={`form-control ${formik.errors.id && "is-invalid"}`} onChange={formik.handleChange} value={formik.values.id} />
 {   formik.errors.id && <p className="text-danger">{formik.errors.id}</p> }
 Name:<input type="text" id="name" className={`form-control ${formik.errors.name && "is-invalid"}`} onChange={formik.handleChange} value={formik.values.name}  />
@@ -20,7 +21,8 @@ Name:<input type="text" id="name" className={`form-control ${formik.errors.name 
 Price:<input type="text" id="price" className={`form-control ${formik.errors.price && "is-invalid"}`} onChange={formik.handleChange} value={formik.values.price}  />
 {   formik.errors.price && <p className="text-danger">{formik.errors.price}</p> }
 <br/>
-<input type="button" value="Submit" className="btn btn-info" />
+<input type="submit" value="Submit" className="btn btn-info"  />
+</form>
 </div>
 }
 export default Product;
