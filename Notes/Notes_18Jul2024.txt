@@ -60,3 +60,85 @@ and share your observations
 if req,
 	show demo
 	
+HOC demo project contains the code for useContext
+will give demo after break.
+
+
+----------------------------
+What is useContext?
+
+You know
+	useState
+	useEffect
+	useRef
+
+useContext hook?
+	is used to pass the state to the deep nested child componenets.
+	often used along with state.
+
+Normally, 
+	if component1 used component2 as a child
+		then the state data of component1 must be passed to component2 in order to all component2 to use it
+	
+we keep on passing the values from parent to child component.
+Instead of that, we can use context.
+so that, the context data set in parent component can be accessed by child component
+
+Demo:
+in this example,
+App component plugs
+	One
+
+One plugs 
+	Two
+
+Two plugs
+	Three
+Three plugs
+	Four
+Four plugs
+	Five
+
+Five is the child most component.
+
+In One, 
+	we set a context a value
+
+In Five,
+	we should be able to display that value
+
+Steps:
+
+1) we need to create a context.
+
+ex:
+	create a file	"NameContext.js"
+because, i am going to pass name across component
+
+import { createContext } from "react";
+const NameContext=createContext({name:null});
+export default NameContext;
+
+
+2) create all the components
+One to Five for example
+
+3) plug One component in App component
+
+4) in One.js
+
+surround the <Two /> by
+
+import NameContext from './NameContext';
+
+<NameContext.Provider value="Raja">
+</NameContext.Provider>
+
+5) in Five.js
+import NameContext from './NameContext';
+	const name=useContext(NameContext);
+
+display that here
+	{name}
+
+Refer to the project "use-context-demo"
