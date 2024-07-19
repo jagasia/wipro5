@@ -516,3 +516,107 @@ const ProductForm=()=>{
     </div>
 }
 export default ProductForm;
+
+
+
+
+1) Buffers and Stream, 
+
+2) Node JS Modules, Node JS OS, Process, Net, Web and Socket.io Module, 
+
+3) Node JS With RDBMS and Mongo DB.
+
+
+Node JS OS
+----------------
+can be used to get information about OS.
+
+var os=require('os');
+console.log(os.platform());
+console.log(os.hostname());
+
+Mongodb
+
+is a nosql database
+it is not RDBMS database
+it is not relational	(relational = row column format)
+
+mongodb can use collections (instead of tables)
+like we use objects and json
+we can store object/json format in collections
+
+
+package com.ust.demo.document;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collation = "Product")
+public class Product {
+	@Id
+	private Integer id;
+	private String name;
+	private Integer price;
+	
+	public Product() {}
+
+	public Product(Integer id, String name, Integer price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+	}
+	
+	
+}
+
+
+
+package com.ust.demo.repository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.ust.demo.document.Product;
+
+public interface ProductRepository extends MongoRepository<Product, Integer>
+{
+
+}
+
+
+Buffers and Stream, Node JS Modules, Node JS OS, Process, Net, Web and Socket.io Module, Node JS With RDBMS and Mongo DB.
+
+
+
+Understand the features of the react library, 
+Set up the software required for the app development, Create the react application using the create-react-app tool, Create react components either as a function component or class component, Use state object for managing data for the component, Use event handling to create interactive components, Use props for passing the data between components, Implement the component life cycle methods for better component management, Install the JSON server and host the json file on the server,  Implement CRUD operations to interface with the back end server, Develop multi page apps with router support and transition, Develop component using the react architectural patterns (HOC, RenderProps), Use Formik and Yup library for form handling, Use Context API as an alternate to props for sharing data between components.
+
