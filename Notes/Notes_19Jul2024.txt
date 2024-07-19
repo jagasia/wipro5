@@ -1,0 +1,518 @@
+Day #34
+-----------
+NodeJs
+
+Buffers and Stream, Node JS Modules, Node JS OS, Process, Net, Web and Socket.io Module, Node JS With RDBMS and Mongo DB.
+
+in reactjs
+we have form to accept input for product:
+	name
+	price
+	category
+	picture
+
+in rest api also, how do we handle these images
+
+how to store images in database?
+how to display images using reactjs application?
+
+Demo:
+
+Product
+	id
+	name
+	price
+	category
+	picture
+
+
+we will create a spring boot application
+rest api for product
+
+First plan the location where you want to create the project
+the project folder can contain
+	frontend
+	backend
+these folders
+because, after creating a reactjs app, it is difficult to move it to another location
+because, it has node_modules folder which contains around 50k files
+
+if you push the code to git (it ignores node_modules folder) and
+then pull it in another location, then it is easy to move
+then npm install to get node_modules folder
+
+D:\Jag\wipro\June2024\all\image_demo
+	frontend
+	backend
+
+the above 2 folders we will create
+
+steps for backend:
+1) create a spring boot app using spring initializr
+name:	product-rest-api
+	spring web
+	spring data jpa
+	h2
+
+2) in application.properties
+server.port=5000
+#spring.datasource.url=jdbc:h2:mem:jag
+spring.datasource.url=jdbc:h2:file:./data/product
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+3) create entity class
+now, decide how we store image in our database
+either
+	i) byte array
+	ii) String		(base64 string)
+
+base64 string has advantage
+	it will be easier to display in html
+
+if suppose, we use byte array for image, 
+then we need to convert
+	byte[] to base64 string
+	and vice versa.
+	we can create additional getter and setter for this
+	getter cannot be overloaded (because there is no paramter)
+
+i choose Base64 string in this demo
+
+package com.wipro.demo.entity;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Product {
+	private Integer id;
+	private String name;
+	private Double price;
+	private String category;
+	private String picture;
+	
+	public Product() {}
+
+	public Product(Integer id, String name, Double price, String category, String picture) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.category = category;
+		this.picture = picture;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", category=" + category + ", picture="
+				+ picture.length() + "]";
+	}
+	
+}
+
+
+4) repository:
+package com.wipro.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.wipro.demo.entity.Product;
+
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer>
+{
+	
+	@Query("select distinct p.category from Product p")
+	List<String> getCategories();
+}
+
+
+5) service:
+package com.wipro.demo;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.wipro.demo.entity.Product;
+import com.wipro.demo.repository.ProductRepository;
+
+@Service
+public class ProductService {
+	@Autowired
+	private ProductRepository pr;
+	
+	public Product create(Product product) {
+		return pr.save(product);
+	}
+	public List<Product> read() {
+		return pr.findAll();
+	}
+	public Product read(Integer id) {
+		Optional<Product> temp = pr.findById(id);
+		Product p=null;
+		if(temp.isPresent())
+		{
+			p=temp.get();
+		}
+		return p;
+	}
+	public Product update(Product product) {
+		Product p=read(product.getId());
+		if(p!=null)
+		{
+			p=product;
+			pr.save(p);
+		}
+		return p;
+	}
+	public Product delete(Integer id) {
+		Product p=read(id);
+		if(p!=null)
+		{			
+			pr.delete(p);
+		}
+		return p;
+	}
+	
+	public List<String> getCategories() {
+		return pr.getCategories();
+	}
+	
+
+}
+
+
+6) controller:
+package com.wipro.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wipro.demo.ProductService;
+import com.wipro.demo.entity.Product;
+
+@RestController
+@CrossOrigin(origins = {"http://localhost:3000","*"})
+@RequestMapping("v1/api/product")
+public class ProductController {
+	@Autowired
+	private ProductService ps;
+
+	@PostMapping
+	public Product create(Product product) {
+		return ps.create(product);
+	}
+	
+	@GetMapping
+	public List<Product> read() {
+		return ps.read();
+	}
+	
+	@GetMapping("/{id}")
+	public Product read(@PathVariable("id") Integer id) {
+		return ps.read(id);
+	}
+	
+	@PutMapping("/{id}")
+	public Product update(@PathVariable("id")Integer id,@RequestBody Product product) {
+		return ps.update(product);
+	}
+	
+	@DeleteMapping("/{id}")
+	public Product delete(@PathVariable("id") Integer id) {
+		return ps.delete(id);
+	}
+
+@GetMapping("/categories")
+	public List<String> getCategories()
+	{
+		return ps.getCategories();
+	}
+}
+
+
+7) run the project and check
+
+http://localhost:5000/v1/api/product
+
+-----------------------we have completed the backend---------------------------------------------------
+frontend now:
+1) create a reactjs app 
+	"product"
+do this inside the "frontend" folder.
+2) install the following:
+	npm i bootstrap@5.3.3
+
+index.js
+	import 'bootstrap/dist/css/bootstrap.min.css';
+
+	npm i axios
+3) components:
+	i) ProductForm		for add, update, delete
+	ii) Product Grid		to display products
+
+4) services:
+	ProductService.js
+
+import axios from "axios";
+
+class ProductService
+{
+    URL="http://localhost:5000/v1/api/product";
+
+    getAllProducts()
+    {
+        return axios.get(this.URL);
+    }
+
+    findProductById(id)
+    {
+        return axios.get(this.URL+"/"+id);
+    }
+
+    addProduct(product)
+    {
+        return axios.post(this.URL,product);
+    }
+
+    updateProduct(product)
+    {
+        return axios.put(this.URL+"/"+product.id,product);
+    }
+
+    deleteProduct(id)
+    {
+        return axios.delete(this.URL+"/"+id);
+    }
+
+    getCategories()
+    {
+        return axios.get(this.URL+"/categories");
+    }
+}
+export default new ProductService();
+
+
+5) ProductGrid.js
+import { useEffect, useState } from "react";
+import ProductService from "../services/ProductService";
+
+const ProductGrid=()=>{
+    const [products, setProducts]=useState([]);
+
+    useEffect(()=>{
+        ProductService.getAllProducts()
+        .then((response)=>{
+            setProducts(response.data)
+        })
+        .catch()
+    },[]);
+
+    return<div>
+        <table className="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    products.map((p)=><tr>
+                        <td>{p.id}</td>
+                        <td>{p.name}</td>
+                        <td>{p.price}</td>
+                        <td>{p.category}</td>
+                        <td>
+                            <img src={p.picture} width="60" height="60" />
+                        </td>
+                    </tr>)
+                }
+            </tbody>
+        </table>
+    </div>
+}
+export default ProductGrid;
+
+6) Product Form:
+
+import { useEffect, useState } from "react";
+import ProductService from "../services/ProductService";
+
+const ProductForm=()=>{
+    const [product, setProduct]=useState({});
+    const [categories,setCategories]=useState([]);
+    const [id, setId]=useState();
+    const [name,setName]=useState();
+    const [price, setPrice]=useState();
+    const [category, setCategory]=useState();
+    const [picture, setPicture]=useState();
+
+    useEffect(()=>{
+        ProductService.getCategories()
+        .then((response)=>{
+            setCategories(response.data);
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    },[]);
+
+    function fnAdd()
+    {        
+        product.id=id;
+        product.name=name;
+        product.price=price;
+        product.category=category;   
+        product.picture=picture;
+        console.log(picture)
+        ProductService.addProduct(product)
+        .then((response)=>{
+            console.log(response.data)
+            window.location.reload(false);
+        })
+        .catch((error)=>{
+            console.log(error)
+        })       
+    }
+    function fnUpdate()
+    {        
+        product.id=id;
+        product.name=name;
+        product.price=price;
+        product.category=category;   
+        product.picture=picture;
+        console.log(picture)
+        ProductService.updateProduct(product)
+        .then((response)=>{
+            console.log(response.data)
+            window.location.reload(false);
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
+    function fnDelete()
+    {        
+        ProductService.deleteProduct(id)
+        .then((response)=>{
+            console.log(response.data)
+            window.location.reload(false);
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
+
+    function readFileDataAsBase64(e) {
+        const file = e.target.files[0];
+    
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+    
+            reader.onload = (event) => {
+                resolve(event.target.result);
+            };
+    
+            reader.onerror = (err) => {
+                reject(err);
+            };
+    
+            reader.readAsDataURL(file);
+        });
+    }
+    function onFileChange(event)
+    {
+        readFileDataAsBase64(event).then((data)=>{
+            setPicture(data);
+        })
+    }
+
+    return <div>
+        <br/>
+        Id:<input type="number" id="id" className="form-control" onChange={(event)=>setId(event.target.value)} />
+        Name:<input type="text" id="name" className="form-control" onChange={(event)=>setName(event.target.value)} />
+        Price:<input type="number" id="price" className="form-control" onChange={(event)=>setPrice(event.target.value)} />
+        Category:<input list="myselect" id="category" className="form-select" onChange={(event) => setCategory(event.target.value)} />
+        <datalist id="myselect">
+            {
+                categories.map((c) => <option>{c}</option>)
+            }
+        </datalist>
+        Picture:<input type="file" id="picture" className="form-control" onChange={onFileChange} />
+        <br/>
+        <input type="button" className="btn btn-success" defaultValue="Add" onClick={fnAdd} />&nbsp;
+        <input type="button" className="btn btn-warning" defaultValue="Update" onClick={fnUpdate} />&nbsp;
+        <input type="button" className="btn btn-danger" defaultValue="Delete" onClick={fnDelete} />
+        <br/>
+        <img src={picture} width="100" />
+        
+    </div>
+}
+export default ProductForm;

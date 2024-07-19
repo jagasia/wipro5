@@ -1,7 +1,7 @@
 import Three from "./Three";
 
 const Two=()=><div>
-    <Three/>
+    <Three />
 </div>
 
 export default Two;
