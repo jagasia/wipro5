@@ -1,0 +1,199 @@
+Day #35
+-----------
+NodeJS + Milestone Assessment 4 - 2.5 Hours
+Capstone Project
+
+
+1) we can prepare for the module 4 assessment
+	MCQ
+	handson/practical
+2) we can start capstone project discussion
+	team formation	(3 teams)	
+	3 projects
+
+MCQ
+---------
+html
+css
+javascript
+bootstrap
+reactjs
+nodejs
+
+
+html
+	you  should be aware of as many html tags as possible
+	for each element (tag), as many attributes as possible
+		ex:
+			<p align="center">
+	p is the element
+	align is the attribute
+
+How many elements, you know, 
+How many attributes you know,
+	can help you in MCQ
+
+
+css
+	you should know as many css properties as possible
+
+display		block | none 
+background
+	background-color
+	
+color		it is always font color
+alignment
+css box model
+	margin
+	padding
+	border width
+	border style
+	border color
+possible values
+	pt
+	px
+	enumerated
+
+bootstrap
+	how many columns used by bootstrap
+	colors
+		primary
+		success	
+		warning
+		danger
+		info
+		etc
+
+javascript
+	you can expect program, output kind of questions
+	what is the output of this program like that
+	==
+	===
+var i=1;
+var str="1";
+what happens if you use
+	i==str		?????
+
+loop related output
+switch case
+
+if condition
+
+JSON
+	parse
+	stringify
+
+object, array 
+array related functons
+	slice
+	splice
+	
+string related
+	substr
+date related
+
+ReactJs
+	npm commands
+	npx commands
+	how do you install globally?
+	
+components
+	class based syntax
+	function based syntax
+		arrow function syntax
+
+props vs state
+
+life cycle methods and hooks
+
+axios
+	related questions
+CORS
+---------------------------------------------------------
+Each team will choose 1 leader (Team leader)
+
+Team leader should share the starter projects with the team through Git.
+	Team members should clone/pull the starter project from git and 
+	contribute their part to the project
+
+Team leader can create
+	Project Folder
+		backend (folder)
+		frontend (folder)
+
+
+in each project,
+the entities and their relationships to be identified
+ex:
+	CUSTOMER
+	PRODUCT
+	ORDER
+	USER (can be common for any project)
+
+these entities are common for any domain, 
+your list of entities must be domain specific
+ex:
+	PATIENT
+	DOCTOR
+	MEDICINE
+	TREATMENT
+
+
+
+USER is different by role
+	an user role may be doctor
+	an user role may be patient
+	both are logging in using USER entity
+
+
+every entity becomes table in the database
+leader define
+	entity class (after brainstorming with their team)
+normally a project document contains what are the properties of an entity.
+we are supposed to exactly follow that in project.
+But in our capstone project, we can modify the entity attributes
+	we may add or remove or modify according to the brainstorm you do with the team
+	and maintain one more document that contains these changes
+	you may name the document as v2 or v3 and so on (whenever change happens in that document)
+
+once you give entities to the team,
+	they will  be able to complete
+		repository
+		service
+		controller
+
+some times, some specific methods are introduced
+	findPatientByPincode is not usual requirement
+	such requirements are documented in the document and implemented by the team member
+
+Have we learned "Sonarqube"?
+	we will learn today
+Have we learned "Swagger"?
+	
+
+
+
+
+1. React as frontend technology 			yes
+2. Spring rest backend technology 		yes
+3. Spring Data JPA 				yes
+4. Swagger 				yes
+5. Mockito, Junit for all the layers 		yes
+6. Jacoco for code coverage 			we will learn (sonarqube)
+7. Java 8 features 				yes	we use 17 or above 
+8. Exception Handling, Validation and Logs 	yes	logger should be learned
+9. Push code to git				yes
+
+
+same base package
+same group id
+
+first the backend should be completed and tested in postman/ swagger (preferred)
+backend alone must be tested and testable
+
+
+
+
+
+
+
